@@ -13,6 +13,8 @@
 		ED96F8E12B62B57C0062245E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED96F8E02B62B57C0062245E /* Preview Assets.xcassets */; };
 		ED96F8E82B62B6CA0062245E /* Data Model 1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8E72B62B6CA0062245E /* Data Model 1.swift */; };
 		ED96F8EA2B62B6E10062245E /* Data Model 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8E92B62B6E10062245E /* Data Model 2.swift */; };
+		ED96F8EC2B63E6D60062245E /* ItineraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8EB2B63E6D60062245E /* ItineraryView.swift */; };
+		ED96F8EE2B63F0680062245E /* ItineraryDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8ED2B63F0680062245E /* ItineraryDayModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		ED96F8E02B62B57C0062245E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ED96F8E72B62B6CA0062245E /* Data Model 1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Model 1.swift"; sourceTree = "<group>"; };
 		ED96F8E92B62B6E10062245E /* Data Model 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Model 2.swift"; sourceTree = "<group>"; };
+		ED96F8EB2B63E6D60062245E /* ItineraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryView.swift; sourceTree = "<group>"; };
+		ED96F8ED2B63F0680062245E /* ItineraryDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryDayModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +61,9 @@
 			children = (
 				ED96F8D92B62B57A0062245E /* WeOutApp.swift */,
 				ED96F8DB2B62B57A0062245E /* ContentView.swift */,
-				ED96F8E72B62B6CA0062245E /* Data Model 1.swift */,
-				ED96F8E92B62B6E10062245E /* Data Model 2.swift */,
+				ED96F8EB2B63E6D60062245E /* ItineraryView.swift */,
+				ED96F8ED2B63F0680062245E /* ItineraryDayModel.swift */,
+				ED96F8EF2B641C5C0062245E /* Other Swift Files */,
 				ED96F8DD2B62B57C0062245E /* Assets.xcassets */,
 				ED96F8DF2B62B57C0062245E /* Preview Content */,
 			);
@@ -71,6 +76,15 @@
 				ED96F8E02B62B57C0062245E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ED96F8EF2B641C5C0062245E /* Other Swift Files */ = {
+			isa = PBXGroup;
+			children = (
+				ED96F8E72B62B6CA0062245E /* Data Model 1.swift */,
+				ED96F8E92B62B6E10062245E /* Data Model 2.swift */,
+			);
+			path = "Other Swift Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +160,8 @@
 				ED96F8E82B62B6CA0062245E /* Data Model 1.swift in Sources */,
 				ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */,
 				ED96F8EA2B62B6E10062245E /* Data Model 2.swift in Sources */,
+				ED96F8EE2B63F0680062245E /* ItineraryDayModel.swift in Sources */,
+				ED96F8EC2B63E6D60062245E /* ItineraryView.swift in Sources */,
 				ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
