@@ -9,13 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            DashboardView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "doc.text.magnifyingglass")
+                }
+            TripsView()
+                .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
+            ItineraryView()
+                .tabItem { Label("Itinerary", systemImage: "map.fill") }
         }
-        .padding()
+        .onAppear() {
+            //Set the background color for the tab bar
+            UITabBar.appearance().backgroundColor = UIColor(hex: "#161616")
+            // Set the color for the unselected tabs
+            UITabBar.appearance().unselectedItemTintColor = .lightGray
+        }
+        .tint(Color.blue) //Set the color of the selected tabbar item
     }
 }
 

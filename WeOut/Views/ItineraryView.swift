@@ -23,7 +23,7 @@ struct ItineraryView: View {
     
     var body: some View {
         ZStack{
-            Color(hex: 0x003459, opacity: 1.0)
+            Color(hex: "#003459")
                 .ignoresSafeArea()
             VStack(alignment: .leading) {
                 Text("Itinerary")
@@ -36,7 +36,7 @@ struct ItineraryView: View {
                         ForEach(itinerary, id: \.self) { itineraryDay in
                             ZStack {
                                 RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                                    .foregroundColor(Color(hex: 0x007EA7))
+                                    .foregroundColor(Color(hex: "#007EA7"))
                                 VStack(alignment: .leading){
                                     HStack {
                                         Text(itineraryDay.dayOfTheTrip)
@@ -70,14 +70,6 @@ struct ItineraryView: View {
     }
 }
 
-extension Color {
-    init(hex: Int, opacity: Double = 1.0) {
-        let red = Double((hex & 0xff0000) >> 16) / 255.0
-        let green = Double((hex & 0xff00) >> 8) / 255.0
-        let blue = Double((hex & 0xff) >> 0) / 255.0
-        self.init(.sRGB, red: red, green: green, blue: blue, opacity: opacity)
-    }
-}
 #Preview {
     ItineraryView()
 }
