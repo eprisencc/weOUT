@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ItineraryView: View {
     
+    @State private var showItinearyInputSheet = false
+    
     //itinerary object with all the days of the trip in it
     var itinerary: [ItineraryDayModel] = [ItineraryDayModel(dayOfTheTrip: "Day 1", tripImage: "Chicago", itinerary: """
 8am - Nothing
@@ -26,10 +28,23 @@ struct ItineraryView: View {
             Color(hex: "#003459")
                 .ignoresSafeArea()
             VStack(alignment: .leading) {
-                Text("Itinerary")
+                HStack {
+                    Text("Itinerary")
+                        .font(.largeTitle)
+                        .foregroundStyle(Color.white)
+                        .bold()
+                    Spacer()
+                    Button {
+                        showItinearyInputSheet.toggle()
+                    }
+                    label: {
+                        Image(systemName: "plus")
+                    }  .sheet(isPresented: $showItinearyInputSheet) {
+                        ItineraryInputSheet()
+                    }
+                    .foregroundColor(.white)
                     .font(.largeTitle)
-                    .foregroundStyle(Color.white)
-                    .bold()
+                }
                 //Each day card for the itinerary
                 ScrollView {
                     VStack(spacing: 20) {
@@ -69,6 +84,7 @@ struct ItineraryView: View {
         }
     }
 }
+
 
 #Preview {
     ItineraryView()
