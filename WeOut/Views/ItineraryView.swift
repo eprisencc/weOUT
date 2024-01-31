@@ -41,6 +41,7 @@ struct ItineraryView: View {
                         Image(systemName: "plus")
                     }  .sheet(isPresented: $showItinearyInputSheet) {
                         ItineraryInputSheet()
+                            .presentationDetents([.medium])
                     }
                     .foregroundColor(.white)
                     .font(.largeTitle)

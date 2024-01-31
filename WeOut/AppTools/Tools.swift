@@ -123,18 +123,20 @@ extension View {
 
 struct TextFieldButton: View {
 
-    @State var text: String
+    @Binding var text: String
     var textFieldExampleMessage: String
     @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
         VStack {
-            TextField("", text: $text)
+            TextField(textFieldExampleMessage, text: $text, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
                 .focused($isTextFieldFocused)
                 .showClearButton($text)
+                .foregroundStyle(.black)
+                .font(.caption)
         }
         .padding()
-        .background(Color.purple)
+        .background(Color.white)
     }
 }
