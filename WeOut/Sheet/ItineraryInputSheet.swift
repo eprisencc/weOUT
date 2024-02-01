@@ -48,7 +48,9 @@ struct ItineraryInputSheet: View {
                             .font(.title)
                             .foregroundStyle(.white)
                         //.bold()
+
                         //TextFieldButton(text: $dayOfTheTrip,textFieldExampleMessage: "ex. Day 1")
+
                         Spacer()
                     }
                     
@@ -78,7 +80,9 @@ struct ItineraryInputSheet: View {
                         .font(.title)
                         .foregroundStyle(.white)
                     //.bold()
+
                    // TextFieldButton(text: $agendaText,textFieldExampleMessage: "ex. Things that are scheduled")
+
                     
                     Button("Submit") {
                         itinerary.append(ItineraryModel(dayOfTheTrip: dayOfTheTrip, tripImage: image ?? Image("Chicago"), agenda: agendaText))
