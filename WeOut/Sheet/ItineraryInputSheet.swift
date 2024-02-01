@@ -16,6 +16,7 @@ struct ItineraryInputSheet: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     @State private var agendaText = ""
+    @State var itinerary: [ItineraryModel] = []
     
     var body: some View {
         NavigationView {
@@ -23,9 +24,10 @@ struct ItineraryInputSheet: View {
                 Color(hex: "1F1F1F")
                     .ignoresSafeArea()
                 //.opacity(0.8)
-                VStack(alignment: .leading) {
+                
+                VStack(alignment: .center) {
                     HStack {
-                        Text("Create")
+                        Text("")
                             .font(.title)
                             .foregroundStyle(.white)
                         //.presentationDetents([.medium])
@@ -38,20 +40,23 @@ struct ItineraryInputSheet: View {
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .foregroundStyle(.white)
                     }
+                    Divider()
                     Spacer()
                     
-                    Text("What day of the trip?")
-                        .font(.title)
-                        .foregroundStyle(.white)
-                        .bold()
-                    TextFieldButton(text: $dayOfTheTrip,textFieldExampleMessage: "ex. Day 1")
-                    Spacer()
+                    Section {
+                        Text("What day of the trip?")
+                            .font(.title)
+                            .foregroundStyle(.white)
+                        //.bold()
+                        TextFieldButton(text: $dayOfTheTrip,textFieldExampleMessage: "ex. Day 1")
+                        Spacer()
+                    }
                     
                     HStack {
                         Text("Thumbnail (optional)")
                             .foregroundStyle(.white)
                             .font(.title)
-                            .bold()
+                        //.bold()
                         
                         Button(role: .cancel, action: {
                             showingImagePicker = true
@@ -60,25 +65,25 @@ struct ItineraryInputSheet: View {
                         }
                         .foregroundColor(Color.white)
                     }
-                    if let image {
-                        image
-                            .resizable()
-                            .scaledToFit()
-                        //.frame(width: .infinity, height: 100.0)
+                    HStack(alignment: .center) {
+                        if let image {
+                            image
+                                .resizable()
+                                .scaledToFit()
+                            //.frame(width: .infinity, height: 100.0)
+                        }
                     }
                     Spacer()
                     Text("Agenda?")
                         .font(.title)
                         .foregroundStyle(.white)
-                        .bold()
+                    //.bold()
                     TextFieldButton(text: $agendaText,textFieldExampleMessage: "ex. Things that are scheduled")
                     
-//                    NavigationStack {
-//                        TextEditor(text: $agendaText)
-//                            .foregroundStyle(.secondary)
-//                            .padding(.horizontal)
-//                            .navigationTitle("Agenda")
-//                    }
+                    Button("Submit") {
+                        itinerary.append(ItineraryModel(dayOfTheTrip: dayOfTheTrip, tripImage: image ?? Image("Chicago"), agenda: agendaText))
+                    }
+                    .font(.title)
                 }
                 .padding(25)
             }

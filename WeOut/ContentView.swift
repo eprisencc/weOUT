@@ -21,7 +21,7 @@ struct ContentView: View {
         }
         .onAppear() {
             //Set the background color for the tab bar
-            UITabBar.appearance().backgroundColor = UIColor(hex: "#161616")
+            //UITabBar.appearance().backgroundColor = UIColor(hex: "#161616")
             // Set the color for the unselected tabs
             UITabBar.appearance().unselectedItemTintColor = .lightGray
         }
