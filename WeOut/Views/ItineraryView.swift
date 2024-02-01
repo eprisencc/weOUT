@@ -10,26 +10,43 @@ import SwiftUI
 
 struct ItineraryView: View {
     
+    @State private var showItinearyInputSheet = false
+    
     //itinerary object with all the days of the trip in it
-    var itinerary: [ItineraryDayModel] = [ItineraryDayModel(dayOfTheTrip: "Day 1", tripImage: "Chicago", itinerary: """
+    @State var itinerary: [ItineraryModel] = [] /*[ItineraryDayModel(dayOfTheTrip: "Day 1", tripImage: "Chicago", agenda: """
 8am - Nothing
 10am - Breakfast
 9pm - Sleep
-"""), ItineraryDayModel(dayOfTheTrip: "Day 2", tripImage: "Chicago2", itinerary: """
+"""), ItineraryDayModel(dayOfTheTrip: "Day 2", tripImage: "Chicago2", agenda: """
 8am - Wake up
 11am - Tour
 1pm - Free time
-""")]
+""")]*/
     
     var body: some View {
         ZStack{
             Color(hex: "#003459")
                 .ignoresSafeArea()
             VStack(alignment: .leading) {
-                Text("Itinerary")
+                HStack {
+                    Text("Itinerary")
+                        .font(.largeTitle)
+                        .foregroundStyle(Color.white)
+                        .bold()
+                    Spacer()
+                    //Bring up the itinerary input sheet
+                    Button {
+                        showItinearyInputSheet.toggle()
+                    }
+                    label: {
+                        Image(systemName: "plus")
+                    }  .sheet(isPresented: $showItinearyInputSheet) {
+                        ItineraryInputSheet(itinerary: itinerary)
+                            .presentationDetents([.medium])
+                    }
+                    .foregroundColor(.white)
                     .font(.largeTitle)
-                    .foregroundStyle(Color.white)
-                    .bold()
+                }
                 //Each day card for the itinerary
                 ScrollView {
                     VStack(spacing: 20) {
@@ -51,10 +68,13 @@ struct ItineraryView: View {
                                         }
                                         .foregroundColor(Color.white)
                                     }
-                                    Image(itineraryDay.tripImage)
+                                    itineraryDay.tripImage
                                         .resizable()
                                         .scaledToFit()
-                                    Text(itineraryDay.itinerary)
+                                    /*Image(itineraryDay.tripImage)
+                                        .resizable()
+                                        .scaledToFit()*/
+                                    Text(itineraryDay.agenda)
                                         .foregroundStyle(Color.white)
                                         .bold()
                                 }
@@ -69,6 +89,7 @@ struct ItineraryView: View {
         }
     }
 }
+
 
 #Preview {
     ItineraryView()
