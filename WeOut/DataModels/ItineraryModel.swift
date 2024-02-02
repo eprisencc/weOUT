@@ -20,5 +20,6 @@ struct ItineraryModel: Hashable {
     //var date: Date
     var tripImage: Image
     var agenda: String
+    var tripDay: Int
     
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		891297C82B6AA33300F30897 /* activiteis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891297C72B6AA33300F30897 /* activiteis.swift */; };
 		ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8D92B62B57A0062245E /* WeOutApp.swift */; };
 		ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8DB2B62B57A0062245E /* ContentView.swift */; };
 		ED96F8DE2B62B57C0062245E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED96F8DD2B62B57C0062245E /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		891297C72B6AA33300F30897 /* activiteis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activiteis.swift; sourceTree = "<group>"; };
 		ED96F8D62B62B57A0062245E /* WeOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED96F8D92B62B57A0062245E /* WeOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeOutApp.swift; sourceTree = "<group>"; };
 		ED96F8DB2B62B57A0062245E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +77,10 @@
 			children = (
 				ED96F8D92B62B57A0062245E /* WeOutApp.swift */,
 				ED96F8DB2B62B57A0062245E /* ContentView.swift */,
+
+				ED96F8F62B649A790062245E /* Tools.swift */,
+				891297C72B6AA33300F30897 /* activiteis.swift */,
+
 				EDA19FCA2B694783002C84E5 /* AppTools */,
 				EDA19FC92B692AE7002C84E5 /* Sheet */,
 				ED96F8F82B64A0E10062245E /* Views */,
@@ -214,6 +220,9 @@
 				ED96F8E82B62B6CA0062245E /* Data Model 1.swift in Sources */,
 				EDA19FCE2B6AA0D2002C84E5 /* TripModel.swift in Sources */,
 				ED96F8F32B6488870062245E /* DashboardView.swift in Sources */,
+
+				891297C82B6AA33300F30897 /* activiteis.swift in Sources */,
+
 				ED96F8FC2B692A700062245E /* ItineraryInputSheet.swift in Sources */,
 				ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */,
 				ED96F8EA2B62B6E10062245E /* Data Model 2.swift in Sources */,
@@ -356,9 +365,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
-				DEVELOPMENT_TEAM = HW7URT66C4;
+				DEVELOPMENT_TEAM = QAMWPY9AM8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = weOUT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -385,9 +395,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
-				DEVELOPMENT_TEAM = HW7URT66C4;
+				DEVELOPMENT_TEAM = QAMWPY9AM8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = weOUT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -16,7 +16,9 @@ struct ItineraryInputSheet: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     @State private var agendaText = ""
-    @State var itinerary: [ItineraryModel] = []
+    @Binding var itinerary: [ItineraryModel]
+    @State var itineraryIndex = -1
+    @State var tripDay: Int = 0
     
     var body: some View {
         NavigationView {
@@ -25,12 +27,13 @@ struct ItineraryInputSheet: View {
                     .ignoresSafeArea()
                 //.opacity(0.8)
                 
-                VStack(alignment: .center) {
+                VStack {
                     HStack {
-                        Text("")
+                        Text("Create")
                             .font(.title)
                             .foregroundStyle(.white)
-                        //.presentationDetents([.medium])
+                            .padding(15)
+                            //.presentationDetents([.medium, .large])
                         Spacer()
                         Button {
                             dismiss()
@@ -39,53 +42,96 @@ struct ItineraryInputSheet: View {
                         }
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .foregroundStyle(.white)
+                        .padding(15)
                     }
-                    Divider()
-                    Spacer()
-                    
-                    Section {
-                        Text("What day of the trip?")
-                            .font(.title)
-                            .foregroundStyle(.white)
-                        //.bold()
-                        TextFieldButton(text: $dayOfTheTrip,textFieldExampleMessage: "ex. Day 1")
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        Text("Thumbnail (optional)")
-                            .foregroundStyle(.white)
-                            .font(.title)
-                        //.bold()
-                        
-                        Button(role: .cancel, action: {
-                            showingImagePicker = true
-                        }) {
-                            Image(systemName: "plus")
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                /*Text("")
+                                    .font(.title)
+                                    .foregroundStyle(.white)
+                                //.presentationDetents([.medium])
+                                Spacer()
+                                Button {
+                                    dismiss()
+                                } label: {
+                                    Image(systemName: "x.circle.fill")
+                                }
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                .foregroundStyle(.white)*/
+                            }
+                            
+                            Spacer()
+                            
+                            Text("What day of the trip?")
+                                .font(.title)
+                                .foregroundStyle(.white)
+                                .padding(15)
+                            //.bold()
+                            TextFieldButton(text: $dayOfTheTrip,textFieldExampleMessage: "ex. Day 1")
+                            Divider()
+                                .frame(height: 1)
+                                .overlay(Color(hex: "F5DFA3"))
+                                .padding()
+                            Spacer()
+                            
+                            HStack {
+                                Text("Thumbnail (optional)")
+                                    .foregroundStyle(.white)
+                                    .font(.title)
+                                    .padding(15)
+                                //.bold()
+                                
+                                Button(role: .cancel, action: {
+                                    showingImagePicker = true
+                                }) {
+                                    Image(systemName: "plus")
+                                }
+                                .foregroundColor(Color.white)
+                            }
+                            Divider()
+                                .frame(height: 1)
+                                .overlay(Color(hex: "F5DFA3"))
+                                .padding()
+                            HStack(alignment: .center) {
+                                if let image {
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                    //.frame(width: .infinity, height: 100.0)
+                                }
+                            }
+                            Spacer()
+                            Text("Agenda?")
+                                .font(.title)
+                                .foregroundStyle(.white)
+                                .padding(15)
+                            //.bold()
+                            TextFieldButton(text: $agendaText,textFieldExampleMessage: "ex. Things that are scheduled")
+                            
+                            Divider()
+                                .frame(height: 1)
+                                .overlay(Color(hex: "F5DFA3"))
+                                .padding()
+                            
                         }
-                        .foregroundColor(Color.white)
-                    }
-                    HStack(alignment: .center) {
-                        if let image {
-                            image
-                                .resizable()
-                                .scaledToFit()
-                            //.frame(width: .infinity, height: 100.0)
+                        VStack(alignment: .center) {
+                            Button("Submit") {
+                                itinerary.append(ItineraryModel(dayOfTheTrip: dayOfTheTrip, tripImage: image ?? Image("Chicago"), agenda: agendaText, tripDay: (itineraryIndex + 1)))
+                                
+                                itineraryIndex += 1
+                                
+                                //print("Day of the trip \(itinerary[itineraryIndex].dayOfTheTrip) and agenda \(itinerary[itineraryIndex].agenda)")
+                                
+                                dismiss()
+                            }
+                            .padding(15)
+                            
+                            .font(.title)
                         }
                     }
-                    Spacer()
-                    Text("Agenda?")
-                        .font(.title)
-                        .foregroundStyle(.white)
-                    //.bold()
-                    TextFieldButton(text: $agendaText,textFieldExampleMessage: "ex. Things that are scheduled")
-                    
-                    Button("Submit") {
-                        itinerary.append(ItineraryModel(dayOfTheTrip: dayOfTheTrip, tripImage: image ?? Image("Chicago"), agenda: agendaText))
-                    }
-                    .font(.title)
                 }
-                .padding(25)
+                .padding()
             }
         }
         .navigationTitle("Test")
@@ -104,5 +150,5 @@ struct ItineraryInputSheet: View {
 
 
 #Preview {
-    ItineraryInputSheet()
+    ItineraryInputSheet(itinerary: .constant([]))
 }

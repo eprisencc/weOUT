@@ -13,7 +13,10 @@ struct ItineraryView: View {
     @State private var showItinearyInputSheet = false
     
     //itinerary object with all the days of the trip in it
-    @State var itinerary: [ItineraryModel] = [] /*[ItineraryDayModel(dayOfTheTrip: "Day 1", tripImage: "Chicago", agenda: """
+    @State var itinerary: [ItineraryModel] = []
+    @State var itineraryIndex = -1
+    
+    /*[ItineraryDayModel(dayOfTheTrip: "Day 1", tripImage: "Chicago", agenda: """
 8am - Nothing
 10am - Breakfast
 9pm - Sleep
@@ -41,8 +44,8 @@ struct ItineraryView: View {
                     label: {
                         Image(systemName: "plus")
                     }  .sheet(isPresented: $showItinearyInputSheet) {
-                        ItineraryInputSheet(itinerary: itinerary)
-                            .presentationDetents([.medium])
+                        ItineraryInputSheet(itinerary: $itinerary)
+                            .presentationDetents([.large])
                     }
                     .foregroundColor(.white)
                     .font(.largeTitle)
@@ -51,6 +54,9 @@ struct ItineraryView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(itinerary, id: \.self) { itineraryDay in
+                            
+                            //let dayAgendaCard = itineraryIndex + 1
+                            
                             ZStack {
                                 RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                                     .foregroundColor(Color(hex: "#007EA7"))
@@ -71,9 +77,8 @@ struct ItineraryView: View {
                                     itineraryDay.tripImage
                                         .resizable()
                                         .scaledToFit()
-                                    /*Image(itineraryDay.tripImage)
-                                        .resizable()
-                                        .scaledToFit()*/
+                                        .frame(width: 300)
+                                    
                                     Text(itineraryDay.agenda)
                                         .foregroundStyle(Color.white)
                                         .bold()
@@ -81,6 +86,11 @@ struct ItineraryView: View {
                                 .padding(20)
                             }
                         }
+                    }
+                    Button("Test") {
+                        itinerary[0].dayOfTheTrip = "Many Days"
+                        itinerary[0].agenda = "Smoke and Chill"
+                        itinerary[0].tripImage = Image("Chicago")
                     }
                 }
             }
