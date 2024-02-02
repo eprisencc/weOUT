@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		891297C82B6AA33300F30897 /* activiteis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891297C72B6AA33300F30897 /* activiteis.swift */; };
+		89621AAE2B6C028C00270956 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89621AAD2B6C028C00270956 /* Tools.swift */; };
+		89621AB42B6D249F00270956 /* datePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89621AB32B6D249F00270956 /* datePicker.swift */; };
 		ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8D92B62B57A0062245E /* WeOutApp.swift */; };
 		ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8DB2B62B57A0062245E /* ContentView.swift */; };
 		ED96F8DE2B62B57C0062245E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED96F8DD2B62B57C0062245E /* Assets.xcassets */; };
@@ -18,7 +20,6 @@
 		ED96F8EE2B63F0680062245E /* ItineraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8ED2B63F0680062245E /* ItineraryModel.swift */; };
 		ED96F8F32B6488870062245E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8F22B6488870062245E /* DashboardView.swift */; };
 		ED96F8F52B6488D10062245E /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8F42B6488D10062245E /* TripsView.swift */; };
-		ED96F8F72B649A790062245E /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8F62B649A790062245E /* Tools.swift */; };
 		ED96F8FC2B692A700062245E /* ItineraryInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8FB2B692A700062245E /* ItineraryInputSheet.swift */; };
 		EDA19FCC2B6947AE002C84E5 /* ImagePickerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA19FCB2B6947AE002C84E5 /* ImagePickerTool.swift */; };
 		EDA19FCE2B6AA0D2002C84E5 /* TripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA19FCD2B6AA0D2002C84E5 /* TripModel.swift */; };
@@ -27,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		891297C72B6AA33300F30897 /* activiteis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activiteis.swift; sourceTree = "<group>"; };
+		89621AAD2B6C028C00270956 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		89621AB32B6D249F00270956 /* datePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = datePicker.swift; sourceTree = "<group>"; };
 		ED96F8D62B62B57A0062245E /* WeOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED96F8D92B62B57A0062245E /* WeOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeOutApp.swift; sourceTree = "<group>"; };
 		ED96F8DB2B62B57A0062245E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,7 +41,6 @@
 		ED96F8ED2B63F0680062245E /* ItineraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryModel.swift; sourceTree = "<group>"; };
 		ED96F8F22B6488870062245E /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		ED96F8F42B6488D10062245E /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
-		ED96F8F62B649A790062245E /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		ED96F8FB2B692A700062245E /* ItineraryInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryInputSheet.swift; sourceTree = "<group>"; };
 		EDA19FCB2B6947AE002C84E5 /* ImagePickerTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerTool.swift; sourceTree = "<group>"; };
 		EDA19FCD2B6AA0D2002C84E5 /* TripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripModel.swift; sourceTree = "<group>"; };
@@ -77,10 +79,8 @@
 			children = (
 				ED96F8D92B62B57A0062245E /* WeOutApp.swift */,
 				ED96F8DB2B62B57A0062245E /* ContentView.swift */,
-
-				ED96F8F62B649A790062245E /* Tools.swift */,
+				89621AB32B6D249F00270956 /* datePicker.swift */,
 				891297C72B6AA33300F30897 /* activiteis.swift */,
-
 				EDA19FCA2B694783002C84E5 /* AppTools */,
 				EDA19FC92B692AE7002C84E5 /* Sheet */,
 				ED96F8F82B64A0E10062245E /* Views */,
@@ -140,7 +140,7 @@
 		EDA19FCA2B694783002C84E5 /* AppTools */ = {
 			isa = PBXGroup;
 			children = (
-				ED96F8F62B649A790062245E /* Tools.swift */,
+				89621AAD2B6C028C00270956 /* Tools.swift */,
 				EDA19FCB2B6947AE002C84E5 /* ImagePickerTool.swift */,
 			);
 			path = AppTools;
@@ -220,15 +220,14 @@
 				ED96F8E82B62B6CA0062245E /* Data Model 1.swift in Sources */,
 				EDA19FCE2B6AA0D2002C84E5 /* TripModel.swift in Sources */,
 				ED96F8F32B6488870062245E /* DashboardView.swift in Sources */,
-
 				891297C82B6AA33300F30897 /* activiteis.swift in Sources */,
-
 				ED96F8FC2B692A700062245E /* ItineraryInputSheet.swift in Sources */,
 				ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */,
 				ED96F8EA2B62B6E10062245E /* Data Model 2.swift in Sources */,
 				ED96F8EE2B63F0680062245E /* ItineraryModel.swift in Sources */,
+				89621AB42B6D249F00270956 /* datePicker.swift in Sources */,
+				89621AAE2B6C028C00270956 /* Tools.swift in Sources */,
 				ED96F8EC2B63E6D60062245E /* ItineraryView.swift in Sources */,
-				ED96F8F72B649A790062245E /* Tools.swift in Sources */,
 				EDA19FD02B6AA0E6002C84E5 /* ParticipantModel.swift in Sources */,
 				ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */,
 				ED96F8F52B6488D10062245E /* TripsView.swift in Sources */,
