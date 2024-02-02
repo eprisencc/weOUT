@@ -16,6 +16,8 @@ struct ItineraryView: View {
     @State var itinerary: [ItineraryModel] = []
     @State var itineraryIndex = -1
     
+    @EnvironmentObject var createItinerary: CreateItineraryVM
+    
     /*[ItineraryDayModel(dayOfTheTrip: "Day 1", tripImage: "Chicago", agenda: """
 8am - Nothing
 10am - Breakfast
@@ -44,7 +46,7 @@ struct ItineraryView: View {
                     label: {
                         Image(systemName: "plus")
                     }  .sheet(isPresented: $showItinearyInputSheet) {
-                        ItineraryInputSheet(itinerary: $itinerary)
+                        ItineraryInputSheet()
                             .presentationDetents([.large])
                     }
                     .foregroundColor(.white)
@@ -53,7 +55,7 @@ struct ItineraryView: View {
                 //Each day card for the itinerary
                 ScrollView {
                     VStack(spacing: 20) {
-                        ForEach(itinerary, id: \.self) { itineraryDay in
+                        ForEach(createItinerary.itineraryArr.indices, id: \.self) { index in
                             
                             //let dayAgendaCard = itineraryIndex + 1
                             
@@ -62,24 +64,38 @@ struct ItineraryView: View {
                                     .foregroundColor(Color(hex: "#007EA7"))
                                 VStack(alignment: .leading){
                                     HStack {
-                                        Text(itineraryDay.dayOfTheTrip)
+                                        Text(createItinerary.itineraryArr[index].dayOfTheTrip)
                                             .font(.title)
                                             .foregroundStyle(Color.white)
                                             .bold()
                                         Spacer()
                                         Button() {
                                             
+                                            //createItinerary.itineraryArr.remove(at: index)
+                                            createItinerary.dayOfTheTrip = createItinerary.itineraryArr[index].dayOfTheTrip
+                                            
+                                            createItinerary.tripImage = createItinerary.itineraryArr[index].tripImage
+                                            
+                                            createItinerary.agenda = createItinerary.itineraryArr[index].agenda
+                                            
+                                            showItinearyInputSheet.toggle()
+                                            
+                                            
                                         } label: {
                                             Image(systemName: "ellipsis")
                                         }
+                                        .sheet(isPresented: $showItinearyInputSheet) {
+                                            ItineraryInputSheet()
+                                                .presentationDetents([.large])
+                                        }
                                         .foregroundColor(Color.white)
                                     }
-                                    itineraryDay.tripImage
+                                    createItinerary.itineraryArr[index].tripImage
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 300)
                                     
-                                    Text(itineraryDay.agenda)
+                                    Text(createItinerary.itineraryArr[index].agenda)
                                         .foregroundStyle(Color.white)
                                         .bold()
                                 }
@@ -88,9 +104,9 @@ struct ItineraryView: View {
                         }
                     }
                     Button("Test") {
-                        itinerary[0].dayOfTheTrip = "Many Days"
-                        itinerary[0].agenda = "Smoke and Chill"
-                        itinerary[0].tripImage = Image("Chicago")
+                        createItinerary.itineraryArr[0].dayOfTheTrip = "Many Days"
+                        createItinerary.itineraryArr[0].agenda = "Smoke and Chill"
+                        createItinerary.itineraryArr[0].tripImage = Image("Chicago")
                     }
                 }
             }
@@ -103,5 +119,6 @@ struct ItineraryView: View {
 
 #Preview {
     ItineraryView()
+        .environmentObject(CreateItineraryVM())
 }
 

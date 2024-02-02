@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct WeOutApp: App {
+    @StateObject var createItinerary = CreateItineraryVM()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(createItinerary)
         }
     }
 }
