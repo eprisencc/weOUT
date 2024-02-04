@@ -11,14 +11,10 @@ import PhotosUI
 //Sheet that displays the input for the itinerary
 struct ItineraryInputSheet: View {
     @Environment(\.dismiss) private var dismiss
-   // @State private var dayOfTheTrip: String = ""
     @State private var showingImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
-    //@State private var agendaText = ""
-    //@Binding var itinerary: [ItineraryModel]
-    //@State var itineraryIndex = -1
-    //@State var tripDay: Int = 0
+    var index: Int
     
     @EnvironmentObject var createItinerary: CreateItineraryVM
     
@@ -35,7 +31,7 @@ struct ItineraryInputSheet: View {
                             .font(.title)
                             .foregroundStyle(.white)
                             .padding(15)
-                            //.presentationDetents([.medium, .large])
+                        //.presentationDetents([.medium, .large])
                         Spacer()
                         Button {
                             dismiss()
@@ -48,20 +44,6 @@ struct ItineraryInputSheet: View {
                     }
                     ScrollView {
                         VStack(alignment: .leading) {
-                            HStack {
-                                /*Text("")
-                                    .font(.title)
-                                    .foregroundStyle(.white)
-                                //.presentationDetents([.medium])
-                                Spacer()
-                                Button {
-                                    dismiss()
-                                } label: {
-                                    Image(systemName: "x.circle.fill")
-                                }
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                                .foregroundStyle(.white)*/
-                            }
                             
                             Spacer()
                             
@@ -69,7 +51,7 @@ struct ItineraryInputSheet: View {
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 .padding(15)
-                            //.bold()
+                            
                             TextFieldButton(text: $createItinerary.dayOfTheTrip ,textFieldExampleMessage: "ex. Day 1")
                             Divider()
                                 .frame(height: 1)
@@ -82,7 +64,6 @@ struct ItineraryInputSheet: View {
                                     .foregroundStyle(.white)
                                     .font(.title)
                                     .padding(15)
-                                //.bold()
                                 
                                 Button(role: .cancel, action: {
                                     showingImagePicker = true
@@ -100,7 +81,7 @@ struct ItineraryInputSheet: View {
                                 createItinerary.tripImage
                                     .resizable()
                                     .scaledToFit()
-                                    //.frame(width: .infinity, height: 100.0)
+                                    .padding(25)
                                 
                             }
                             Spacer()
@@ -108,7 +89,7 @@ struct ItineraryInputSheet: View {
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 .padding(15)
-                            //.bold()
+                            
                             TextFieldButton(text: $createItinerary.agenda,textFieldExampleMessage: "ex. Things that are scheduled")
                             
                             Divider()
@@ -120,11 +101,6 @@ struct ItineraryInputSheet: View {
                         VStack(alignment: .center) {
                             Button("Submit") {
                                 createItinerary.addToItineraryArray()
-                                //itinerary.append(ItineraryModel(dayOfTheTrip: dayOfTheTrip, tripImage: image ?? Image(""), agenda: agendaText, tripDay: (itineraryIndex + 1)))
-                                
-                               
-                                
-                                //print("Day of the trip \(itinerary[itineraryIndex].dayOfTheTrip) and agenda \(itinerary[itineraryIndex].agenda)")
                                 
                                 dismiss()
                             }
@@ -154,6 +130,6 @@ struct ItineraryInputSheet: View {
 
 
 #Preview {
-    ItineraryInputSheet()
+    ItineraryInputSheet(index: -1)
         .environmentObject(CreateItineraryVM())
 }

@@ -18,7 +18,7 @@ struct ContentView: View {
                     }
                 TripsView()
                     .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
-                ItineraryView()
+                ItineraryView(myIndex: -1)
                     .tabItem { Label("Itinerary", systemImage: "map.fill") }
             }
             .onAppear() {
