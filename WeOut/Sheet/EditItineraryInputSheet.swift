@@ -1,38 +1,29 @@
 //
-//  EditItineraryInputSheet.swift
-//  WeOut
-//
-//  Created by Jonathan Loving on 2/2/24.
-//
-
-//
 //  ItineararyInputSheet.swift
 //  WeOut
 //
 //  Created by Jonathan Loving on 1/30/24.
 //
 
-/*import SwiftUI
+import SwiftUI
 import PhotosUI
 
 //Sheet that displays the input for the itinerary
 struct EditItineraryInputSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var dayOfTheTrip: String = ""
     @State private var showingImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
-    @State private var agendaText = ""
-    @Binding var itinerary: [ItineraryModel]
-    @State var itineraryIndex = -1
-    @State var tripDay: Int = 0
+    @State var index: Int
+    
+    @EnvironmentObject var createItinerary: CreateItineraryVM
     
     var body: some View {
         NavigationView {
             ZStack {
                 Color(hex: "1F1F1F")
                     .ignoresSafeArea()
-                //.opacity(0.8)
+
                 
                 VStack {
                     HStack {
@@ -53,20 +44,6 @@ struct EditItineraryInputSheet: View {
                     }
                     ScrollView {
                         VStack(alignment: .leading) {
-                            HStack {
-                                /*Text("")
-                                    .font(.title)
-                                    .foregroundStyle(.white)
-                                //.presentationDetents([.medium])
-                                Spacer()
-                                Button {
-                                    dismiss()
-                                } label: {
-                                    Image(systemName: "x.circle.fill")
-                                }
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                                .foregroundStyle(.white)*/
-                            }
                             
                             Spacer()
                             
@@ -74,8 +51,8 @@ struct EditItineraryInputSheet: View {
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 .padding(15)
-                            //.bold()
-                            TextFieldButton(text: $dayOfTheTrip,textFieldExampleMessage: "ex. Day 1")
+                            
+                            TextFieldButton(text: $createItinerary.dayOfTheTrip ,textFieldExampleMessage: "ex. Day 1")
                             Divider()
                                 .frame(height: 1)
                                 .overlay(Color(hex: "F5DFA3"))
@@ -87,7 +64,6 @@ struct EditItineraryInputSheet: View {
                                     .foregroundStyle(.white)
                                     .font(.title)
                                     .padding(15)
-                                //.bold()
                                 
                                 Button(role: .cancel, action: {
                                     showingImagePicker = true
@@ -101,20 +77,20 @@ struct EditItineraryInputSheet: View {
                                 .overlay(Color(hex: "F5DFA3"))
                                 .padding()
                             HStack(alignment: .center) {
-                                if let image {
-                                    image
-                                        .resizable()
-                                        .scaledToFit()
-                                    //.frame(width: .infinity, height: 100.0)
-                                }
+                                
+                                createItinerary.tripImage
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(25)
+                                
                             }
                             Spacer()
                             Text("Agenda?")
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 .padding(15)
-                            //.bold()
-                            TextFieldButton(text: $agendaText,textFieldExampleMessage: "ex. Things that are scheduled")
+                            
+                            TextFieldButton(text: $createItinerary.agenda,textFieldExampleMessage: "ex. Things that are scheduled")
                             
                             Divider()
                                 .frame(height: 1)
@@ -123,14 +99,9 @@ struct EditItineraryInputSheet: View {
                             
                         }
                         VStack(alignment: .center) {
-                            Button("Submit") {
-                                itinerary.append(ItineraryModel(dayOfTheTrip: dayOfTheTrip, tripImage: image ?? Image("Chicago"), agenda: agendaText, tripDay: (itineraryIndex + 1)))
-                                
-                                itineraryIndex += 1
-                                
-                                //print("Day of the trip \(itinerary[itineraryIndex].dayOfTheTrip) and agenda \(itinerary[itineraryIndex].agenda)")
-                                
-                                dismiss()
+                            Button("Edit") {
+                                    createItinerary.addToExistingItineraryArray(index: index)
+                                    dismiss()
                             }
                             .padding(15)
                             
@@ -149,11 +120,15 @@ struct EditItineraryInputSheet: View {
     }
     func loadImage() {
         guard let inputImage = inputImage else { return }
-        image = Image(uiImage: inputImage)
+        createItinerary.tripImage = Image(uiImage: inputImage)
+        
     }
 }
 
+
+
+
 #Preview {
-    EditItineraryInputSheet()
+    EditItineraryInputSheet(index: -1)
+        .environmentObject(CreateItineraryVM())
 }
-*/
