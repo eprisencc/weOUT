@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED189C832B70232E0047CF89 /* TripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED189C822B70232E0047CF89 /* TripsInputSheet.swift */; };
 		ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8D92B62B57A0062245E /* WeOutApp.swift */; };
 		ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8DB2B62B57A0062245E /* ContentView.swift */; };
 		ED96F8DE2B62B57C0062245E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED96F8DD2B62B57C0062245E /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED189C822B70232E0047CF89 /* TripsInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsInputSheet.swift; sourceTree = "<group>"; };
 		ED96F8D62B62B57A0062245E /* WeOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED96F8D92B62B57A0062245E /* WeOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeOutApp.swift; sourceTree = "<group>"; };
 		ED96F8DB2B62B57A0062245E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				ED96F8FB2B692A700062245E /* ItineraryInputSheet.swift */,
 				EDA19FD32B6D32A6002C84E5 /* EditItineraryInputSheet.swift */,
+				ED189C822B70232E0047CF89 /* TripsInputSheet.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				ED96F8FC2B692A700062245E /* ItineraryInputSheet.swift in Sources */,
 				ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */,
 				ED96F8EA2B62B6E10062245E /* Data Model 2.swift in Sources */,
+				ED189C832B70232E0047CF89 /* TripsInputSheet.swift in Sources */,
 				ED96F8EE2B63F0680062245E /* ItineraryModel.swift in Sources */,
 				ED96F8EC2B63E6D60062245E /* ItineraryView.swift in Sources */,
 				EDA19FD02B6AA0E6002C84E5 /* ParticipantModel.swift in Sources */,
