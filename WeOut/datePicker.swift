@@ -15,23 +15,29 @@ struct ContentView3: View {
 
     var body: some View {
         VStack {
-            Button(action: {
-                isDatePickerVisible.toggle()
-            }) {
-                Image(systemName: "calendar")
-                    .resizable()
-                    .frame(width: 30, height: 30)
-            }
-            .padding()
+            VStack {
+                Button(action: {
+                    isDatePickerVisible.toggle()
+                }) {
+                    Image(systemName: "calendar")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                }
+                .padding()
+                
+           
+                
 
-            if isDatePickerVisible {
-                DatePicker("Start date", selection: $selectedDate, displayedComponents: .date)
-                    .datePickerStyle(WheelDatePickerStyle())
+                if isDatePickerVisible {
+                    DatePicker("START DATE", selection: $selectedDate, displayedComponents: .date)
+                        .datePickerStyle(CompactDatePickerStyle())
+                        .padding()
+                    
+                }
+
+                Text("Start Date: \(formattedDate)")
                     .padding()
             }
-
-            Text("Start Date: \(formattedDate)")
-                .padding()
         }
     }
 
