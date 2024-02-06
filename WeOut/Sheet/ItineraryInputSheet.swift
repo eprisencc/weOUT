@@ -78,7 +78,7 @@ struct ItineraryInputSheet: View {
                                 .padding()
                             HStack(alignment: .center) {
                                 
-                                createItinerary.tripImage
+                                createItinerary.itineraryImage
                                     .resizable()
                                     .scaledToFit()
                                     .padding(25)
@@ -121,7 +121,7 @@ struct ItineraryInputSheet: View {
     }
     func loadImage() {
         guard let inputImage = inputImage else { return }
-        createItinerary.tripImage = Image(uiImage: inputImage)
+        createItinerary.itineraryImage = Image(uiImage: inputImage)
         
     }
 }

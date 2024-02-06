@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct TripsView: View {
+    @State private var showTripInputSheet = false
+    
+    // Trip object with all the trips in it
+    @EnvironmentObject var createTrip: CreateTripVM
+    
     var body: some View {
         ZStack{
             Color(hex: "#003459")
@@ -19,15 +24,21 @@ struct TripsView: View {
                         .foregroundStyle(Color.white)
                         .bold()
                     Spacer()
-                    //Bring up the itinerary input sheet
+                    //Bring up the Trip input sheet
                     Button {
+                        showTripInputSheet.toggle()
                     }
                 label: {
                     Image(systemName: "plus")
-                } 
+                }
+                .sheet(isPresented: $showTripInputSheet) {
+                    TripsInputSheet()
+                        .presentationDetents([.large])
+                }
                 .foregroundColor(.white)
                 .font(.largeTitle)
                 }
+                Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(25)
@@ -37,4 +48,5 @@ struct TripsView: View {
 
 #Preview {
     TripsView()
+        .environmentObject(CreateTripVM())
 }

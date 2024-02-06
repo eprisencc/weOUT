@@ -36,7 +36,7 @@ struct ItineraryView: View {
                     label: {
                         Image(systemName: "plus")
                     }  .sheet(isPresented: $showItinearyInputSheet) {
-                        ItineraryInputSheet(index: -1)
+                        TripsInputSheet()
                             .presentationDetents([.large])
                     }
                     .foregroundColor(.white)
@@ -62,7 +62,7 @@ struct ItineraryView: View {
                                             //createItinerary.itineraryArr.remove(at: index)
                                             createItinerary.dayOfTheTrip = createItinerary.itineraryArr[index].dayOfTheTrip
                                             
-                                            createItinerary.tripImage = createItinerary.itineraryArr[index].tripImage
+                                            createItinerary.itineraryImage = createItinerary.itineraryArr[index].tripImage
                                             
                                             createItinerary.agenda = createItinerary.itineraryArr[index].agenda
                                             
