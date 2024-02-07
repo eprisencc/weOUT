@@ -99,13 +99,21 @@ struct EditItineraryInputSheet: View {
                             
                         }
                         VStack(alignment: .center) {
-                            Button("Edit") {
+                            HStack {
+                                Button("Edit") {
                                     createItinerary.addToExistingItineraryArray(index: index)
                                     dismiss()
+                                }
+                                .padding(15)
+                                .font(.title)
+                                
+                                Button("Remove") {
+                                    createItinerary.itineraryArr.remove(at: index)
+                                        dismiss()
+                                }
+                                .padding(15)
+                                .font(.title)
                             }
-                            .padding(15)
-                            
-                            .font(.title)
                         }
                     }
                 }
@@ -131,4 +139,5 @@ struct EditItineraryInputSheet: View {
 #Preview {
     EditItineraryInputSheet(index: -1)
         .environmentObject(CreateItineraryVM())
+        .environmentObject(CreateTripVM())
 }
