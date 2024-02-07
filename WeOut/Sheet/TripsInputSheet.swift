@@ -27,6 +27,7 @@ struct TripsInputSheet: View {
         
         //Text("Hello World!!!")
         Text(formatter1.string(from: startDate))
+        //@Binding var currentStartDate: Date = createTrip.projectedValue.startDate
         
         NavigationView {
             ZStack {
@@ -69,7 +70,7 @@ struct TripsInputSheet: View {
                             Spacer()
                             
                             HStack {
-                                Text("Thumbnail (optional)")
+                                Text("Location Photo Optional")
                                     .foregroundStyle(.white)
                                     .font(.title)
                                     .padding(15)
@@ -99,7 +100,7 @@ struct TripsInputSheet: View {
                                 .foregroundStyle(.white)
                                 .padding(15)
                             
-                            //TextFieldButton(text: formatter1.string(from: $createTrip.startDate),textFieldExampleMessage: "ex. Things that are scheduled")
+                            //TextFieldButton(text: formatter1.string(from: $currentStartDate),textFieldExampleMessage: "ex. Things that are scheduled")
                             
                             Divider()
                                 .frame(height: 1)
