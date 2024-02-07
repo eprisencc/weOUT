@@ -10,7 +10,7 @@ import SwiftUI
 struct TripsInputSheet: View {
     @Environment(\.dismiss) private var dismiss
     
-    @EnvironmentObject var createTrip: CreateTripVM
+    @ObservedObject var createTrip: CreateTripVM
     
     @State private var showingImagePicker = false
     @State private var image: Image?
@@ -58,7 +58,6 @@ struct TripsInputSheet: View {
                     }
                     ScrollView {
                         VStack(alignment: .leading) {
-                            
                             Spacer()
                             
                             Text("Destination")
@@ -66,7 +65,7 @@ struct TripsInputSheet: View {
                                 .foregroundStyle(.white)
                                 .padding(15)
                             
-                            TextFieldButton(text: $createTrip.destination ,textFieldExampleMessage: "ex. New York")
+                            //TextFieldButton(text: $createTrip.destination ,textFieldExampleMessage: "ex. New York")
                             Divider()
                                 .frame(height: 1)
                                 .overlay(Color(hex: "F5DFA3"))
@@ -84,13 +83,13 @@ struct TripsInputSheet: View {
                                       CompactDatePickerView(selectedDate: $startSelectedDate)
                                     .background(Color.white)
                                     .frame(width: 150, height: 50)
-//                                          .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                                          .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                           .padding()
                               
                                       CompactDatePickerView(selectedDate: $endSelectedDate)
                                     .background(Color.white)
                                           .frame(width: 150, height: 50)
-//                                          .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                                          .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                           .padding()
                                   }
                               }
@@ -137,7 +136,6 @@ struct TripsInputSheet: View {
                             dismiss()
                         }
                         .padding(15)
-                        
                         .font(.title)
                     }
                             
@@ -156,13 +154,17 @@ struct CompactDatePickerView: View {
     @Binding var selectedDate: Date
 
     var body: some View {
-        DatePicker("", selection: $selectedDate, displayedComponents: [.date])
-            .datePickerStyle(CompactDatePickerStyle())
-            .background(.date)
+        ZStack {
+            //Color.black
+                //.ignoresSafeArea()
+            DatePicker("", selection: $selectedDate, displayedComponents: [.date])
+                .datePickerStyle(CompactDatePickerStyle())
+                .background(.date)
+        }
     }
 }
    
 #Preview {
-    TripsInputSheet()
+    TripsInputSheet(createTrip: CreateTripVM())
         .environmentObject(CreateTripVM())
 }

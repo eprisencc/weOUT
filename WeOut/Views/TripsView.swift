@@ -11,7 +11,7 @@ struct TripsView: View {
     @State private var showTripInputSheet = false
     
     // Trip object with all the trips in it
-    @EnvironmentObject var createTrip: CreateTripVM
+    @ObservedObject var createTrip: CreateTripVM
     
     var body: some View {
         ZStack{
@@ -32,7 +32,7 @@ struct TripsView: View {
                     Image(systemName: "plus")
                 }
                 .sheet(isPresented: $showTripInputSheet) {
-                    TripsInputSheet()
+                    TripsInputSheet(createTrip: createTrip)
                         .presentationDetents([.large])
                 }
                 .foregroundColor(.white)
@@ -47,6 +47,6 @@ struct TripsView: View {
 }
 
 #Preview {
-    TripsView()
+    TripsView(createTrip: CreateTripVM())
         .environmentObject(CreateTripVM())
 }
