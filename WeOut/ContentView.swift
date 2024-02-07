@@ -16,7 +16,7 @@ struct ContentView: View {
                     .tabItem {
                         Label("Dashboard", systemImage: "doc.text.magnifyingglass")
                     }
-                TripsView()
+                TripsView(createTrip: CreateTripVM())
                     .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
                 ItineraryView(myIndex: -1)
                     .tabItem { Label("Itinerary", systemImage: "map.fill") }
