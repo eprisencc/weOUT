@@ -15,6 +15,12 @@ struct TripsInputSheet: View {
     @State private var showingImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
+    
+    @State private var startSelectedDate = Date()
+    @State private var endSelectedDate = Date()
+    @State private var isStartDatePickerVisible = true
+    @State private var isEndDatePickerVisible = true
+
     var index: Int = -1
     let startDate = Date.now
     var formatter1: DateFormatter {
@@ -26,9 +32,7 @@ struct TripsInputSheet: View {
     var body: some View {
         
         //Text("Hello World!!!")
-        Text(formatter1.string(from: startDate))
-        //@Binding var currentStartDate: Date = createTrip.projectedValue.startDate
-        
+//        Text(formatter1.string(from: startDate))
         NavigationView {
             ZStack {
                 Color(hex: "1F1F1F")
@@ -69,64 +73,95 @@ struct TripsInputSheet: View {
                                 .padding()
                             Spacer()
                             
-                            HStack {
-                                Text("Location Photo Optional")
-                                    .foregroundStyle(.white)
-                                    .font(.title)
-                                    .padding(15)
-                                
-                                Button(role: .cancel, action: {
-                                    showingImagePicker = true
-                                }) {
-                                    Image(systemName: "plus")
-                                }
-                                .foregroundColor(Color.white)
-                            }
-                            Divider()
-                                .frame(height: 1)
-                                .overlay(Color(hex: "F5DFA3"))
-                                .padding()
-                            HStack(alignment: .center) {
-                                
-                                createTrip.TripImage
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(25)
-                                
-                            }
-                            Spacer()
+
                             Text("Dates")
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 .padding(15)
-                            
-                            //TextFieldButton(text: formatter1.string(from: $currentStartDate),textFieldExampleMessage: "ex. Things that are scheduled")
+
+
+                            HStack {
+                                      CompactDatePickerView(selectedDate: $startSelectedDate)
+                                    .background(Color.white)
+                                    .frame(width: 150, height: 50)
+//                                          .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                                          .padding()
+                              
+                                      CompactDatePickerView(selectedDate: $endSelectedDate)
+                                    .background(Color.white)
+                                          .frame(width: 150, height: 50)
+//                                          .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                                          .padding()
+                                  }
+                              }
+                        Divider()
+                            .frame(height: 1)
+                            .overlay(Color(hex: "F5DFA3"))
+                            .padding()
+                                
+                                HStack {
+                                    Text("Thumbnail (optional)")
+                                        .foregroundStyle(.white)
+                                        .font(.title)
+                                        .padding(15)
+                                    
+                                    Button(role: .cancel, action: {
+                                        showingImagePicker = true
+                                    }) {
+                                        Image(systemName: "plus")
+                                    }
+                                    .foregroundColor(Color.white)
+                                }
+                        
+                                HStack(alignment: .center) {
+                                    
+                                    createTrip.TripImage
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(25)
+                                    
+                                }
+                          }
+
                             
                             Divider()
                                 .frame(height: 1)
                                 .overlay(Color(hex: "F5DFA3"))
                                 .padding()
+                    
+                    
+                    VStack(alignment: .center) {
+                        Button("Submit") {
+                            //createItinerary.addToItineraryArray()
                             
+                            dismiss()
                         }
-                        VStack(alignment: .center) {
-                            Button("Submit") {
-                                //createItinerary.addToItineraryArray()
-                                
-                                dismiss()
-                            }
-                            .padding(15)
+                        .padding(15)
+                        
+                        .font(.title)
+                    }
                             
-                            .font(.title)
                         }
                     }
+            
+            
                 }
                 .padding()
             }
         }
         
+ 
+
+struct CompactDatePickerView: View {
+    @Binding var selectedDate: Date
+
+    var body: some View {
+        DatePicker("", selection: $selectedDate, displayedComponents: [.date])
+            .datePickerStyle(CompactDatePickerStyle())
+            .background(.date)
     }
 }
-
+   
 #Preview {
     TripsInputSheet()
         .environmentObject(CreateTripVM())
