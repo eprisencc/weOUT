@@ -36,7 +36,7 @@ struct ItineraryView: View {
                     label: {
                         Image(systemName: "plus")
                     }  .sheet(isPresented: $showItinearyInputSheet) {
-                        TripsInputSheet()
+                        ItineraryInputSheet(index: -1)
                             .presentationDetents([.large])
                     }
                     .foregroundColor(.white)
