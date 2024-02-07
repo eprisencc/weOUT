@@ -33,7 +33,6 @@ struct TripsInputSheet: View {
         
         //Text("Hello World!!!")
 //        Text(formatter1.string(from: startDate))
-        
         NavigationView {
             ZStack {
                 Color(hex: "1F1F1F")
@@ -74,13 +73,13 @@ struct TripsInputSheet: View {
                                 .padding()
                             Spacer()
                             
-                          
+
                             Text("Dates")
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 .padding(15)
 
-                            
+
                             HStack {
                                       CompactDatePickerView(selectedDate: $startSelectedDate)
                                     .background(Color.white)
@@ -123,10 +122,7 @@ struct TripsInputSheet: View {
                                     
                                 }
                           }
-                                 
-                            
-                            
-                   
+
                             
                             Divider()
                                 .frame(height: 1)
