@@ -11,12 +11,13 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.black
+                .ignoresSafeArea()
             TabView {
                 DashboardView()
                     .tabItem {
                         Label("Dashboard", systemImage: "doc.text.magnifyingglass")
                     }
-                TripsView(createTrip: CreateTripVM())
+                TripsView(createTrip: CreateTripVM(), myIndex: -1)
                     .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
                 ItineraryView(myIndex: -1)
                     .tabItem { Label("Itinerary", systemImage: "map.fill") }

@@ -26,7 +26,7 @@ struct TripModel: Hashable {
     var endDate: Date
     var nameOfTrip: String
     var destination: String
-    var TripImage: Image
+    var tripImage: Image
     var participants: [ParticipantModel]
     var details: String
 }
@@ -36,8 +36,23 @@ class CreateTripVM: ObservableObject {
     @Published var endDate: Date = Date.now
     @Published var nameOfTrip: String = ""
     @Published var destination: String = ""
-    @Published var TripImage: Image = Image("blankImage")
+    @Published var tripImage: Image = Image("blankImage")
     @Published var participants: [ParticipantModel] = []
     @Published var details: String = ""
     @Published var tripArr: [TripModel] = []
+    
+    func addToTripArray() {
+        let trip = TripModel(startDate: startDate, endDate: endDate, nameOfTrip: nameOfTrip, destination: destination, tripImage: tripImage, participants: [], details: details)
+        tripArr.append(trip)
+    }
+    
+    func resetTripProperties() {
+        self.startDate = Date.now
+        self.endDate = Date.now
+        self.nameOfTrip = ""
+        self.destination = ""
+        self.tripImage = Image("blankImage")
+        self.participants = []
+        self.details = ""
+    }
 }
