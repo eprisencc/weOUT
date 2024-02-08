@@ -113,7 +113,7 @@ struct ItineraryInputSheet: View {
                 .padding()
             }
         }
-        .navigationTitle("Test")
+        //.navigationTitle("Test")
         .onChange(of: inputImage) { loadImage() }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $inputImage)

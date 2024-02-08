@@ -11,20 +11,20 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.black
-                .ignoresSafeArea()
+                //.ignoresSafeArea()
             TabView {
                 DashboardView()
                     .tabItem {
                         Label("Dashboard", systemImage: "doc.text.magnifyingglass")
                     }
-                TripsView(createTrip: CreateTripVM(), myIndex: -1)
+                TripsView(createTrip: CreateTripVM())
                     .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
-                ItineraryView(myIndex: -1)
-                    .tabItem { Label("Itinerary", systemImage: "map.fill") }
+                /*ItineraryView()
+                    .tabItem { Label("Itinerary", systemImage: "map.fill") }*/
             }
             .onAppear() {
                 //Set the background color for the tab bar
-                //UITabBar.appearance().backgroundColor = UIColor(hex: "#161616")
+                UITabBar.appearance().backgroundColor = UIColor.tabbarBlue//(hex: "#21528A")
                 // Set the color for the unselected tabs
                 UITabBar.appearance().unselectedItemTintColor = .lightGray
             }
