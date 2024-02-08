@@ -16,121 +16,28 @@ struct TripsInputSheet: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     
-    @State private var startSelectedDate = Date()
-    @State private var endSelectedDate = Date()
+    @State private var startSelectedDate: Date = Date.now
+    @State private var endSelectedDate: Date = Date.now
     @State private var isStartDatePickerVisible = true
     @State private var isEndDatePickerVisible = true
     
     var index: Int = -1
-    /*let startDate = Date.now
-     var formatter1: DateFormatter {
-     let df = DateFormatter()
-     df.dateFormat = "E, MMM d, y"
-     return df
-     }*/
     
     var body: some View {
         NavigationView {
             ZStack {
                 Color(hex: "1F1F1F")
                     .ignoresSafeArea()
-                //.opacity(0.8)
                 
                 VStack {
-                    HStack {
-                        Text("Create")
-                            .font(.title)
-                            .foregroundStyle(.white)
-                            .padding(15)
-                        
-                        Spacer()
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "x.circle.fill")
-                        }
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                        .foregroundStyle(.white)
-                        .padding(15)
-                    }
-                    ScrollView {
-                        VStack(alignment: .leading) {
-                            Spacer()
-                            
-                            Text("Destination")
-                                .font(.title)
-                                .foregroundStyle(.white)
-                                .padding(15)
-                            
-                            TextFieldButton(text: $createTrip.destination ,textFieldExampleMessage: "ex. New York")
-                            Divider()
-                                .frame(height: 1)
-                                .overlay(Color(hex: "F5DFA3"))
-                                .padding()
-                            Spacer()
-                            
-                            
-                            Text("Dates")
-                                .font(.title)
-                                .foregroundStyle(.white)
-                                .padding(15)
-                                .onTapGesture {
-                                    createTrip.startDate = startSelectedDate
-                                    print(createTrip.startDate)
-                                }
-                            
-                            
-                            HStack {
-                                CompactDatePickerView(selectedDate: $startSelectedDate)
-                                    .background(Color.white)
-                                    .frame(width: 150, height: 50)
-                                    //.border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                                    .padding()
-                                
-                                CompactDatePickerView(selectedDate: $endSelectedDate)
-                                    .background(Color.white)
-                                    .frame(width: 150, height: 50)
-                                    //.border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                                    .padding()
-                            }
-                        }
-                        Divider()
-                            .frame(height: 1)
-                            .overlay(Color(hex: "F5DFA3"))
-                            .padding()
-                        
-                        HStack {
-                            Text("Location Photo (optional)")
-                                .foregroundStyle(.white)
-                                .font(.title)
-                                .padding(15)
-                            
-                            Button(role: .cancel, action: {
-                                showingImagePicker = true
-                            }) {
-                                Image(systemName: "plus")
-                            }
-                            .foregroundColor(Color.white)
-                        }
-                        
-                        HStack(alignment: .center) {
-                            createTrip.tripImage
-                                .resizable()
-                                .scaledToFit()
-                                .padding(25)
-                            
-                        }
-                    }
-                    
-                    
-                    Divider()
-                        .frame(height: 1)
-                        .overlay(Color(hex: "F5DFA3"))
-                        .padding()
-                    
+                    createDestinationHeading
+                    createDestinationDetails
                     
                     VStack(alignment: .center) {
+                        divider
                         Button("Submit") {
+                            createTrip.startDate = startSelectedDate
+                            createTrip.endDate = endSelectedDate
                             createTrip.addToTripArray()
                             dismiss()
                         }
@@ -143,7 +50,6 @@ struct TripsInputSheet: View {
             
             
         }
-        .padding()
         .navigationTitle("Test")
         .onChange(of: inputImage) { loadImage() }
         .sheet(isPresented: $showingImagePicker) {
@@ -151,6 +57,90 @@ struct TripsInputSheet: View {
         }
     }
     
+    var createDestinationHeading: some View {
+        HStack {
+            Text("Create")
+                .font(.title)
+                .foregroundStyle(.white)
+                .padding(15)
+            
+            Spacer()
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "x.circle.fill")
+            }
+            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+            .foregroundStyle(.white)
+            .padding(15)
+        }
+    }
+    
+    var createDestinationDetails: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                Spacer()
+                
+                Text("Destination")
+                    .font(.title)
+                    .foregroundStyle(.white)
+                    .padding(15)
+                
+                TextFieldButton(text: $createTrip.destination ,textFieldExampleMessage: "ex. New York")
+                divider
+                Spacer()
+                
+                
+                Text("Dates")
+                    .font(.title)
+                    .foregroundStyle(.white)
+                    .padding(15)
+                
+                
+                HStack {
+                    CompactDatePickerView(selectedDate: $startSelectedDate)
+                        .background(Color.white)
+                        .frame(width: 150, height: 50)
+                        .padding()
+                    
+                    CompactDatePickerView(selectedDate: $endSelectedDate)
+                        .background(Color.white)
+                        .frame(width: 150, height: 50)
+                        .padding()
+                }
+            }
+            divider
+            
+            HStack {
+                Text("Location Photo (optional)")
+                    .foregroundStyle(.white)
+                    .font(.title)
+                    .padding(15)
+                
+                Button(role: .cancel, action: {
+                    showingImagePicker = true
+                }) {
+                    Image(systemName: "plus")
+                }
+                .foregroundColor(Color.white)
+            }
+            
+            HStack(alignment: .center) {
+                createTrip.tripImage
+                    .resizable()
+                    .scaledToFit()
+                    .padding(25)
+                
+            }
+        }
+    }
+    
+    var divider: some View {
+        Divider()
+            .frame(height: 1)
+            .overlay(Color(hex: "F5DFA3"))
+            .padding()
+    }
     
     
     struct CompactDatePickerView: View {
