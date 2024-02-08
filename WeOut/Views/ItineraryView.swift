@@ -19,81 +19,94 @@ struct ItineraryView: View {
     
     var body: some View {
         ZStack{
-            Color(hex: "#003459")
+            //Color(hex: "#003459")
+            Image("cloudBack")
+                .resizable()
                 .ignoresSafeArea()
+            
             VStack(alignment: .leading) {
-                HStack {
-                    Text("Itinerary")
-                        .font(.largeTitle)
-                        .foregroundStyle(Color.white)
-                        .bold()
-                    Spacer()
-                    //Bring up the itinerary input sheet
-                    Button {
-                        showItinearyInputSheet.toggle()
-                        createItinerary.resetItineraryProperties()
-                    }
-                    label: {
-                        Image(systemName: "plus")
-                    }  .sheet(isPresented: $showItinearyInputSheet) {
-                        ItineraryInputSheet(index: -1)
-                            .presentationDetents([.large])
-                    }
-                    .foregroundColor(.white)
-                    .font(.largeTitle)
-                }
+                itineraryHeading
                 //Each day card for the itinerary
-                ScrollView {
-                    VStack(spacing: 20) {
-                        ForEach(createItinerary.itineraryArr.indices, id: \.self) { index in
-                            
-                            ZStack {
-                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                                    .foregroundColor(Color(hex: "#007EA7"))
-                                VStack(alignment: .leading){
-                                    HStack {
-                                        Text(createItinerary.itineraryArr[index].dayOfTheTrip)
-                                            .font(.title)
-                                            .foregroundStyle(Color.white)
-                                            .bold()
-                                        Spacer()
-                                        Button() {
-                                            
-                                            //createItinerary.itineraryArr.remove(at: index)
-                                            createItinerary.dayOfTheTrip = createItinerary.itineraryArr[index].dayOfTheTrip
-                                            
-                                            createItinerary.itineraryImage = createItinerary.itineraryArr[index].tripImage
-                                            
-                                            createItinerary.agenda = createItinerary.itineraryArr[index].agenda
-                                            
-                                            showEditItinearyInputSheet.toggle()
-                                            myIndex = index
-                                            
-                                        } label: {
-                                            Image(systemName: "ellipsis")
-                                        }
-                                        .sheet(isPresented: $showEditItinearyInputSheet) {
-                                            EditItineraryInputSheet(index: myIndex)
-                                                //.presentationDetents([.large])
-                                        }
-                                        .foregroundColor(Color.white)
-                                    }
-                                    createItinerary.itineraryArr[index].tripImage
-                                        .resizable()
-                                        .scaledToFit()
+                itineraryDetails
+            }
+        }
+    }
+    var itineraryHeading: some View {
+        HStack {
+            Image("Logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50)
+                .clipShape(Circle())
+            Text("Itinerary")
+                .font(.largeTitle)
+                .foregroundStyle(Color.white)
+                .bold()
+            Spacer()
+            //Bring up the itinerary input sheet
+            Button {
+                showItinearyInputSheet.toggle()
+                createItinerary.resetItineraryProperties()
+            }
+            label: {
+                Image(systemName: "plus")
+            }  .sheet(isPresented: $showItinearyInputSheet) {
+                ItineraryInputSheet(index: -1)
+                    .presentationDetents([.large])
+            }
+            .foregroundColor(.white)
+            .font(.largeTitle)
+        }
+        .padding(25)
+    }
+    var itineraryDetails: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                ForEach(createItinerary.itineraryArr.indices, id: \.self) { index in
+                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(Color(hex: "#007EA7"))
+                        VStack(alignment: .leading){
+                            HStack {
+                                Text(createItinerary.itineraryArr[index].dayOfTheTrip)
+                                    .font(.title)
+                                    .foregroundStyle(Color.white)
+                                    .bold()
+                                Spacer()
+                                Button() {
                                     
-                                    Text(createItinerary.itineraryArr[index].agenda)
-                                        .foregroundStyle(Color.white)
-                                        .bold()
+                                    //createItinerary.itineraryArr.remove(at: index)
+                                    createItinerary.dayOfTheTrip = createItinerary.itineraryArr[index].dayOfTheTrip
+                                    
+                                    createItinerary.itineraryImage = createItinerary.itineraryArr[index].tripImage
+                                    
+                                    createItinerary.agenda = createItinerary.itineraryArr[index].agenda
+                                    
+                                    showEditItinearyInputSheet.toggle()
+                                    myIndex = index
+                                    
+                                } label: {
+                                    Image(systemName: "ellipsis")
                                 }
-                                .padding(20)
+                                .sheet(isPresented: $showEditItinearyInputSheet) {
+                                    EditItineraryInputSheet(index: myIndex)
+                                        //.presentationDetents([.large])
+                                }
+                                .foregroundColor(Color.white)
                             }
+                            createItinerary.itineraryArr[index].tripImage
+                                .resizable()
+                                .scaledToFit()
+                            
+                            Text(createItinerary.itineraryArr[index].agenda)
+                                .foregroundStyle(Color.white)
+                                .bold()
                         }
+                        .padding(20)
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(25)
         }
     }
 }
