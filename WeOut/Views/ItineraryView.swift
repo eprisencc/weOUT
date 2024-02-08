@@ -12,7 +12,7 @@ struct ItineraryView: View {
     
     @State private var showItinearyInputSheet = false
     @State private var showEditItinearyInputSheet = false
-    @State var myIndex: Int
+    @State var myIndex: Int = -1
     
     //Itinerary object with all the days of the trip in it
     @EnvironmentObject var createItinerary: CreateItineraryVM
@@ -40,7 +40,7 @@ struct ItineraryView: View {
                 .clipShape(Circle())
             Text("Itinerary")
                 .font(.largeTitle)
-                .foregroundStyle(Color.white)
+                .foregroundStyle(Color.titleheadings)
                 .bold()
             Spacer()
             //Bring up the itinerary input sheet
@@ -54,7 +54,7 @@ struct ItineraryView: View {
                 ItineraryInputSheet(index: -1)
                     .presentationDetents([.large])
             }
-            .foregroundColor(.white)
+            .foregroundColor(.titleheadings)
             .font(.largeTitle)
         }
         .padding(25)
@@ -113,7 +113,7 @@ struct ItineraryView: View {
 
 
 #Preview {
-    ItineraryView(myIndex: -1)
+    ItineraryView()
         .environmentObject(CreateItineraryVM())
 }
 

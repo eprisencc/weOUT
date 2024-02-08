@@ -13,9 +13,7 @@ struct TripsView: View {
     // Trip object with all the trips in it
     @ObservedObject var createTrip: CreateTripVM
     
-    @State var myIndex: Int
-    //let formatter1 = DateFormatter()
-    //formatter1.dateFormat = "E, MMM d, y"
+    @State var myIndex: Int = -1
     
     //Formate Dates for display in trips view
     var formatter1: DateFormatter {
@@ -31,15 +29,21 @@ struct TripsView: View {
     }
     
     var body: some View {
-        ZStack{
-            //Color(hex: "#003459")
-            Image("cloudBack")
-                .resizable()
-                .ignoresSafeArea()
-            VStack(alignment: .leading) {
-                tripHeading
-                Spacer()
-                tripDetails
+        NavigationStack {
+            ZStack{
+                //Color(hex: "#003459")
+                Image("cloudBack")
+                    .resizable()
+                    .ignoresSafeArea(/*edges: .top*/)
+                VStack(alignment: .leading) {
+                    tripHeading
+                    Spacer()
+                    NavigationLink {
+                        ItineraryView()
+                    } label: {
+                        tripDetails
+                    }
+                }
             }
         }
     }
@@ -53,7 +57,7 @@ struct TripsView: View {
                 .clipShape(Circle())
             Text("Trips")
                 .font(.largeTitle)
-                .foregroundStyle(Color.white)
+                .foregroundStyle(Color.titleheadings)
                 .bold()
             Spacer()
             //Bring up the Trip input sheet
@@ -69,7 +73,7 @@ struct TripsView: View {
                     .presentationDetents([.large])
                     .background(Color(hex: "1F1F1F").ignoresSafeArea())
             }
-            .foregroundColor(.white)
+            .foregroundColor(.titleheadings)
             .font(.largeTitle)
             }
             .padding(25)
@@ -140,6 +144,7 @@ struct TripsView: View {
 
 
 #Preview {
-    TripsView(createTrip: CreateTripVM(), myIndex: -1)
+    TripsView(createTrip: CreateTripVM())
         .environmentObject(CreateTripVM())
+        .environmentObject(CreateItineraryVM())
 }

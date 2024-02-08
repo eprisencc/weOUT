@@ -21,7 +21,7 @@ struct TripsInputSheet: View {
     @State private var isStartDatePickerVisible = true
     @State private var isEndDatePickerVisible = true
     
-    var index: Int = -1
+    //var index: Int = -1
     
     var body: some View {
         NavigationView {
@@ -50,7 +50,7 @@ struct TripsInputSheet: View {
             
             
         }
-        .navigationTitle("Test")
+        //.navigationTitle("Test")
         .onChange(of: inputImage) { loadImage() }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $inputImage)

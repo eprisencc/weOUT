@@ -25,6 +25,7 @@
 		EDA19FD02B6AA0E6002C84E5 /* ParticipantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA19FCF2B6AA0E6002C84E5 /* ParticipantModel.swift */; };
 		EDA19FD22B6D2804002C84E5 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA19FD12B6D2804002C84E5 /* Tools.swift */; };
 		EDA19FD42B6D32A6002C84E5 /* EditItineraryInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA19FD32B6D32A6002C84E5 /* EditItineraryInputSheet.swift */; };
+		EDAC16632B7535070063ECAD /* Itineary.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC16622B7535070063ECAD /* Itineary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		EDA19FCF2B6AA0E6002C84E5 /* ParticipantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantModel.swift; sourceTree = "<group>"; };
 		EDA19FD12B6D2804002C84E5 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Tools.swift; path = ../../Tools.swift; sourceTree = "<group>"; };
 		EDA19FD32B6D32A6002C84E5 /* EditItineraryInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItineraryInputSheet.swift; sourceTree = "<group>"; };
+		EDAC16622B7535070063ECAD /* Itineary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itineary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				ED96F8F22B6488870062245E /* DashboardView.swift */,
 				ED96F8F42B6488D10062245E /* TripsView.swift */,
 				ED96F8EB2B63E6D60062245E /* ItineraryView.swift */,
+				EDAC16622B7535070063ECAD /* Itineary.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDAC16632B7535070063ECAD /* Itineary.swift in Sources */,
 				EDA19FCC2B6947AE002C84E5 /* ImagePickerTool.swift in Sources */,
 				ED96F8E82B62B6CA0062245E /* Data Model 1.swift in Sources */,
 				EDA19FCE2B6AA0D2002C84E5 /* TripModel.swift in Sources */,
