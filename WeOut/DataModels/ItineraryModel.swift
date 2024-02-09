@@ -19,7 +19,6 @@ struct ItineraryModel: Hashable {
     var dayOfTheTrip: String
     var tripImage: Image
     var agenda: String
-    //var tripDay: Int
     
 }
 
@@ -27,19 +26,25 @@ class CreateItineraryVM: ObservableObject {
     @Published var dayOfTheTrip: String = ""
     @Published var itineraryImage: Image = Image("blankImage")
     @Published var agenda: String = ""
-    //@Published var tripDay: Int = 0
     @Published var itineraryArr: [ItineraryModel] = []
+    //@Published var itineraryDic: [String: [ItineraryModel]] = [:]
     
-    func addToItineraryArray() {
+    func addToItineraryArray(/*destination: String*/) {
         let itinerary = ItineraryModel(dayOfTheTrip: dayOfTheTrip, tripImage: itineraryImage, agenda: agenda)
         itineraryArr.append(itinerary)
+        
+        
+        /*if !(itineraryDic[destination]?.isEmpty ?? true) {
+            itineraryDic[destination] = [itinerary]
+        } else {
+            itineraryDic[destination]?.append(itinerary)
+        }*/
     }
     
     func resetItineraryProperties() {
         self.dayOfTheTrip = ""
         self.itineraryImage = Image("blankImage")
         self.agenda = ""
-        //self.tripDay = 0
     }
     
     func addToExistingItineraryArray(index: Int) {

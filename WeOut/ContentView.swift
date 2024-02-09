@@ -13,12 +13,12 @@ struct ContentView: View {
             Color.black
                 //.ignoresSafeArea()
             TabView {
+                TripsView(createTrip: CreateTripVM())
+                    .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
                 DashboardView()
                     .tabItem {
                         Label("Dashboard", systemImage: "doc.text.magnifyingglass")
                     }
-                TripsView(createTrip: CreateTripVM())
-                    .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
                 /*ItineraryView()
                     .tabItem { Label("Itinerary", systemImage: "map.fill") }*/
             }
