@@ -33,11 +33,11 @@ struct ItineraryView: View {
     }
     var itineraryHeading: some View {
         HStack {
-            Image("Logo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50)
-                .clipShape(Circle())
+//            Image("Logo")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 50)
+//                .clipShape(Circle())
             Text("Itinerary")
                 .font(.largeTitle)
                 .foregroundStyle(Color.titleheadings)

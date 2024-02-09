@@ -53,7 +53,7 @@ struct TripsView: View {
             Image("Logo")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 50)
+                .frame(width: 40)
                 .clipShape(Circle())
             Text("Trips")
                 .font(.largeTitle)

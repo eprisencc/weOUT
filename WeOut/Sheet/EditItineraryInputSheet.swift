@@ -100,14 +100,14 @@ struct EditItineraryInputSheet: View {
                         }
                         VStack(alignment: .center) {
                             HStack {
-                                Button("Edit") {
+                                Button("Save") {
                                     createItinerary.addToExistingItineraryArray(index: index)
                                     dismiss()
                                 }
                                 .padding(15)
                                 .font(.title)
                                 
-                                Button("Remove") {
+                                Button("Delete") {
                                     createItinerary.itineraryArr.remove(at: index)
                                         dismiss()
                                 }
