@@ -32,9 +32,12 @@ struct TripsView: View {
         NavigationStack {
             ZStack{
                 //Color(hex: "#003459")
-                Image("cloudBack")
+                Image("cloudSandBack")
                     .resizable()
                     .ignoresSafeArea(/*edges: .top*/)
+//                Image("sandBottom")
+//                    .resizable()
+//                    .scaledToFit()
                 VStack(alignment: .leading) {
                     tripHeading
                     Spacer()
@@ -138,7 +141,9 @@ struct TripsView: View {
                     .padding(20)
                 }
             }
-        }
+        } .frame(maxHeight: 2000).fixedSize(horizontal: false, vertical: false)
+        
+        //.frame(height: 100, alignment: .bottomLeading)
     }
 }
 

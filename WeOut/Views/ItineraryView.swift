@@ -20,7 +20,7 @@ struct ItineraryView: View {
     var body: some View {
         ZStack{
             //Color(hex: "#003459")
-            Image("cloudBack")
+            Image("cloudSandBack")
                 .resizable()
                 .ignoresSafeArea()
             
@@ -67,6 +67,8 @@ struct ItineraryView: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             .foregroundColor(Color(hex: "#007EA7"))
+                            .padding(8)
+                            //.frame(width: 200)
                         VStack(alignment: .leading){
                             HStack {
                                 Text(createItinerary.itineraryArr[index].dayOfTheTrip)
@@ -91,7 +93,6 @@ struct ItineraryView: View {
                                 }
                                 .sheet(isPresented: $showEditItinearyInputSheet) {
                                     EditItineraryInputSheet(index: myIndex)
-                                        //.presentationDetents([.large])
                                 }
                                 .foregroundColor(Color.white)
                             }
