@@ -9,9 +9,6 @@ import SwiftUI
 
 struct TripsInputSheet: View {
     @Environment(\.dismiss) private var dismiss
-    
-    @ObservedObject var createTrip: CreateTripVM
-    
     @State private var showingImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
@@ -20,8 +17,10 @@ struct TripsInputSheet: View {
     @State private var endSelectedDate: Date = Date.now
     @State private var isStartDatePickerVisible = true
     @State private var isEndDatePickerVisible = true
+    var destination: String = ""
+    var index: Int = -1
     
-    //var index: Int = -1
+    @EnvironmentObject var createTrip: CreateTripVM
     
     var body: some View {
         NavigationView {
@@ -36,9 +35,10 @@ struct TripsInputSheet: View {
                     VStack(alignment: .center) {
                         divider
                         Button("Submit") {
-                            createTrip.startDate = startSelectedDate
-                            createTrip.endDate = endSelectedDate
+                            //createTrip.startDate = startSelectedDate
+                            //createTrip.endDate = endSelectedDate
                             createTrip.addToTripArray()
+                            print("Elements of trip array \(createTrip.tripArr)")
                             dismiss()
                         }
                         .padding(15)
@@ -78,9 +78,9 @@ struct TripsInputSheet: View {
     
     var createDestinationDetails: some View {
         ScrollView {
+            
             VStack(alignment: .leading) {
                 Spacer()
-                
                 Text("Destination")
                     .font(.title)
                     .foregroundStyle(.white)
@@ -98,31 +98,31 @@ struct TripsInputSheet: View {
                 
                 
                 HStack {
-                    CompactDatePickerView(selectedDate: $startSelectedDate)
+                    CompactDatePickerView(selectedDate: $createTrip.startDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
                     
-                    CompactDatePickerView(selectedDate: $endSelectedDate)
+                    CompactDatePickerView(selectedDate: $createTrip.endDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
                 }
-            }
-            divider
-            
-            HStack {
-                Text("Location Photo (optional)")
-                    .foregroundStyle(.white)
-                    .font(.title)
-                    .padding(15)
+                divider
                 
-                Button(role: .cancel, action: {
-                    showingImagePicker = true
-                }) {
-                    Image(systemName: "plus")
+                HStack {
+                    Text("Location Photo (optional)")
+                        .foregroundStyle(.white)
+                        .font(.title)
+                        .padding(15)
+                    
+                    Button(role: .cancel, action: {
+                        showingImagePicker = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                    .foregroundColor(Color.white)
                 }
-                .foregroundColor(Color.white)
             }
             
             HStack(alignment: .center) {
@@ -142,18 +142,6 @@ struct TripsInputSheet: View {
             .padding()
     }
     
-    
-    struct CompactDatePickerView: View {
-        @Binding var selectedDate: Date
-        
-        var body: some View {
-            ZStack {
-                DatePicker("", selection: $selectedDate, displayedComponents: [.date])
-                    .datePickerStyle(CompactDatePickerStyle())
-                    .background(.date)
-            }
-        }
-    }
     func loadImage() {
         guard let inputImage = inputImage else { return }
         createTrip.tripImage = Image(uiImage: inputImage)
@@ -162,6 +150,6 @@ struct TripsInputSheet: View {
 }
 
 #Preview {
-    TripsInputSheet(createTrip: CreateTripVM())
+    TripsInputSheet()
         .environmentObject(CreateTripVM())
 }

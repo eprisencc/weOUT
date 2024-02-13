@@ -14,7 +14,8 @@ struct ItineraryInputSheet: View {
     @State private var showingImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
-    var index: Int
+    var index: Int = -1
+    var destination: String = ""
     
     @EnvironmentObject var createItinerary: CreateItineraryVM
     
@@ -98,16 +99,16 @@ struct ItineraryInputSheet: View {
                                 .padding()
                             
                         }
-                        VStack(alignment: .center) {
-                            Button("Submit") {
-                                createItinerary.addToItineraryArray()
-                                
-                                dismiss()
-                            }
-                            .padding(15)
+                    } 
+                    VStack(alignment: .center) {
+                        Button("Submit") {
+                            createItinerary.addToItineraryArray()
                             
-                            .font(.title)
+                            dismiss()
                         }
+                        .padding(15)
+                        
+                        .font(.title)
                     }
                 }
                 .padding()
@@ -130,6 +131,6 @@ struct ItineraryInputSheet: View {
 
 
 #Preview {
-    ItineraryInputSheet(index: -1)
+    ItineraryInputSheet()
         .environmentObject(CreateItineraryVM())
 }

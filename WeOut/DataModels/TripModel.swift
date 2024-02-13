@@ -9,12 +9,6 @@ import Foundation
 import SwiftUI
 
 struct TripModel: Hashable {
-    static func == (lhs: TripModel, rhs: TripModel) -> Bool {
-        //Function added to conform to Equatable
-        return true
-    }
-    
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(startDate)
         hasher.combine(endDate)
@@ -27,7 +21,7 @@ struct TripModel: Hashable {
     var nameOfTrip: String
     var destination: String
     var tripImage: Image
-    var participants: [ParticipantModel]
+    //var participants: [ParticipantModel]
     var details: String
 }
 
@@ -37,13 +31,20 @@ class CreateTripVM: ObservableObject {
     @Published var nameOfTrip: String = ""
     @Published var destination: String = ""
     @Published var tripImage: Image = Image("blankImage")
-    @Published var participants: [ParticipantModel] = []
+    //@Published var participants: [ParticipantModel] = []
     @Published var details: String = ""
     @Published var tripArr: [TripModel] = []
     
     func addToTripArray() {
-        let trip = TripModel(startDate: startDate, endDate: endDate, nameOfTrip: nameOfTrip, destination: destination, tripImage: tripImage, participants: [], details: details)
+        let trip = TripModel(startDate: startDate, endDate: endDate, nameOfTrip: nameOfTrip, destination: destination, tripImage: tripImage, /*participants: []*/ details: details)
         tripArr.append(trip)
+    }
+    
+    func addToExistingTripArray(index: Int) {
+        let trip = TripModel(startDate: startDate, endDate: endDate, nameOfTrip: nameOfTrip, destination: destination, tripImage: tripImage, /*participants: []*/ details: details)
+        
+        print("Add to existing trip array index \(index)")
+        tripArr[index] = trip
     }
     
     func resetTripProperties() {
@@ -52,7 +53,7 @@ class CreateTripVM: ObservableObject {
         self.nameOfTrip = ""
         self.destination = ""
         self.tripImage = Image("blankImage")
-        self.participants = []
+        //self.participants = []
         self.details = ""
     }
 }

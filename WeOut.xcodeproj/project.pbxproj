@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED189C832B70232E0047CF89 /* TripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED189C822B70232E0047CF89 /* TripsInputSheet.swift */; };
+		ED59FF932B7A6E470094F35A /* EditTripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59FF922B7A6E470094F35A /* EditTripsInputSheet.swift */; };
 		ED6178A12B7298A1003D6C73 /* DatePickerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6178A02B7298A1003D6C73 /* DatePickerTool.swift */; };
 		ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8D92B62B57A0062245E /* WeOutApp.swift */; };
 		ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8DB2B62B57A0062245E /* ContentView.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		ED189C822B70232E0047CF89 /* TripsInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsInputSheet.swift; sourceTree = "<group>"; };
+		ED59FF922B7A6E470094F35A /* EditTripsInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripsInputSheet.swift; sourceTree = "<group>"; };
 		ED6178A02B7298A1003D6C73 /* DatePickerTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTool.swift; sourceTree = "<group>"; };
 		ED96F8D62B62B57A0062245E /* WeOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED96F8D92B62B57A0062245E /* WeOutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeOutApp.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				ED96F8FB2B692A700062245E /* ItineraryInputSheet.swift */,
 				EDA19FD32B6D32A6002C84E5 /* EditItineraryInputSheet.swift */,
 				ED189C822B70232E0047CF89 /* TripsInputSheet.swift */,
+				ED59FF922B7A6E470094F35A /* EditTripsInputSheet.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				EDA19FD02B6AA0E6002C84E5 /* ParticipantModel.swift in Sources */,
 				EDA19FD22B6D2804002C84E5 /* Tools.swift in Sources */,
 				EDA19FD42B6D32A6002C84E5 /* EditItineraryInputSheet.swift in Sources */,
+				ED59FF932B7A6E470094F35A /* EditTripsInputSheet.swift in Sources */,
 				ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */,
 				ED96F8F52B6488D10062245E /* TripsView.swift in Sources */,
 			);
@@ -366,7 +370,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
 				DEVELOPMENT_TEAM = HW7URT66C4;
 				ENABLE_PREVIEWS = YES;
@@ -376,8 +380,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -398,7 +401,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
 				DEVELOPMENT_TEAM = HW7URT66C4;
 				ENABLE_PREVIEWS = YES;
@@ -408,8 +411,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

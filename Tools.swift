@@ -141,3 +141,15 @@ struct TextFieldButton: View {
         //.background(Color.gray)
     }
 }
+
+struct CompactDatePickerView: View {
+    @Binding var selectedDate: Date
+    
+    var body: some View {
+        ZStack {
+            DatePicker("", selection: $selectedDate, displayedComponents: [.date])
+                .datePickerStyle(CompactDatePickerStyle())
+                .background(.date)
+        }
+    }
+}

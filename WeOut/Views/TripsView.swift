@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct TripsView: View {
-    @State private var showTripInputSheet = false
+    @State private var showTripsInputSheet = false
+    @State private var showEditTripsInputSheet = false
     
     // Trip object with all the trips in it
-    @ObservedObject var createTrip: CreateTripVM
+    @EnvironmentObject var createTrip: CreateTripVM
     
     @State var myIndex: Int = -1
     
@@ -42,7 +43,7 @@ struct TripsView: View {
                     tripHeading
                     Spacer()
                     NavigationLink {
-                        ItineraryView()
+                        ItineraryView(destination: createTrip.destination)
                     } label: {
                         tripDetails
                     }
@@ -65,14 +66,14 @@ struct TripsView: View {
             Spacer()
             //Bring up the Trip input sheet
             Button {
-                showTripInputSheet.toggle()
+                showTripsInputSheet.toggle()
                 createTrip.resetTripProperties()
             }
             label: {
                 Image(systemName: "plus")
             }
-            .sheet(isPresented: $showTripInputSheet) {
-                TripsInputSheet(createTrip: createTrip)
+            .sheet(isPresented: $showTripsInputSheet) {
+                TripsInputSheet()
                     .presentationDetents([.large])
                     .background(Color(hex: "1F1F1F").ignoresSafeArea())
             }
@@ -110,14 +111,16 @@ struct TripsView: View {
                                     
                                     //createItinerary.agenda = createItinerary.itineraryArr[index].agenda
                                     
-                                    //showEditItinearyInputSheet.toggle()
+                                    showEditTripsInputSheet.toggle()
                                     myIndex = index
+                                    print("What is myindex \(myIndex)")
                                     
                                 } label: {
                                     Image(systemName: "ellipsis")
                                 }
-                                //.sheet(isPresented: $showEditItinearyInputSheet) {
-                                //EditItineraryInputSheet(index: myIndex)
+                                .sheet(isPresented: $showEditTripsInputSheet) {
+                                    EditTripsInputSheet(index: myIndex)
+                                }
                                 //.presentationDetents([.large])
                             }
                             .foregroundStyle(.white)
@@ -134,9 +137,9 @@ struct TripsView: View {
                         //                                        .resizable()
                         //                                        .scaledToFit()
                         
-                        Text(createTrip.tripArr[index].details)
-                            .foregroundStyle(Color.white)
-                            .bold()
+//                        Text(createTrip.tripArr[index].details)
+//                            .foregroundStyle(Color.white)
+//                            .bold()
                     }
                     .padding(20)
                 }
@@ -149,7 +152,7 @@ struct TripsView: View {
 
 
 #Preview {
-    TripsView(createTrip: CreateTripVM())
+    TripsView()
         .environmentObject(CreateTripVM())
-        .environmentObject(CreateItineraryVM())
+        //.environmentObject(CreateItineraryVM())
 }

@@ -13,6 +13,7 @@ struct ItineraryView: View {
     @State private var showItinearyInputSheet = false
     @State private var showEditItinearyInputSheet = false
     @State var myIndex: Int = -1
+    @State var destination: String = ""
     
     //Itinerary object with all the days of the trip in it
     @EnvironmentObject var createItinerary: CreateItineraryVM
@@ -51,7 +52,7 @@ struct ItineraryView: View {
             label: {
                 Image(systemName: "plus")
             }  .sheet(isPresented: $showItinearyInputSheet) {
-                ItineraryInputSheet(index: -1)
+                ItineraryInputSheet()
                     .presentationDetents([.large])
             }
             .foregroundColor(.titleheadings)
@@ -81,12 +82,13 @@ struct ItineraryView: View {
                                     //createItinerary.itineraryArr.remove(at: index)
                                     createItinerary.dayOfTheTrip = createItinerary.itineraryArr[index].dayOfTheTrip
                                     
-                                    createItinerary.itineraryImage = createItinerary.itineraryArr[index].tripImage
+                                    createItinerary.itineraryImage = createItinerary.itineraryArr[index].itineraryImage
                                     
                                     createItinerary.agenda = createItinerary.itineraryArr[index].agenda
                                     
                                     showEditItinearyInputSheet.toggle()
                                     myIndex = index
+                                    print("What is myindex \(myIndex)")
                                     
                                 } label: {
                                     Image(systemName: "ellipsis")
@@ -96,7 +98,7 @@ struct ItineraryView: View {
                                 }
                                 .foregroundColor(Color.white)
                             }
-                            createItinerary.itineraryArr[index].tripImage
+                            createItinerary.itineraryArr[index].itineraryImage
                                 .resizable()
                                 .scaledToFit()
                             
