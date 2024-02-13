@@ -36,9 +36,9 @@ struct TripsView: View {
                 Image("cloudSandBack")
                     .resizable()
                     .ignoresSafeArea(/*edges: .top*/)
-//                Image("sandBottom")
-//                    .resizable()
-//                    .scaledToFit()
+                //                Image("sandBottom")
+                //                    .resizable()
+                //                    .scaledToFit()
                 VStack(alignment: .leading) {
                     tripHeading
                     Spacer()
@@ -69,18 +69,18 @@ struct TripsView: View {
                 showTripsInputSheet.toggle()
                 createTrip.resetTripProperties()
             }
-            label: {
-                Image(systemName: "plus")
-            }
-            .sheet(isPresented: $showTripsInputSheet) {
-                TripsInputSheet()
-                    .presentationDetents([.large])
-                    .background(Color(hex: "1F1F1F").ignoresSafeArea())
-            }
-            .foregroundColor(.titleheadings)
-            .font(.largeTitle)
-            }
-            .padding(25)
+        label: {
+            Image(systemName: "plus")
+        }
+        .sheet(isPresented: $showTripsInputSheet) {
+            TripsInputSheet()
+                .presentationDetents([.large])
+                .background(Color(hex: "1F1F1F").ignoresSafeArea())
+        }
+        .foregroundColor(.titleheadings)
+        .font(.largeTitle)
+        }
+        .padding(25)
     }
     var tripDetails: some View {
         ScrollView {
@@ -137,9 +137,9 @@ struct TripsView: View {
                         //                                        .resizable()
                         //                                        .scaledToFit()
                         
-//                        Text(createTrip.tripArr[index].details)
-//                            .foregroundStyle(Color.white)
-//                            .bold()
+                        //                        Text(createTrip.tripArr[index].details)
+                        //                            .foregroundStyle(Color.white)
+                        //                            .bold()
                     }
                     .padding(20)
                 }
@@ -154,5 +154,5 @@ struct TripsView: View {
 #Preview {
     TripsView()
         .environmentObject(CreateTripVM())
-        //.environmentObject(CreateItineraryVM())
+    //.environmentObject(CreateItineraryVM())
 }
