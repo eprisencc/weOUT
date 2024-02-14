@@ -18,7 +18,7 @@ struct DashboardView: View {
 //                Image("sandBottom")
 //                    .resizable()
 //                    .scaledToFit()
-                VStack(alignment: .leading) {
+                VStack(alignment: .center) {
                     HStack {
                         Image("Logo")
                             .resizable()
@@ -42,7 +42,11 @@ struct DashboardView: View {
                     }
                     .padding(25)
                     Spacer()
-
+                    Text("Coming Soon")
+                        .foregroundStyle(.white)
+                        .font(.title)
+                        .bold()
+                    Spacer()
                 }
             }
         }
