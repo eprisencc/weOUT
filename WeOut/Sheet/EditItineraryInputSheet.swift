@@ -15,6 +15,7 @@ struct EditItineraryInputSheet: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     @State var index: Int = -1
+    @State private var showingDeleteAlert = false
     
     @EnvironmentObject var createItinerary: CreateItineraryVM
     
@@ -130,8 +131,14 @@ struct EditItineraryInputSheet: View {
                 .font(.title)
                 
                 Button("Delete") {
-                    createItinerary.itineraryArr.remove(at: index)
-                    dismiss()
+                    showingDeleteAlert = true
+                    
+                }
+                .alert("Do you want to delete this card?", isPresented: $showingDeleteAlert) {
+                    Button("Delete", role: .destructive) {
+                        createItinerary.itineraryArr.remove(at: index)
+                        dismiss()
+                    }
                 }
                 .padding(15)
                 .font(.title)
