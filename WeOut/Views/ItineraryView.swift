@@ -78,8 +78,6 @@ struct ItineraryView: View {
                                     .bold()
                                 Spacer()
                                 Button() {
-                                    
-                                    //createItinerary.itineraryArr.remove(at: index)
                                     createItinerary.dayOfTheTrip = createItinerary.itineraryArr[index].dayOfTheTrip
                                     
                                     createItinerary.itineraryImage = createItinerary.itineraryArr[index].itineraryImage
@@ -88,11 +86,11 @@ struct ItineraryView: View {
                                     
                                     showEditItinearyInputSheet.toggle()
                                     myIndex = index
-                                    print("What is myindex \(myIndex)")
                                     
                                 } label: {
                                     Image(systemName: "ellipsis")
                                 }
+                                .font(.largeTitle)
                                 .sheet(isPresented: $showEditItinearyInputSheet) {
                                     EditItineraryInputSheet(index: myIndex)
                                 }
