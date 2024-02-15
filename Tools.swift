@@ -134,7 +134,8 @@ struct TextFieldButton: View {
                 .focused($isTextFieldFocused)
                 .showClearButton($text)
                 .foregroundStyle(.text)
-                .font(.title)
+                .font(.title2)
+                .tint(.blinkingLineCursor)
                 //.background(.white)
         }
         .padding()
