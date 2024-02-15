@@ -38,7 +38,9 @@ struct ContentView: View {
             //                .resizable()
             //                .ignoresSafeArea(/*edges: .top*/)
             TabView {
-                TripsView()
+                TripsView {
+                    
+                }
                     .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
                 DashboardView()
                     .tabItem {

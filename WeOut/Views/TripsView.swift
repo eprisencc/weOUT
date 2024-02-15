@@ -15,6 +15,7 @@ struct TripsView: View {
     @EnvironmentObject var createTrip: CreateTripVM
     
     @State var myIndex: Int = -1
+    var onTap: () -> Void
     
     //Formate Dates for display in trips view
     var formatter1: DateFormatter {
@@ -103,21 +104,17 @@ struct TripsView: View {
                                     .bold()
                                 Spacer()
                                 Button() {
-                                    
-                                    //createItinerary.itineraryArr.remove(at: index)
                                     createTrip.destination = createTrip.tripArr[index].destination
                                     
                                     createTrip.tripImage = createTrip.tripArr[index].tripImage
                                     
-                                    //createItinerary.agenda = createItinerary.itineraryArr[index].agenda
-                                    
                                     showEditTripsInputSheet.toggle()
                                     myIndex = index
-                                    print("What is myindex \(myIndex)")
                                     
                                 } label: {
                                     Image(systemName: "ellipsis")
                                 }
+                                .font(.largeTitle)
                                 .sheet(isPresented: $showEditTripsInputSheet) {
                                     EditTripsInputSheet(index: myIndex)
                                 }
@@ -152,7 +149,9 @@ struct TripsView: View {
 
 
 #Preview {
-    TripsView()
+    TripsView {
+        
+    }
         .environmentObject(CreateTripVM())
     //.environmentObject(CreateItineraryVM())
 }
