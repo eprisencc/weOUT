@@ -12,8 +12,8 @@ struct ItineraryView: View {
     
     @State private var showItinearyInputSheet = false
     @State private var showEditItinearyInputSheet = false
-    @State var myIndex: Int = -1
-    @State var destination: String = ""
+    @AppStorage ("myIndex2") var myIndex: Int = -1
+    @AppStorage ("destination") var destination: String = ""
     
     //Itinerary object with all the days of the trip in it
     @EnvironmentObject var createItinerary: CreateItineraryVM

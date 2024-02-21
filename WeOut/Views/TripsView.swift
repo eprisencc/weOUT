@@ -14,7 +14,7 @@ struct TripsView: View {
     // Trip object with all the trips in it
     @EnvironmentObject var createTrip: CreateTripVM
     
-    @State var myIndex: Int = -1
+    @AppStorage ("myIndex") var myIndex: Int = -1
     var onTap: () -> Void
     
     //Formate Dates for display in trips view

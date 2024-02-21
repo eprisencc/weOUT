@@ -102,6 +102,11 @@ struct TripsInputSheet: View {
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
+                        .onTapGesture {
+                            if createTrip.startDate <= Date.now {
+                                createTrip.startDate = Date.now
+                            }
+                        }
                     
                     CompactDatePickerView(selectedDate: $createTrip.endDate)
                         .background(Color.white)
