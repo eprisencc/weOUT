@@ -15,6 +15,8 @@ weOUT is a streamlined travel planning app designed to simplify your journey fro
 
 With weOUT, travel planning becomes simple and stress-free, allowing you to focus on enjoying every moment of your adventure.
 
+## Screenshots
+
 <!-- ![Simulator Screenshot - iPhone 15 Pro Max - 2024-04-02 at 09 06 58](https://github.com/eprisencc/weOUT/assets/22011650/fe508619-f263-4a09-a269-4c35c6825c0c) -->
 
 <img src="https://github.com/eprisencc/weOUT/assets/22011650/fe508619-f263-4a09-a269-4c35c6825c0c" width="400" />
