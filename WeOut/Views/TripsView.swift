@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct TripsView: View {
     @State private var showTripsInputSheet = false
     @State private var showEditTripsInputSheet = false
     
     // Trip object with all the trips in it
-    @EnvironmentObject var createTrip: CreateTripVM
+    @EnvironmentObject var myTrips: Trips
     
-    @AppStorage ("myIndex") var myIndex: Int = -1
+    @State var myIndex: Int = -1
+    @State var currentIndex: Int = 0
+    //@State var myTrips: Trips = Trips()
     var onTap: () -> Void
     
     //Formate Dates for display in trips view
@@ -43,11 +46,21 @@ struct TripsView: View {
                 VStack(alignment: .leading) {
                     tripHeading
                     Spacer()
-                    NavigationLink {
-                        ItineraryView(destination: createTrip.destination)
+                    
+                    tripDetails
+                    
+                    /*NavigationLink {
+                        ItineraryView(destination: createTrip.tripArr[currentIndex].destination)
+                        Text("Destination \(createTrip.tripArr[currentIndex].destination)")
                     } label: {
                         tripDetails
-                    }
+                    }*/
+                    /*NavigationLink {
+                        ItineraryView(trip: )
+                        Text("Destination \(createTrip.destination)")
+                    } label: {
+                        tripDetails
+                    }*/
                 }
             }
         }
@@ -68,7 +81,7 @@ struct TripsView: View {
             //Bring up the Trip input sheet
             Button {
                 showTripsInputSheet.toggle()
-                createTrip.resetTripProperties()
+                myTrips.resetTripProperties()
             }
         label: {
             Image(systemName: "plus")
@@ -84,66 +97,72 @@ struct TripsView: View {
         .padding(25)
     }
     var tripDetails: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                ForEach(createTrip.tripArr.indices, id: \.self) { index in
-                    
-                    ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
-                        VStack {
-                            createTrip.tripArr[index].tripImage
-                                .resizable()
-                                .scaledToFit()
-                                .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                        }
-                        VStack(alignment: .leading){
-                            HStack {
-                                Text(createTrip.tripArr[index].destination)
-                                    .font(.title)
-                                    .foregroundStyle(Color.white)
-                                    .bold()
-                                Spacer()
-                                Button() {
-                                    createTrip.destination = createTrip.tripArr[index].destination
-                                    
-                                    createTrip.tripImage = createTrip.tripArr[index].tripImage
-                                    
-                                    showEditTripsInputSheet.toggle()
-                                    myIndex = index
-                                    
-                                } label: {
-                                    Image(systemName: "ellipsis")
-                                }
-                                .font(.largeTitle)
-                                .sheet(isPresented: $showEditTripsInputSheet) {
-                                    EditTripsInputSheet(index: myIndex)
-                                }
-                                //.presentationDetents([.large])
-                            }
-                            .foregroundStyle(.white)
-                            .padding(10)
-                            
-                            Text("\(formatter1.string(from: createTrip.tripArr[index].startDate)) - \(formatter2.string(from: createTrip.tripArr[index].endDate))")
-                                .foregroundStyle(.white)
-                                .foregroundStyle(.white)
-                                .padding(10)
-                                .font(.title2)
-                                .bold()
-                        }
-                        //                                    createTrip.tripArr[index].tripImage
-                        //                                        .resizable()
-                        //                                        .scaledToFit()
+        //NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    ForEach(Array($myTrips.tripArr.enumerated()), id: \.element.id) { index, tripBinding in
                         
-                        //                        Text(createTrip.tripArr[index].details)
-                        //                            .foregroundStyle(Color.white)
-                        //                            .bold()
+                        let trip = tripBinding.wrappedValue
+                        
+                        NavigationLink{
+                            // destination
+                            ItineraryView(trip: $myTrips.tripArr[index])
+                        } label: {
+                            
+                            
+                            //createTrip.whichDestination.append(index)
+                            //NavigationStack {
+                            //Text("index is \(index)")
+                            //Text("current index is \(currentIndex)")
+                            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                                VStack {
+                                    trip.tripImage
+                                        .resizable()
+                                        .scaledToFit()
+                                        .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
+                                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                                }
+                                VStack(alignment: .leading){
+                                    HStack {
+                                        Text(trip.destination)
+                                            .font(.title)
+                                            .foregroundStyle(Color.white)
+                                            .bold()
+                                        Spacer()
+                                        Button() {
+                                            myTrips.destination = trip.destination
+                                            
+                                            myTrips.tripImage = trip.tripImage
+                                            
+                                            showEditTripsInputSheet.toggle()
+                                            myIndex = index
+                                            
+                                        } label: {
+                                            Image(systemName: "ellipsis")
+                                        }
+                                        .font(.largeTitle)
+                                        .sheet(isPresented: $showEditTripsInputSheet) {
+                                            EditTripsInputSheet( trip: $myTrips.tripArr[myIndex])
+                                        }
+                                    }
+                                    .foregroundStyle(.white)
+                                    .padding(10)
+                                    
+                                    Text("\(formatter1.string(from: trip.startDate)) - \(formatter2.string(from: trip.endDate))")
+                                        .foregroundStyle(.white)
+                                        .foregroundStyle(.white)
+                                        .padding(10)
+                                        .font(.title2)
+                                        .bold()
+                                }
+                            }
+                            .padding(20)
+                        }
                     }
-                    .padding(20)
                 }
             }
-        } .frame(maxHeight: 2000).fixedSize(horizontal: false, vertical: false)
-        
-        //.frame(height: 100, alignment: .bottomLeading)
+            .frame(maxHeight: 2000)
+            .fixedSize(horizontal: false, vertical: false)
     }
 }
 
@@ -152,6 +171,5 @@ struct TripsView: View {
     TripsView {
         
     }
-        .environmentObject(CreateTripVM())
-    //.environmentObject(CreateItineraryVM())
+        .environmentObject(Trips())
 }

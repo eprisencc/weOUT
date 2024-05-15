@@ -12,15 +12,12 @@ struct ItineraryView: View {
     
     @State private var showItinearyInputSheet = false
     @State private var showEditItinearyInputSheet = false
-    @AppStorage ("myIndex2") var myIndex: Int = -1
-    @AppStorage ("destination") var destination: String = ""
-    
-    //Itinerary object with all the days of the trip in it
-    @EnvironmentObject var createItinerary: CreateItineraryVM
+    @State var myIndex: Int = -1
+    @Binding var trip: TripModel
+    @State var destination: String = "No where"
     
     var body: some View {
         ZStack{
-            //Color(hex: "#003459")
             Image("cloudSandBack")
                 .resizable()
                 .ignoresSafeArea()
@@ -34,11 +31,6 @@ struct ItineraryView: View {
     }
     var itineraryHeading: some View {
         HStack {
-//            Image("Logo")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 50)
-//                .clipShape(Circle())
             Text("Itinerary")
                 .font(.largeTitle)
                 .foregroundStyle(Color.titleheadings)
@@ -47,12 +39,11 @@ struct ItineraryView: View {
             //Bring up the itinerary input sheet
             Button {
                 showItinearyInputSheet.toggle()
-                createItinerary.resetItineraryProperties()
             }
             label: {
                 Image(systemName: "plus")
             }  .sheet(isPresented: $showItinearyInputSheet) {
-                ItineraryInputSheet()
+                ItineraryInputSheet(trip: $trip)
                     .presentationDetents([.large])
             }
             .foregroundColor(.titleheadings)
@@ -63,49 +54,45 @@ struct ItineraryView: View {
     var itineraryDetails: some View {
         ScrollView {
             VStack(spacing: 20) {
-                ForEach(createItinerary.itineraryArr.indices, id: \.self) { index in
+                ForEach(Array($trip.itineraryArr.enumerated()), id: \.element.id) { index, itineraryItemBinding in
                     
-                    ZStack {
-                        RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                            .foregroundColor(Color(hex: "#007EA7"))
-                            .padding(8)
-                            //.frame(width: 200)
-                        VStack(alignment: .leading){
-                            HStack {
-                                Text(createItinerary.itineraryArr[index].dayOfTheTrip)
-                                    .font(.title)
+                    let itineraryItem = itineraryItemBinding.wrappedValue
+                    
+                        ZStack {
+                            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                .foregroundColor(Color(hex: "#007EA7"))
+                                .padding(8)
+                            VStack(alignment: .leading){
+                                HStack {
+                                    Text(itineraryItem.dayOfTheTrip)
+                                        .font(.title)
+                                        .foregroundStyle(Color.white)
+                                        .bold()
+                                    Spacer()
+                                    Button() {
+                                        showEditItinearyInputSheet.toggle()
+                                        print(itineraryItem.dayOfTheTrip)
+                                        myIndex = index
+                                        
+                                    } label: {
+                                        Image(systemName: "ellipsis")
+                                    }
+                                    .font(.largeTitle)
+                                    .sheet(isPresented: $showEditItinearyInputSheet) {
+                                        EditItineraryInputSheet(itineraryItem: $trip.itineraryArr[myIndex], trip: $trip)
+                                    }
+                                    .foregroundColor(Color.white)
+                                }
+                                itineraryItem.itineraryImage
+                                    .resizable()
+                                    .scaledToFit()
+                                
+                                Text(itineraryItem.agenda)
                                     .foregroundStyle(Color.white)
                                     .bold()
-                                Spacer()
-                                Button() {
-                                    createItinerary.dayOfTheTrip = createItinerary.itineraryArr[index].dayOfTheTrip
-                                    
-                                    createItinerary.itineraryImage = createItinerary.itineraryArr[index].itineraryImage
-                                    
-                                    createItinerary.agenda = createItinerary.itineraryArr[index].agenda
-                                    
-                                    showEditItinearyInputSheet.toggle()
-                                    myIndex = index
-                                    
-                                } label: {
-                                    Image(systemName: "ellipsis")
-                                }
-                                .font(.largeTitle)
-                                .sheet(isPresented: $showEditItinearyInputSheet) {
-                                    EditItineraryInputSheet(index: myIndex)
-                                }
-                                .foregroundColor(Color.white)
                             }
-                            createItinerary.itineraryArr[index].itineraryImage
-                                .resizable()
-                                .scaledToFit()
-                            
-                            Text(createItinerary.itineraryArr[index].agenda)
-                                .foregroundStyle(Color.white)
-                                .bold()
+                            .padding(20)
                         }
-                        .padding(20)
-                    }
                 }
             }
         }
@@ -114,7 +101,6 @@ struct ItineraryView: View {
 
 
 #Preview {
-    ItineraryView()
-        .environmentObject(CreateItineraryVM())
+    ItineraryView(trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: "", tripImage: Image("blankImage"))))
 }
 

@@ -16,15 +16,14 @@ struct ItineraryInputSheet: View {
     @State private var inputImage: UIImage?
     var index: Int = -1
     var destination: String = ""
-    
-    @EnvironmentObject var createItinerary: CreateItineraryVM
+    @State var itinerary: ItineraryModel = ItineraryModel(dayOfTheTrip: "", itineraryImage: Image("blankImage"), agenda: "", destination: "")
+    @Binding var trip: TripModel
     
     var body: some View {
         NavigationView {
             ZStack {
                 Color(hex: "1F1F1F")
                     .ignoresSafeArea()
-                //.opacity(0.8)
                 
                 VStack {
                     HStack {
@@ -32,7 +31,6 @@ struct ItineraryInputSheet: View {
                             .font(.title)
                             .foregroundStyle(.white)
                             .padding(15)
-                        //.presentationDetents([.medium, .large])
                         Spacer()
                         Button {
                             dismiss()
@@ -53,7 +51,7 @@ struct ItineraryInputSheet: View {
                                 .foregroundStyle(.white)
                                 .padding(15)
                             
-                            TextFieldButton(text: $createItinerary.dayOfTheTrip ,textFieldExampleMessage: "ex. Day 1")
+                            TextFieldButton(text: $itinerary.dayOfTheTrip ,textFieldExampleMessage: "ex. Day 1")
                             Divider()
                                 .frame(height: 1)
                                 .overlay(Color(hex: "F5DFA3"))
@@ -78,8 +76,7 @@ struct ItineraryInputSheet: View {
                                 .overlay(Color(hex: "F5DFA3"))
                                 .padding()
                             HStack(alignment: .center) {
-                                
-                                createItinerary.itineraryImage
+                                itinerary.itineraryImage
                                     .resizable()
                                     .scaledToFit()
                                     .padding(25)
@@ -91,7 +88,7 @@ struct ItineraryInputSheet: View {
                                 .foregroundStyle(.white)
                                 .padding(15)
                             
-                            TextFieldButton(text: $createItinerary.agenda,textFieldExampleMessage: "ex. Things that are scheduled")
+                            TextFieldButton(text: $itinerary.agenda,textFieldExampleMessage: "ex. Things that are scheduled")
                             
                             Divider()
                                 .frame(height: 1)
@@ -102,8 +99,7 @@ struct ItineraryInputSheet: View {
                     } 
                     VStack(alignment: .center) {
                         Button("Submit") {
-                            createItinerary.addToItineraryArray()
-                            
+                            trip.itineraryArr.append(itinerary)
                             dismiss()
                         }
                         .padding(15)
@@ -114,15 +110,17 @@ struct ItineraryInputSheet: View {
                 .padding()
             }
         }
-        //.navigationTitle("Test")
         .onChange(of: inputImage) { loadImage() }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $inputImage)
         }
+        .onAppear() {
+            itinerary.destination = destination
+        }
     }
     func loadImage() {
         guard let inputImage = inputImage else { return }
-        createItinerary.itineraryImage = Image(uiImage: inputImage)
+        itinerary.itineraryImage = Image(uiImage: inputImage)
         
     }
 }
@@ -131,6 +129,5 @@ struct ItineraryInputSheet: View {
 
 
 #Preview {
-    ItineraryInputSheet()
-        .environmentObject(CreateItineraryVM())
+    ItineraryInputSheet(trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: "", tripImage: Image("blankImage"))))
 }
