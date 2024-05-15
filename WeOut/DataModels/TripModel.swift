@@ -8,52 +8,57 @@
 import Foundation
 import SwiftUI
 
-struct TripModel: Hashable {
+struct TripModel: Hashable, Identifiable {
+    var id = UUID()
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(startDate)
         hasher.combine(endDate)
-        hasher.combine(nameOfTrip)
         hasher.combine(destination)
-        hasher.combine(details)
     }
     var startDate: Date
     var endDate: Date
-    var nameOfTrip: String
     var destination: String
     var tripImage: Image
-    //var participants: [ParticipantModel]
-    var details: String
+    var itineraryArr: [ItineraryModel] = []
+    
+    mutating func removeItineraryItem(itineraryItem: ItineraryModel) {
+        if let itineraryIndex = itineraryArr.firstIndex(where: {$0.id == itineraryItem.id }) {
+            itineraryArr.remove(at: itineraryIndex)
+        }
+        else {
+            print("error")
+        }
+    }
 }
 
-class CreateTripVM: ObservableObject {
+class Trips: ObservableObject, Identifiable {
+    var id = UUID()
+    
     @Published var startDate: Date = Date.now
     @Published var endDate: Date = Date.now
-    @Published var nameOfTrip: String = ""
     @Published var destination: String = ""
     @Published var tripImage: Image = Image("blankImage")
-    //@Published var participants: [ParticipantModel] = []
-    @Published var details: String = ""
     @Published var tripArr: [TripModel] = []
     
     func addToTripArray() {
-        let trip = TripModel(startDate: startDate, endDate: endDate, nameOfTrip: nameOfTrip, destination: destination, tripImage: tripImage, /*participants: []*/ details: details)
+        let trip = TripModel(startDate: startDate, endDate: endDate, destination: destination, tripImage: tripImage)
         tripArr.append(trip)
     }
     
-    func addToExistingTripArray(index: Int) {
-        let trip = TripModel(startDate: startDate, endDate: endDate, nameOfTrip: nameOfTrip, destination: destination, tripImage: tripImage, /*participants: []*/ details: details)
-        
-        print("Add to existing trip array index \(index)")
-        tripArr[index] = trip
+    func removeFromTripArray(trip: TripModel) {
+        if let tripIndex = tripArr.firstIndex(where: {$0.id == trip.id }) {
+            tripArr.remove(at: tripIndex)
+        }
+        else {
+            print("error")
+        }
     }
     
     func resetTripProperties() {
         self.startDate = Date.now
         self.endDate = Date.now
-        self.nameOfTrip = ""
         self.destination = ""
         self.tripImage = Image("blankImage")
-        //self.participants = []
-        self.details = ""
     }
 }

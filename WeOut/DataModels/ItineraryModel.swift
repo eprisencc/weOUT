@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 //Daily Trip Itinerary
-struct ItineraryModel: Hashable {
+struct ItineraryModel: Hashable, Identifiable {
+    var id = UUID()
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(dayOfTheTrip)
@@ -19,37 +20,6 @@ struct ItineraryModel: Hashable {
     var dayOfTheTrip: String
     var itineraryImage: Image
     var agenda: String
+    var destination: String
     
-}
-
-class CreateItineraryVM: ObservableObject {
-    @Published var dayOfTheTrip: String = ""
-    @Published var itineraryImage: Image = Image("blankImage")
-    @Published var agenda: String = ""
-    @Published var itineraryArr: [ItineraryModel] = []
-    //@Published var itineraryDic: [String: [ItineraryModel]] = [:]
-    
-    func addToItineraryArray(/*destination: String*/) {
-        let itinerary = ItineraryModel(dayOfTheTrip: dayOfTheTrip, itineraryImage: itineraryImage, agenda: agenda)
-        itineraryArr.append(itinerary)
-        
-        
-        /*if !(itineraryDic[destination]?.isEmpty ?? true) {
-            itineraryDic[destination] = [itinerary]
-        } else {
-            itineraryDic[destination]?.append(itinerary)
-        }*/
-    }
-    
-    func resetItineraryProperties() {
-        self.dayOfTheTrip = ""
-        self.itineraryImage = Image("blankImage")
-        self.agenda = ""
-    }
-    
-    func addToExistingItineraryArray(index: Int) {
-        let itinerary = ItineraryModel(dayOfTheTrip: dayOfTheTrip, itineraryImage: itineraryImage, agenda: agenda)
-        print("Add to existing itinerary array index \(index)")
-        itineraryArr[index] = itinerary
-    }
 }

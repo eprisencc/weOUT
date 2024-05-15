@@ -14,18 +14,15 @@ struct EditItineraryInputSheet: View {
     @State private var showingImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
-    @State var index: Int = -1
     @State private var showingDeleteAlert = false
-    
-    @EnvironmentObject var createItinerary: CreateItineraryVM
+    @Binding var itineraryItem: ItineraryModel
+    @Binding var trip: TripModel
     
     var body: some View {
         NavigationView {
             ZStack {
                 Color(hex: "1F1F1F")
                     .ignoresSafeArea()
-                
-                
                 VStack {
                     itineraryHeading
                     itineraryDetails
@@ -71,7 +68,7 @@ struct EditItineraryInputSheet: View {
                     .foregroundStyle(.white)
                     .padding(15)
                 
-                TextFieldButton(text: $createItinerary.dayOfTheTrip ,textFieldExampleMessage: "ex. Day 1")
+                TextFieldButton(text: $itineraryItem.dayOfTheTrip ,textFieldExampleMessage: "ex. Day 1")
                 Divider()
                     .frame(height: 1)
                     .overlay(Color(hex: "F5DFA3"))
@@ -97,7 +94,7 @@ struct EditItineraryInputSheet: View {
                     .padding()
                 HStack(alignment: .bottom) {
                     
-                    createItinerary.itineraryImage
+                    itineraryItem.itineraryImage
                         .resizable()
                         .scaledToFit()
                         .padding(25)
@@ -109,7 +106,7 @@ struct EditItineraryInputSheet: View {
                     .foregroundStyle(.white)
                     .padding(15)
                 
-                TextFieldButton(text: $createItinerary.agenda,textFieldExampleMessage: "ex. Things that are scheduled")
+                TextFieldButton(text: $itineraryItem.agenda,textFieldExampleMessage: "ex. Things that are scheduled")
                 
                 Divider()
                     .frame(height: 1)
@@ -123,8 +120,6 @@ struct EditItineraryInputSheet: View {
         VStack(alignment: .center) {
             HStack {
                 Button("Save") {
-                    createItinerary.addToExistingItineraryArray(index: index)
-                    print("Index is \(index)")
                     dismiss()
                 }
                 .padding(15)
@@ -136,8 +131,8 @@ struct EditItineraryInputSheet: View {
                 }
                 .alert("Do you want to delete this card?", isPresented: $showingDeleteAlert) {
                     Button("Delete", role: .destructive) {
-                        createItinerary.itineraryArr.remove(at: index)
                         dismiss()
+                        trip.removeItineraryItem(itineraryItem: itineraryItem)
                     }
                 }
                 .padding(15)
@@ -147,7 +142,7 @@ struct EditItineraryInputSheet: View {
     }
     func loadImage() {
         guard let inputImage = inputImage else { return }
-        createItinerary.itineraryImage = Image(uiImage: inputImage)
+        itineraryItem.itineraryImage = Image(uiImage: inputImage)
         
     }
 }
@@ -156,7 +151,5 @@ struct EditItineraryInputSheet: View {
 
 
 #Preview {
-    EditItineraryInputSheet()
-        .environmentObject(CreateItineraryVM())
-    //.environmentObject(CreateTripVM())
+    EditItineraryInputSheet(itineraryItem: .constant(ItineraryModel(dayOfTheTrip: "", itineraryImage: Image("blankImage"), agenda: "", destination: "")), trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: "", tripImage: Image("blankImage"))))
 }
