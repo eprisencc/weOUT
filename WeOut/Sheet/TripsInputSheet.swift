@@ -18,9 +18,9 @@ struct TripsInputSheet: View {
     @State private var isStartDatePickerVisible = true
     @State private var isEndDatePickerVisible = true
     var destination: String = ""
-    var index: Int = -1
     
-    @EnvironmentObject var createTrip: CreateTripVM
+    //@State var myTrips: Trips = Trips()
+    @EnvironmentObject var myTrips: Trips
     
     var body: some View {
         NavigationView {
@@ -35,10 +35,8 @@ struct TripsInputSheet: View {
                     VStack(alignment: .center) {
                         divider
                         Button("Submit") {
-                            //createTrip.startDate = startSelectedDate
-                            //createTrip.endDate = endSelectedDate
-                            createTrip.addToTripArray()
-                            print("Elements of trip array \(createTrip.tripArr)")
+                            myTrips.addToTripArray()
+                            print("Elements of trip array \(myTrips.tripArr)")
                             dismiss()
                         }
                         .padding(15)
@@ -86,7 +84,7 @@ struct TripsInputSheet: View {
                     .foregroundStyle(.white)
                     .padding(15)
                 
-                TextFieldButton(text: $createTrip.destination ,textFieldExampleMessage: "ex. New York")
+                TextFieldButton(text: $myTrips.destination ,textFieldExampleMessage: "ex. New York")
                 divider
                 Spacer()
                 
@@ -98,17 +96,17 @@ struct TripsInputSheet: View {
                 
                 
                 HStack {
-                    CompactDatePickerView(selectedDate: $createTrip.startDate)
+                    CompactDatePickerView(selectedDate: $myTrips.startDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
-                        .onTapGesture {
-                            if createTrip.startDate <= Date.now {
-                                createTrip.startDate = Date.now
+                        /*.onTapGesture {
+                            if myTrips.startDate <= Date.now {
+                                myTrips.startDate = Date.now
                             }
-                        }
+                        }*/
                     
-                    CompactDatePickerView(selectedDate: $createTrip.endDate)
+                    CompactDatePickerView(selectedDate: $myTrips.endDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
@@ -131,7 +129,7 @@ struct TripsInputSheet: View {
             }
             
             HStack(alignment: .center) {
-                createTrip.tripImage
+                myTrips.tripImage
                     .resizable()
                     .scaledToFit()
                     .padding(25)
@@ -149,12 +147,12 @@ struct TripsInputSheet: View {
     
     func loadImage() {
         guard let inputImage = inputImage else { return }
-        createTrip.tripImage = Image(uiImage: inputImage)
+        myTrips.tripImage = Image(uiImage: inputImage)
         
     }
 }
 
 #Preview {
     TripsInputSheet()
-        .environmentObject(CreateTripVM())
+        .environmentObject(Trips())
 }

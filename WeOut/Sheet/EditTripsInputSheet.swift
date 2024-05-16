@@ -12,10 +12,10 @@ struct EditTripsInputSheet: View {
     @State private var showingImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
-    @State var index: Int = -1
     @State private var showingDeleteAlert = false
+    @Binding var trip: TripModel
     
-    @EnvironmentObject var createTrip: CreateTripVM
+    @EnvironmentObject var myTrips: Trips
     
     var body: some View {
         NavigationView {
@@ -32,7 +32,6 @@ struct EditTripsInputSheet: View {
                 .padding()
             }
         }
-        //.navigationTitle("Test")
         .onChange(of: inputImage) { loadImage() }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $inputImage)
@@ -66,7 +65,7 @@ struct EditTripsInputSheet: View {
                     .foregroundStyle(.white)
                     .padding(15)
                 
-                TextFieldButton(text: $createTrip.destination ,textFieldExampleMessage: "ex. New York")
+                TextFieldButton(text: $trip.destination ,textFieldExampleMessage: "ex. New York")
                 
                 Divider()
                     .frame(height: 1)
@@ -80,12 +79,12 @@ struct EditTripsInputSheet: View {
                     .padding(15)
                 
                 HStack {
-                    CompactDatePickerView(selectedDate: $createTrip.startDate)
+                    CompactDatePickerView(selectedDate: $trip.startDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
                     
-                    CompactDatePickerView(selectedDate: $createTrip.endDate)
+                    CompactDatePickerView(selectedDate: $trip.endDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
@@ -109,7 +108,7 @@ struct EditTripsInputSheet: View {
                 }
                 HStack(alignment: .center) {
                     
-                    createTrip.tripImage
+                    trip.tripImage
                         .resizable()
                         .scaledToFit()
                         .padding(25)
@@ -127,7 +126,6 @@ struct EditTripsInputSheet: View {
         VStack(alignment: .center) {
             HStack {
                 Button("Save") {
-                    createTrip.addToExistingTripArray(index: index)
                     dismiss()
                 }
                 .padding(15)
@@ -139,7 +137,7 @@ struct EditTripsInputSheet: View {
                 }
                 .alert("Do you want to delete this card?", isPresented: $showingDeleteAlert) {
                     Button("Delete", role: .destructive) { 
-                        createTrip.tripArr.remove(at: index)
+                        myTrips.removeFromTripArray(trip: trip)
                         dismiss()
                     }
                 }
@@ -157,13 +155,12 @@ struct EditTripsInputSheet: View {
     
     func loadImage() {
         guard let inputImage = inputImage else { return }
-        createTrip.tripImage = Image(uiImage: inputImage)
+        trip.tripImage = Image(uiImage: inputImage)
         
     }
 }
 
 #Preview {
-    EditTripsInputSheet()
-    //.environmentObject(CreateItineraryVM())
-        .environmentObject(CreateTripVM())
+    EditTripsInputSheet(trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: "", tripImage: Image("blankImage"))))
+        .environmentObject(Trips())
 }
