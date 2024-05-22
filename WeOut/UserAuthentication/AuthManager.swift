@@ -317,9 +317,9 @@ class AuthManager: ObservableObject {
         if providers.contains("apple.com")  {
             // TODO: Sign out from Apple
         }
-        if providers.contains("google.com") {
+        /*if providers.contains("google.com") {
             GoogleSignInManager.shared.signOutFromGoogle()
-        }
+        }*/
     }
 
     /// Sign out current `Firebase` auth user
