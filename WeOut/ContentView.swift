@@ -10,6 +10,7 @@ import Firebase
 
 struct ContentView: View {
     @EnvironmentObject var authManager: AuthManager
+    //Test
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground() // <- HERE

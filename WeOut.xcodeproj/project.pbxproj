@@ -14,6 +14,7 @@
 		ED0E1E292BFD5D500022D6E7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ED0E1E282BFD5D500022D6E7 /* FirebaseAuth */; };
 		ED0E1E312BFE22120022D6E7 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E1E302BFE22120022D6E7 /* AppleSignInManager.swift */; };
 		ED0E1E332BFE277D0022D6E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED0E1E322BFE277D0022D6E7 /* GoogleService-Info.plist */; };
+		ED0E1E372BFE49D60022D6E7 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = ED0E1E362BFE49D60022D6E7 /* FirebaseAppCheck */; };
 		ED16C6E32BF3B78E008E3BEA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ED16C6E22BF3B78E008E3BEA /* FirebaseFirestore */; };
 		ED16C6E52BF3B79F008E3BEA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ED16C6E42BF3B79F008E3BEA /* FirebaseFirestoreSwift */; };
 		ED189C832B70232E0047CF89 /* TripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED189C822B70232E0047CF89 /* TripsInputSheet.swift */; };
@@ -74,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED0E1E372BFE49D60022D6E7 /* FirebaseAppCheck in Frameworks */,
 				ED1EDE9F2BF269BE00026C25 /* FirebaseAnalyticsSwift in Frameworks */,
 				ED0E1E212BFCF6BC0022D6E7 /* GoogleSignInSwift in Frameworks */,
 				ED1EDE9B2BF269BE00026C25 /* FirebaseAnalytics in Frameworks */,
@@ -223,6 +225,7 @@
 				ED0E1E1E2BFCF6BC0022D6E7 /* GoogleSignIn */,
 				ED0E1E202BFCF6BC0022D6E7 /* GoogleSignInSwift */,
 				ED0E1E282BFD5D500022D6E7 /* FirebaseAuth */,
+				ED0E1E362BFE49D60022D6E7 /* FirebaseAppCheck */,
 			);
 			productName = WeOut;
 			productReference = ED96F8D62B62B57A0062245E /* WeOut.app */;
@@ -552,6 +555,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = ED1EDE992BF269BE00026C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		ED0E1E362BFE49D60022D6E7 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED1EDE992BF269BE00026C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
 		};
 		ED16C6E22BF3B78E008E3BEA /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
