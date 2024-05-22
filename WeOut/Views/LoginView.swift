@@ -35,6 +35,7 @@ struct LoginView: View {
                 )
                 .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
                 .frame(width: 280, height: 45, alignment: .center)
+                .padding(.bottom, 50)
 
                 // MARK: - Google
                 /*GoogleSignInButton {
@@ -42,7 +43,7 @@ struct LoginView: View {
                         await signInWithGoogle()
                     }
                 }*/
-                .frame(width: 280, height: 45, alignment: .center)
+                //.frame(width: 280, height: 45, alignment: .center)
 
                 // MARK: - Anonymous
                 // Hide `Skip` button if user is anonymous.
@@ -58,7 +59,8 @@ struct LoginView: View {
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(.yellow))
+            .background(Color(hex: "2DC7FF"))
+            .ignoresSafeArea()
         }
     }
 
