@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 
 struct ContentView: View {
+    @EnvironmentObject var authManager: AuthManager
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground() // <- HERE
@@ -23,9 +24,19 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ZStack() {
+        VStack {
+            VStack(spacing: 16) {
+                if authManager.authState != .signedOut {
+                    TripsView()
+                } else {
+                    LoginView()
+                }
+            }
+        }
+        
+        /*ZStack() {
             TabView {
-                TripsView {
+                TripsView() {
                     
                 }
                     .tabItem { Label("Trips", systemImage: "suitcase.rolling.fill") }
@@ -34,11 +45,12 @@ struct ContentView: View {
                         Label("Dashboard", systemImage: "doc.text.magnifyingglass")
                     }
             }
-        }
+        }*/
     }
 }
 
 #Preview {
     ContentView().preferredColorScheme(.dark)
         .environmentObject(Trips())
+        .environmentObject(AuthManager())
 }
