@@ -9,8 +9,10 @@ import SwiftUI
 import Firebase
 
 struct TripsView: View {
+    @EnvironmentObject var authManager: AuthManager
     @State private var showTripsInputSheet = false
     @State private var showEditTripsInputSheet = false
+    @State private var showLoginSheet = false
     
     // Trip object with all the trips in it
     @EnvironmentObject var myTrips: Trips
@@ -18,7 +20,7 @@ struct TripsView: View {
     @State var myIndex: Int = -1
     @State var currentIndex: Int = 0
     //@State var myTrips: Trips = Trips()
-    var onTap: () -> Void
+    //var onTap: () -> Void
     
     //Formate Dates for display in trips view
     var formatter1: DateFormatter {
@@ -43,24 +45,52 @@ struct TripsView: View {
                 //                Image("sandBottom")
                 //                    .resizable()
                 //                    .scaledToFit()
+                
                 VStack(alignment: .leading) {
+                    HStack {
+                        if authManager.authState == .signedIn {
+                            Text("Hi, " + (authManager.user?.displayName ?? "Name placeholder"))
+                                .font(.headline)
+                                .foregroundStyle(Color.titleheadings)
+                                .padding(.horizontal, 25)
+                            
+                            //Text(authManager.user?.email ?? "Email placeholder")
+                                //.font(.subheadline)
+                        }
+                        else {
+                            Text("Sign-in to view data!")
+                                .font(.headline)
+                        }
+                        
+                    }
+                    /*.sheet(isPresented: $showLoginSheet) {
+                        LoginView()
+                    }*/
                     tripHeading
                     Spacer()
-                    
                     tripDetails
                     
-                    /*NavigationLink {
-                        ItineraryView(destination: createTrip.tripArr[currentIndex].destination)
-                        Text("Destination \(createTrip.tripArr[currentIndex].destination)")
-                    } label: {
-                        tripDetails
-                    }*/
-                    /*NavigationLink {
-                        ItineraryView(trip: )
-                        Text("Destination \(createTrip.destination)")
-                    } label: {
-                        tripDetails
-                    }*/
+                    // Show `Sign out` iff user is not anonymous,
+                    // otherwise show `Sign-in` to present LoginView() when tapped.
+                    HStack {
+                        Spacer()
+                        Button {
+                            if authManager.authState != .signedIn {
+                                showLoginSheet = true
+                            } else {
+                                signOut()
+                            }
+                        } label: {
+                            Text(authManager.authState != .signedIn ? "Sign-in" :"Sign out")
+                                .font(.body.bold())
+                                .frame(width: 150, height: 45, alignment: .center)
+                                .foregroundStyle(Color(.white))
+                                .background(Color(.blue))
+                                .cornerRadius(10)
+                        }
+                        Spacer()
+                    }
+                    
                 }
             }
         }
@@ -94,7 +124,7 @@ struct TripsView: View {
         .foregroundColor(.titleheadings)
         .font(.largeTitle)
         }
-        .padding(25)
+        .padding(.horizontal, 25)
     }
     var tripDetails: some View {
         //NavigationStack {
@@ -164,12 +194,21 @@ struct TripsView: View {
             .frame(maxHeight: 2000)
             .fixedSize(horizontal: false, vertical: false)
     }
+    func signOut() {
+        Task {
+            do {
+                try await authManager.signOut()
+            }
+            catch {
+                print("Error: \(error)")
+            }
+        }
+    }
 }
 
 
 #Preview {
-    TripsView {
-        
-    }
+    TripsView()
         .environmentObject(Trips())
+        .environmentObject(AuthManager())
 }
