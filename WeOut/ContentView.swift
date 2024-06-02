@@ -26,6 +26,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            //LoginView()
             VStack(spacing: 16) {
                 if authManager.authState != .signedOut {
                     TripsView()

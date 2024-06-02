@@ -16,9 +16,11 @@ struct ItineraryInputSheet: View {
     @State private var inputImage: UIImage?
     var index: Int = -1
     var destination: String = ""
-    @State var itinerary: ItineraryModel = ItineraryModel(dayOfTheTrip: "", itineraryImage: Image("blankImage"), agenda: "", destination: "")
-    @Binding var trip: TripModel
-    
+    @State var itinerary: ItineraryModel
+    @State var trip: TripModel
+    @EnvironmentObject private var profileVm: ProfileViewModel
+    @EnvironmentObject private var planVm: PlansViewModel
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -63,25 +65,25 @@ struct ItineraryInputSheet: View {
                                     .foregroundStyle(.white)
                                     .font(.title)
                                     .padding(15)
-                                
-                                Button(role: .cancel, action: {
-                                    showingImagePicker = true
-                                }) {
-                                    Image(systemName: "plus")
-                                }
-                                .foregroundColor(Color.white)
+                                photoPicker
+//                                Button(role: .cancel, action: {
+//                                    showingImagePicker = true
+//                                }) {
+//                                    Image(systemName: "plus")
+//                                }
+//                                .foregroundColor(Color.white)
                             }
                             Divider()
                                 .frame(height: 1)
                                 .overlay(Color(hex: "F5DFA3"))
                                 .padding()
-                            HStack(alignment: .center) {
-                                itinerary.itineraryImage
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(25)
-                                
-                            }
+//                            HStack(alignment: .center) {
+//                                itinerary.itineraryImage
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .padding(25)
+//                                
+//                            }
                             Spacer()
                             Text("Agenda?")
                                 .font(.title)
@@ -99,9 +101,19 @@ struct ItineraryInputSheet: View {
                     } 
                     VStack(alignment: .center) {
                         Button("Submit") {
-                            trip.itineraryArr.append(itinerary)
-                            dismiss()
-                        }
+                            if let user = profileVm.currentUser{
+                                Task{
+                                    let success =  await profileVm.saveTrip(user: user, trip: trip, photo: Photo(), image: profileVm.eventImage ?? UIImage())
+                                    if success {
+                                        dismiss()
+
+                                    }
+                                    
+                                    
+                                  }
+                            }
+                           
+                         }
                         .padding(15)
                         
                         .font(.title)
@@ -110,24 +122,74 @@ struct ItineraryInputSheet: View {
                 .padding()
             }
         }
-        .onChange(of: inputImage) { loadImage() }
-        .sheet(isPresented: $showingImagePicker) {
-            ImagePicker(image: $inputImage)
-        }
-        .onAppear() {
-            itinerary.destination = destination
-        }
-    }
-    func loadImage() {
-        guard let inputImage = inputImage else { return }
-        itinerary.itineraryImage = Image(uiImage: inputImage)
         
+        .onChange(of: profileVm.photoPickerItem){
+          _,_ in
+          Task {
+      if let _ = profileVm.photoPickerItem,
+  let data = try? await profileVm.photoPickerItem?.loadTransferable(type: Data.self){
+                  
+                  if let image = UIImage(data: data){
+                      profileVm.eventImage = image
+                      
+                      print("💦\(profileVm.eventImage ?? UIImage())")
+                       print("📸Succcesffullly selected image")
+                      profileVm.newPhoto = Photo()
+//                                showPhotoViewSheet.toggle()
+
+                  }
+           
+            
+              }
+              
+profileVm.photoPickerItem = nil
+          }
+          profileVm.didSelectImage = true
+      }
+
+        
+//         .sheet(isPresented: $showingImagePicker) {
+//            ImagePicker(image: $inputImage)
+//        }
+//        .onAppear() {
+//            itinerary.destination = destination
+//        }
+        .task {
+            try? await profileVm.loadCurrentUser()
+        }
     }
-}
-
-
+ }
 
 
 #Preview {
-    ItineraryInputSheet(trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: "", tripImage: Image("blankImage"))))
+    ItineraryInputSheet(itinerary: ItineraryModel(), trip: TripModel())
+        .environmentObject(ProfileViewModel())
+ }
+
+ 
+
+private extension ItineraryInputSheet{
+    
+    var photoPicker : some View {
+        VStack{
+            PhotosPicker(selection: $profileVm.photoPickerItem,matching: .images) {
+                                 if let selectedImage = profileVm.eventImage { // if there is a image selceteds display
+                                Image(uiImage: selectedImage)
+                                    .resizable()
+                                     .aspectRatio(contentMode: .fill)
+                                     .frame(width:50,height: 50)
+                                      .clipShape(RoundedRectangle(cornerRadius: 20))
+                            } else {// show logo instead
+                                    Image("Logo")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 50,height: 50)
+                             }
+            }
+            .buttonStyle(.plain)
+        }.padding(.leading)
+//
+    }
+
+     
 }

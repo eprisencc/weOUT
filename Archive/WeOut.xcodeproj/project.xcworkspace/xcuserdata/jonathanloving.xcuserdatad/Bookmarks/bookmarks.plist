@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>top-level-items</key>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>24</string>
+					<key>EndingLineNumber</key>
+					<string>134</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>134</string>
+					<key>Timestamp</key>
+					<string>738167321.024428</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/Sheet/EditItineraryInputSheet.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>                        </string>
+				<key>leading</key>
+				<string>                    Button("Delete", role: .destructive) {
+                        dismiss()
+</string>
+				<key>trailing</key>
+				<string>//trip.removeItineraryItem(itineraryItem: itineraryItem)
+                    }
+                }
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>27</string>
+					<key>EndingLineNumber</key>
+					<string>153</string>
+					<key>StartingColumnNumber</key>
+					<string>4</string>
+					<key>StartingLineNumber</key>
+					<string>153</string>
+					<key>Timestamp</key>
+					<string>738167357.494863</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/Sheet/EditItineraryInputSheet.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>EditItineraryInputSheet</string>
+				<key>leading</key>
+				<string>
+#Preview {
+    </string>
+				<key>trailing</key>
+				<string>(itineraryItem: .constant(ItineraryModel(dayOfTheTrip: "", itineraryImage: Image("blankImage"), agenda: "", destination: "")), trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: ""/*, tripImage: Image("blankImage")*/)))
+}
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>47</string>
+					<key>EndingLineNumber</key>
+					<string>101</string>
+					<key>StartingColumnNumber</key>
+					<string>35</string>
+					<key>StartingLineNumber</key>
+					<string>101</string>
+					<key>Timestamp</key>
+					<string>738167371.921262</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/Sheet/ItineraryInputSheet.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>itineraryArr</string>
+				<key>leading</key>
+				<string>                    VStack(alignment: .center) {
+                        Button("Submit") {
+                            //trip.</string>
+				<key>trailing</key>
+				<string>.append(itinerary)
+                            dismiss()
+                        }
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>118</string>
+					<key>EndingLineNumber</key>
+					<string>131</string>
+					<key>StartingColumnNumber</key>
+					<string>109</string>
+					<key>StartingLineNumber</key>
+					<string>131</string>
+					<key>Timestamp</key>
+					<string>738167389.573281</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/Sheet/ItineraryInputSheet.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>tripImage</string>
+				<key>leading</key>
+				<string>
+#Preview {
+    ItineraryInputSheet(trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: ""/*, </string>
+				<key>trailing</key>
+				<string>: Image("blankImage")*/)))
+}
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>28</string>
+					<key>EndingLineNumber</key>
+					<string>79</string>
+					<key>StartingColumnNumber</key>
+					<string>19</string>
+					<key>StartingLineNumber</key>
+					<string>79</string>
+					<key>Timestamp</key>
+					<string>738167397.6546741</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/DataModels/TripModel.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>TripModel</string>
+				<key>leading</key>
+				<string>    
+    func addToTripArray() {
+        let trip = </string>
+				<key>trailing</key>
+				<string>(startDate: startDate, endDate: endDate, destination: destination/*, tripImage: tripImage*/)
+        tripArr.append(trip)
+    }
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>187</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>186</string>
+					<key>Timestamp</key>
+					<string>738603807.943584</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/Views/TripsView.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>//                                    trip.tripImage
+</string>
+				<key>leading</key>
+				<string>                            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                                VStack {
+</string>
+				<key>trailing</key>
+				<string>//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>203</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>202</string>
+					<key>Timestamp</key>
+					<string>738603807.943567</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/Views/TripsView.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>                                            //myTrips.tripImage = trip.tripImage
+</string>
+				<key>leading</key>
+				<string>                                            myTrips.destination = trip.destination
+                                            
+</string>
+				<key>trailing</key>
+				<string>                                            
+                                            showEditTripsInputSheet.toggle()
+                                            myIndex = index
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>59</string>
+					<key>EndingLineNumber</key>
+					<string>44</string>
+					<key>StartingColumnNumber</key>
+					<string>52</string>
+					<key>StartingLineNumber</key>
+					<string>44</string>
+					<key>Timestamp</key>
+					<string>738257864.440616</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/Sheet/TripsInputSheet.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>addTrip</string>
+				<key>leading</key>
+				<string>                       let newTrip = TripModel(startDate: startSelectedDate, endDate: endSelectedDate, destination: destination)
+ 
+//                        let success = await myTrips.</string>
+				<key>trailing</key>
+				<string>(user: &lt;#T##Player#&gt;, trip: newTrip)
+//                        let success = await myTrips.addTrip(newTrip)
+//                        
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>WeOut/DataModels/TripModel.swift</string>
+					</dict>
+				</dict>
+				<key>type</key>
+				<string>DVTDocumentLocation</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
+</dict>
+</plist>
