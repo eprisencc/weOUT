@@ -8,13 +8,19 @@
 import AuthenticationServices
 import GoogleSignInSwift
 import SwiftUI
+import Firebase
+import FirebaseAuth
+import FirebaseFirestoreSwift
+
+
 
 struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
 
     @EnvironmentObject var authManager: AuthManager
-
+    @EnvironmentObject var profileVm: ProfileViewModel
+@State private var showTripsView = false
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
@@ -23,44 +29,76 @@ struct LoginView: View {
                     .foregroundStyle(Color(.blue))
                     .padding()
                 Spacer()
-
+                
+//                VStack{
+//                    Text("User Id: \(String(describing: Auth.auth().currentUser?.uid))")
+//                    
+//                    if let user = profileVm.user{
+//                        Text(user.email)
+//                            .foregroundStyle(.black)
+//                        Text(user.name)
+//                            .foregroundStyle(.black)
+//                    }
+//                    
+//                    Button("Signout"){
+//                        do {
+//                            try Auth.auth().signOut()
+//                            
+//                        } catch{
+//                            
+//                        }
+//                    }
+//                }
                 // MARK: - Apple
                 SignInWithAppleButton(
                     onRequest: { request in
                         AppleSignInManager.shared.requestAppleAuthorization(request)
                     },
                     onCompletion: { result in
-                        handleAppleID(result)
+                         handleAppleID(result)
+                        //MARK: Use this navigate to Trips View ~ J.W.
+                        showTripsView.toggle()
+                        print("😎 Succesfully Logged In")
                     }
                 )
                 .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
                 .frame(width: 280, height: 45, alignment: .center)
                 .padding(.bottom, 50)
-
+                
                 // MARK: - Google
                 /*GoogleSignInButton {
-                    Task {
-                        await signInWithGoogle()
-                    }
-                }*/
+                 Task {
+                 await signInWithGoogle()
+                 }
+                 }*/
                 //.frame(width: 280, height: 45, alignment: .center)
-
+                
                 // MARK: - Anonymous
                 // Hide `Skip` button if user is anonymous.
                 /*if authManager.authState == .signedOut {
-                    Button {
-                        signAnonymously()
-                    } label: {
-                        Text("Skip")
-                            .font(.body.bold())
-                            .frame(width: 280, height: 45, alignment: .center)
-                    }
-                }*/
+                 Button {
+                 signAnonymously()
+                 } label: {
+                 Text("Skip")
+                 .font(.body.bold())
+                 .frame(width: 280, height: 45, alignment: .center)
+                 }
+                 }*/
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(hex: "2DC7FF"))
             .ignoresSafeArea()
+            .onAppear{
+                //MARK: Navigates to TripsView if logged in already ~ J.W.
+            if Auth.auth().currentUser != nil {
+                    print ("🪵 Login successful!")
+              showTripsView = true
+                }
+              }
+        }
+        .fullScreenCover(isPresented: $showTripsView) {
+            TripsView()
         }
     }
 
@@ -95,7 +133,16 @@ struct LoginView: View {
                         appleIDCredentials,
                         nonce: AppleSignInManager.nonce
                     )
-                    if result != nil {
+                    
+                    
+                    if let authResult = result {
+                                       // Send user data to Firestore
+                                       try await sendUserDataToFirestore(authResult.user)
+                                       
+                                       // Dismiss view or perform any other necessary actions
+                                       dismiss()
+                                   }
+                     if result != nil {
                         dismiss()
                     }
                 } catch {
@@ -107,6 +154,24 @@ struct LoginView: View {
         else if case let .failure(error) = result {
             print("AppleAuthorization failed: \(error)")
             // Here you can show error message to user.
+        }
+    }
+    
+    func sendUserDataToFirestore(_ user: User) async throws {
+        // Your code for sending user data to Firestore collection
+        // Assuming you have access to Firestore and 'authManager'
+        // This might be similar to the logic you use elsewhere to send user data to Firestore
+        let db = Firestore.firestore()
+        if let currentUser = Auth.auth().currentUser {
+            let usersCollection = db.collection("users")
+            let userData: [String: Any] = [
+                "uid": currentUser.uid,
+                "email": currentUser.email ?? "",
+                "name": currentUser.displayName ?? ""
+                // Add other user data fields as needed
+            ]
+            // Add the user data to Firestore
+            try await usersCollection.document(currentUser.uid).setData(userData)
         }
     }
 
@@ -127,4 +192,6 @@ struct LoginView: View {
 #Preview {
     LoginView()
         .environmentObject(AuthManager())
+        .environmentObject(ProfileViewModel())
+
 }

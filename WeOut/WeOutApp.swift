@@ -26,8 +26,9 @@ struct WeOutApp: App {
     
     // 1. Add StateObject authManager.
     @StateObject var authManager: AuthManager = AuthManager()
+    @StateObject var profileVm: ProfileViewModel = ProfileViewModel()
+    @StateObject private var planVm: PlansViewModel = PlansViewModel()
 
-    
     init() {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
@@ -43,6 +44,10 @@ struct WeOutApp: App {
                 .environmentObject(myTrips)
                 // 3. Pass authManager to enviromentObject.
                 .environmentObject(authManager)
+                .environmentObject(profileVm)
+                .environmentObject(planVm)
+
+
             
         }
     }

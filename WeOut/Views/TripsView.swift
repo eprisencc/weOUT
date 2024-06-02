@@ -7,15 +7,26 @@
 
 import SwiftUI
 import Firebase
+import Foundation
+import FirebaseAuth
+import FirebaseCore
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct TripsView: View {
     @EnvironmentObject var authManager: AuthManager
     @State private var showTripsInputSheet = false
     @State private var showEditTripsInputSheet = false
     @State private var showLoginSheet = false
+    @State private var showItineraryItems = false
     
     // Trip object with all the trips in it
     @EnvironmentObject var myTrips: Trips
+    @EnvironmentObject var profileVm: ProfileViewModel
+    
+    @FirestoreQuery(collectionPath: "users") var alltrips : [TripModel]
+    
     
     @State var myIndex: Int = -1
     @State var currentIndex: Int = 0
@@ -48,24 +59,26 @@ struct TripsView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        if authManager.authState == .signedIn {
-                            Text("Hi, " + (authManager.user?.displayName ?? "Name placeholder"))
+                        
+                        //MARK: display info from FB instead to  ensure u always get a name ~JW
+                        if let user = profileVm.currentUser {
+                            Text("Hi, " + "\(user.name)")
                                 .font(.headline)
                                 .foregroundStyle(Color.titleheadings)
                                 .padding(.horizontal, 25)
                             
-                            //Text(authManager.user?.email ?? "Email placeholder")
-                                //.font(.subheadline)
                         }
                         else {
                             Text("Sign-in to view data!")
                                 .font(.headline)
                         }
                         
+                        
+                        
                     }
-                    /*.sheet(isPresented: $showLoginSheet) {
-                        LoginView()
-                    }*/
+                    //                    .sheet(isPresented: $showLoginSheet) {
+                    //                        LoginView()
+                    //                    }
                     tripHeading
                     Spacer()
                     tripDetails
@@ -93,9 +106,28 @@ struct TripsView: View {
                     
                 }
             }
+            .sheet(item: $profileVm.selectedTrip) { trip in
+                ItineraryView(trip: trip)
+            }
+            .sheet(item: $profileVm.editTrip) { trip in
+                EditTripsInputSheet(trip: trip)
+            }
+            
+            
+            .task{
+                try? await profileVm.loadCurrentUser()
+                if let user = profileVm.currentUser{
+                    $alltrips.path = "users/\(user.uid)/myTrips"
+                    print("⚡️⚡️⚡️⚡️Path updated for trips: \($alltrips.path)")
+                }
+                
+                //                  profileVm.getMyTrips()
+            }//MARK: ~JW
+            
+            
         }
     }
-    
+
     var tripHeading: some View {
         HStack {
             Image("Logo")
@@ -113,7 +145,7 @@ struct TripsView: View {
                 showTripsInputSheet.toggle()
                 myTrips.resetTripProperties()
             }
-        label: {
+        label:{
             Image(systemName: "plus")
         }
         .sheet(isPresented: $showTripsInputSheet) {
@@ -121,78 +153,80 @@ struct TripsView: View {
                 .presentationDetents([.large])
                 .background(Color(hex: "1F1F1F").ignoresSafeArea())
         }
-        .foregroundColor(.titleheadings)
+        .foregroundStyle(.titleheadings)
         .font(.largeTitle)
         }
         .padding(.horizontal, 25)
     }
     var tripDetails: some View {
-        //NavigationStack {
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    ForEach(Array($myTrips.tripArr.enumerated()), id: \.element.id) { index, tripBinding in
-                        
-                        let trip = tripBinding.wrappedValue
-                        
-                        NavigationLink{
-                            // destination
-                            ItineraryView(trip: $myTrips.tripArr[index])
-                        } label: {
-                            
-                            
-                            //createTrip.whichDestination.append(index)
-                            //NavigationStack {
-                            //Text("index is \(index)")
-                            //Text("current index is \(currentIndex)")
-                            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
-                                VStack {
-                                    trip.tripImage
-                                        .resizable()
-                                        .scaledToFit()
-                                        .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
-                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                                }
-                                VStack(alignment: .leading){
-                                    HStack {
-                                        Text(trip.destination)
-                                            .font(.title)
-                                            .foregroundStyle(Color.white)
-                                            .bold()
-                                        Spacer()
-                                        Button() {
-                                            myTrips.destination = trip.destination
-                                            
-                                            myTrips.tripImage = trip.tripImage
-                                            
-                                            showEditTripsInputSheet.toggle()
-                                            myIndex = index
-                                            
-                                        } label: {
-                                            Image(systemName: "ellipsis")
-                                        }
-                                        .font(.largeTitle)
-                                        .sheet(isPresented: $showEditTripsInputSheet) {
-                                            EditTripsInputSheet( trip: $myTrips.tripArr[myIndex])
-                                        }
-                                    }
-                                    .foregroundStyle(.white)
-                                    .padding(10)
+                    ForEach(alltrips,id: \.id) { trip in
+                            NavigationLink {
+                                //profileVm.selectedTrip = trip
+                                ItineraryView(trip: trip)
+                            } label: {
+                                ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                                     
-                                    Text("\(formatter1.string(from: trip.startDate)) - \(formatter2.string(from: trip.endDate))")
-                                        .foregroundStyle(.white)
+                                    // use the link from fb to display an image ~JW
+                                    coverPhoto(link: trip.coverPhoto ?? "")
+                                    
+                                    VStack(alignment: .leading){
+                                        HStack {
+                                            Text(trip.destination)
+                                                .font(.title)
+                                                .foregroundStyle(Color.white)
+                                                .bold()
+                                            Spacer()
+                                            
+                                            
+                                            Button() {
+                                                //                                            myTrips.destination = trip.destination
+                                                
+                                                //myTrips.tripImage = trip.tripImage
+                                                profileVm.editTrip = trip
+                                                //                                             showEditTripsInputSheet.toggle()
+                                                //myIndex = index
+                                                
+                                            } label: {
+                                                Image(systemName: "ellipsis")
+                                            }
+                                            .font(.largeTitle)
+                                            //                                        .sheet(isPresented: $showEditTripsInputSheet) {
+                                            //                                            //EditTripsInputSheet( trip: $myTrips.tripArr[myIndex])
+                                            //                                        }
+                                        }
                                         .foregroundStyle(.white)
                                         .padding(10)
-                                        .font(.title2)
-                                        .bold()
+                                        
+                                        Text("\(formatter1.string(from: trip.startDate)) - \(formatter2.string(from: trip.endDate))")
+                                            .foregroundStyle(.white)
+                                            .foregroundStyle(.white)
+                                            .padding(10)
+                                            .font(.title2)
+                                            .bold()
+                                    }
                                 }
                             }
-                            .padding(20)
-                        }
-                    }
+                            
+                            
+                        //}
+                        .padding(20)
+                        /*.fullScreenCover(isPresented: $showItineraryItems) {
+                            ItineraryView(trip: trip)
+                        }*/
+                        
+                    }//MARK: ~JW
+                    //
                 }
+            }.task{
+                // fetching all the data from array
+                try? await  myTrips.getAllTrips()
             }
             .frame(maxHeight: 2000)
             .fixedSize(horizontal: false, vertical: false)
+        }
     }
     func signOut() {
         Task {
@@ -204,6 +238,28 @@ struct TripsView: View {
             }
         }
     }
+    @ViewBuilder
+    func coverPhoto(link: String) -> some View {
+        VStack(alignment:.leading){
+            let imageURL = URL(string: link) ?? URL(string: "")
+            AsyncImage(url: imageURL) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 400, height: 250)
+                    .clipped()
+                    .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                
+            } placeholder: {
+                ProgressView()
+                    .frame(width: 100, height: 100)
+            }
+        }
+        
+    }
+    
+    
 }
 
 
@@ -211,4 +267,6 @@ struct TripsView: View {
     TripsView()
         .environmentObject(Trips())
         .environmentObject(AuthManager())
+        .environmentObject(ProfileViewModel())
+    
 }

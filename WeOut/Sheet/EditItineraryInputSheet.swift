@@ -7,6 +7,16 @@
 
 import SwiftUI
 import PhotosUI
+import Foundation
+import FirebaseAuth
+import FirebaseCore
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FirebaseStorage
+import PhotosUI
+import UIKit
+import _PhotosUI_SwiftUI
 
 //Sheet that displays the input for the itinerary
 struct EditItineraryInputSheet: View {
@@ -15,8 +25,10 @@ struct EditItineraryInputSheet: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     @State private var showingDeleteAlert = false
-    @Binding var itineraryItem: ItineraryModel
-    @Binding var trip: TripModel
+    @State var itineraryItem: ItineraryModel
+    @State var trip: TripModel
+    @EnvironmentObject var profileVm : ProfileViewModel
+    @EnvironmentObject var planVm : PlansViewModel
     
     var body: some View {
         NavigationView {
@@ -31,12 +43,32 @@ struct EditItineraryInputSheet: View {
                 .padding()
             }
         }
-        //.navigationTitle("Test")
-        .onChange(of: inputImage) { loadImage() }
+        
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $inputImage)
         }
     }
+    
+    
+    
+    
+    
+}
+
+
+
+
+#Preview {
+    EditItineraryInputSheet(itineraryItem: ItineraryModel(), trip: TripModel())
+        .environmentObject(ProfileViewModel())
+        .environmentObject(PlansViewModel())
+    
+}
+
+
+
+private extension EditItineraryInputSheet{
+    
     
     var itineraryHeading: some View {
         HStack {
@@ -81,23 +113,21 @@ struct EditItineraryInputSheet: View {
                         .font(.title)
                         .padding(15)
                     
-                    Button(role: .cancel, action: {
-                        showingImagePicker = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                    .foregroundColor(Color.white)
+                    photoPicker
+                    
                 }
+                
+                
                 Divider()
                     .frame(height: 1)
                     .overlay(Color(hex: "F5DFA3"))
                     .padding()
                 HStack(alignment: .bottom) {
                     
-                    itineraryItem.itineraryImage
-                        .resizable()
-                        .scaledToFit()
-                        .padding(25)
+                    //                    itineraryItem.itineraryImage
+                    //                        .resizable()
+                    //                        .scaledToFit()
+                    //                        .padding(25)
                     
                 }
                 Spacer()
@@ -116,40 +146,123 @@ struct EditItineraryInputSheet: View {
             }
         }
     }
+    
+    // new code
     var itinerarySaveDelete: some View {
         VStack(alignment: .center) {
             HStack {
                 Button("Save") {
-                    dismiss()
+                    Task{
+                        if let user = profileVm.currentUser{
+                            let success =  await planVm.updateItinerary(user: user, trip: trip, plan: itineraryItem,  image: profileVm.eventImage ?? UIImage())
+                            if success{
+                                dismiss()
+                            }
+                        }
+                    }
+                    
                 }
                 .padding(15)
-                .font(.title)
-                
                 Button("Delete") {
+                    //
                     showingDeleteAlert = true
-                    
                 }
                 .alert("Do you want to delete this card?", isPresented: $showingDeleteAlert) {
                     Button("Delete", role: .destructive) {
-                        dismiss()
-                        trip.removeItineraryItem(itineraryItem: itineraryItem)
+                        Task{
+                            if let user = profileVm.currentUser{
+                                let success =  try await planVm.deletePlan(userId: user.uid, tripID: trip.id ?? "", plan: profileVm.editItineraryItem ?? ItineraryModel())
+                                if success{
+                                    dismiss()
+                                    
+                                }
+                                
+                                
+                            }
+                            
+                        }
+                        //trip.removeItineraryItem(itineraryItem: itineraryItem)
                     }
                 }
                 .padding(15)
-                .font(.title)
+
             }
+            .padding(15)
+            .font(.title)
+            
+            //.padding(15)
+            //.font(.title)
         }
     }
-    func loadImage() {
-        guard let inputImage = inputImage else { return }
-        itineraryItem.itineraryImage = Image(uiImage: inputImage)
+    
+    
+    // new code
+    @ViewBuilder
+    func thumbNail(link: String) -> some View {
+        VStack(alignment:.leading){
+            let imageURL = URL(string: link) ?? URL(string: "")
+            AsyncImage(url: imageURL) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                    .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                
+                
+            } placeholder: {
+                ProgressView()
+                    .frame(width: 50, height: 50)
+            }
+        }
         
     }
+    
+    var photoPicker : some View {
+        VStack{
+            PhotosPicker(selection: $planVm.photoPickerItem,matching: .images) {
+                if let selectedImage = planVm.planImage { // if there is a image selceteds display
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 50, height: 50)
+                        .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                } else {// show logo instead
+                    thumbNail(link:itineraryItem.itineraryImage )
+                }
+            }
+            .buttonStyle(.plain)
+        }.padding(.leading)
+            .onChange(of: planVm.photoPickerItem){
+                _,_ in
+                Task {
+                    if let _ = planVm.photoPickerItem,
+                       let data = try? await planVm.photoPickerItem?.loadTransferable(type: Data.self){
+                        
+                        if let image = UIImage(data: data){
+                            planVm.planImage = image
+                            print("📸Succcesffullly selected image")
+                            planVm.photoPickerItem = nil
+                        }
+                        
+                        
+                    }
+                    
+                }
+                profileVm.didSelectImage = true
+            }
+        
+        
+        //
+    }
+    
+    
+    
+    
 }
 
 
 
 
-#Preview {
-    EditItineraryInputSheet(itineraryItem: .constant(ItineraryModel(dayOfTheTrip: "", itineraryImage: Image("blankImage"), agenda: "", destination: "")), trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: "", tripImage: Image("blankImage"))))
-}
+
