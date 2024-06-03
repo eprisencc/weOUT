@@ -117,8 +117,10 @@ struct TripsView: View {
             .task{
                 try? await profileVm.loadCurrentUser()
                 if let user = profileVm.currentUser{
-                    $alltrips.path = "users/\(user.uid)/myTrips"
-                    print("⚡️⚡️⚡️⚡️Path updated for trips: \($alltrips.path)")
+//                    $alltrips.path = "users/\(user.uid)/myTrips"
+//                    print("⚡️⚡️⚡️⚡️Path updated for trips: \($alltrips.path)")
+                    
+                profileVm.showCurrentTrips(userID: user.uid)
                 }
                 
                 //                  profileVm.getMyTrips()
@@ -160,72 +162,143 @@ struct TripsView: View {
     }
     var tripDetails: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    ForEach(alltrips,id: \.id) { trip in
-                            NavigationLink {
-                                //profileVm.selectedTrip = trip
-                                ItineraryView(trip: trip)
-                            } label: {
-                                ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
-                                    
-                                    // use the link from fb to display an image ~JW
-                                    coverPhoto(link: trip.coverPhoto ?? "")
-                                    
-                                    VStack(alignment: .leading){
-                                        HStack {
-                                            Text(trip.destination)
-                                                .font(.title)
-                                                .foregroundStyle(Color.white)
-                                                .bold()
-                                            Spacer()
-                                            
-                                            
-                                            Button() {
-                                                //                                            myTrips.destination = trip.destination
-                                                
-                                                //myTrips.tripImage = trip.tripImage
-                                                profileVm.editTrip = trip
-                                                //                                             showEditTripsInputSheet.toggle()
-                                                //myIndex = index
-                                                
-                                            } label: {
-                                                Image(systemName: "ellipsis")
-                                            }
-                                            .font(.largeTitle)
-                                            //                                        .sheet(isPresented: $showEditTripsInputSheet) {
-                                            //                                            //EditTripsInputSheet( trip: $myTrips.tripArr[myIndex])
-                                            //                                        }
-                                        }
-                                        .foregroundStyle(.white)
-                                        .padding(10)
+            VStack(alignment: .leading) {
+                Text("Active Trips")
+                    .padding(.horizontal, 20)
+                ScrollView(.horizontal) {
+                    HStack(spacing: 20) {
+                        ForEach(profileVm.myTrips,id: \.id) { trip in
+                            if (trip.endDate > Date.now) {
+                                NavigationLink {
+                                    //profileVm.selectedTrip = trip
+                                    ItineraryView(trip: trip)
+                                } label: {
+                                    ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                                         
-                                        Text("\(formatter1.string(from: trip.startDate)) - \(formatter2.string(from: trip.endDate))")
-                                            .foregroundStyle(.white)
+                                        // use the link from fb to display an image ~JW
+                                        coverPhoto(link: trip.coverPhoto ?? "")
+                                        
+                                        VStack(alignment: .leading){
+                                            HStack {
+                                                //Text("End date: \(trip.endDate) Current date > End Date \(Date.now > trip.endDate)")
+                                                Text(trip.destination)
+                                                    .font(.title)
+                                                    .foregroundStyle(Color.white)
+                                                    .bold()
+                                                Spacer()
+                                                
+                                                
+                                                Button() {
+                                                    profileVm.editTrip = trip
+                                                    
+                                                } label: {
+                                                    Image(systemName: "ellipsis")
+                                                }
+                                                .font(.largeTitle)
+                                            }
                                             .foregroundStyle(.white)
                                             .padding(10)
-                                            .font(.title2)
-                                            .bold()
+                                            
+                                            Text("\(formatter1.string(from: trip.startDate)) - \(formatter2.string(from: trip.endDate))")
+                                                .foregroundStyle(.white)
+                                                .foregroundStyle(.white)
+                                                .padding(10)
+                                                .font(.title2)
+                                                .bold()
+                                        }
                                     }
                                 }
+                                
+                                
+                                //}
+                                .padding(20)
+                                /*.fullScreenCover(isPresented: $showItineraryItems) {
+                                 ItineraryView(trip: trip)
+                                 }*/
                             }
                             
-                            
-                        //}
-                        .padding(20)
-                        /*.fullScreenCover(isPresented: $showItineraryItems) {
-                            ItineraryView(trip: trip)
-                        }*/
-                        
-                    }//MARK: ~JW
-                    //
+                        }//MARK: ~JW
+                        //
+                    }
+                }.task{
+                    // fetching all the data from array
+                    try? await  myTrips.getAllTrips()
                 }
-            }.task{
-                // fetching all the data from array
-                try? await  myTrips.getAllTrips()
+                .frame(maxHeight: 2000)
+                .fixedSize(horizontal: false, vertical: false)
+            
+                
+                //MARK: Past Trips
+                Text("Past Trips")
+                    .padding(.horizontal, 20)
+                ScrollView(.horizontal) {
+                    HStack(spacing: 20) {
+                        ForEach(profileVm.myTrips,id: \.id) { trip in
+                            if (trip.endDate < Date.now) {
+                                NavigationLink {
+                                    //profileVm.selectedTrip = trip
+                                    ItineraryView(trip: trip)
+                                } label: {
+                                    ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                                        
+                                        // use the link from fb to display an image ~JW
+                                        coverPhoto(link: trip.coverPhoto ?? "")
+                                        
+                                        VStack(alignment: .leading){
+                                            HStack {
+                                                //Text("End date: \(trip.endDate) Current date > End Date \(Date.now > trip.endDate)")
+                                                Text(trip.destination)
+                                                    .font(.title)
+                                                    .foregroundStyle(Color.white)
+                                                    .bold()
+                                                Spacer()
+                                                
+                                                
+                                                Button() {
+                                                    profileVm.editTrip = trip
+                                                    
+                                                } label: {
+                                                    Image(systemName: "ellipsis")
+                                                }
+                                                .font(.largeTitle)
+                                            }
+                                            .foregroundStyle(.white)
+                                            .padding(10)
+                                            
+                                            Text("\(formatter1.string(from: trip.startDate)) - \(formatter2.string(from: trip.endDate))")
+                                                .foregroundStyle(.white)
+                                                .foregroundStyle(.white)
+                                                .padding(10)
+                                                .font(.title2)
+                                                .bold()
+                                        }
+                                    }
+                                }
+                                
+                                
+                                //}
+                                .padding(20)
+                                /*.fullScreenCover(isPresented: $showItineraryItems) {
+                                 ItineraryView(trip: trip)
+                                 }*/
+                            }
+                            
+                        }//MARK: ~JW
+                        //
+                    }
+                }.task{
+                    // fetching all the data from array
+                    try? await  myTrips.getAllTrips()
+                }
+                .frame(maxHeight: 2000)
+                .fixedSize(horizontal: false, vertical: false)
+
             }
-            .frame(maxHeight: 2000)
-            .fixedSize(horizontal: false, vertical: false)
+        } 
+        .onAppear() {
+            //            alltrips.sort(by: {$0.startDate < $1.startDate})
+            profileVm.myTrips = alltrips
+            
         }
     }
     func signOut() {

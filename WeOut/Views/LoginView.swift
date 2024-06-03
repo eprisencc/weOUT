@@ -23,79 +23,61 @@ struct LoginView: View {
 @State private var showTripsView = false
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                Spacer()
-                Image("loginScreen")
-                    .foregroundStyle(Color(.blue))
-                    .padding()
-                Spacer()
+            ZStack {
+                Image("loginScreenBack")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
                 
-//                VStack{
-//                    Text("User Id: \(String(describing: Auth.auth().currentUser?.uid))")
-//                    
-//                    if let user = profileVm.user{
-//                        Text(user.email)
-//                            .foregroundStyle(.black)
-//                        Text(user.name)
-//                            .foregroundStyle(.black)
-//                    }
-//                    
-//                    Button("Signout"){
-//                        do {
-//                            try Auth.auth().signOut()
-//                            
-//                        } catch{
-//                            
-//                        }
-//                    }
-//                }
-                // MARK: - Apple
-                SignInWithAppleButton(
-                    onRequest: { request in
-                        AppleSignInManager.shared.requestAppleAuthorization(request)
-                    },
-                    onCompletion: { result in
-                         handleAppleID(result)
-                        //MARK: Use this navigate to Trips View ~ J.W.
-                        showTripsView.toggle()
-                        print("😎 Succesfully Logged In")
-                    }
-                )
-                .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
-                .frame(width: 280, height: 45, alignment: .center)
-                .padding(.bottom, 50)
-                
-                // MARK: - Google
-                /*GoogleSignInButton {
-                 Task {
-                 await signInWithGoogle()
-                 }
-                 }*/
-                //.frame(width: 280, height: 45, alignment: .center)
-                
-                // MARK: - Anonymous
-                // Hide `Skip` button if user is anonymous.
-                /*if authManager.authState == .signedOut {
-                 Button {
-                 signAnonymously()
-                 } label: {
-                 Text("Skip")
-                 .font(.body.bold())
-                 .frame(width: 280, height: 45, alignment: .center)
-                 }
-                 }*/
-            }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(hex: "2DC7FF"))
-            .ignoresSafeArea()
-            .onAppear{
-                //MARK: Navigates to TripsView if logged in already ~ J.W.
-            if Auth.auth().currentUser != nil {
-                    print ("🪵 Login successful!")
-              showTripsView = true
+                VStack(spacing: 16) {
+                    Spacer()
+                    // MARK: - Apple
+                    SignInWithAppleButton(
+                        onRequest: { request in
+                            AppleSignInManager.shared.requestAppleAuthorization(request)
+                        },
+                        onCompletion: { result in
+                            handleAppleID(result)
+                            //MARK: Use this navigate to Trips View ~ J.W.
+                            showTripsView.toggle()
+                            print("😎 Succesfully Logged In")
+                        }
+                    )
+                    .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
+                    .frame(width: 280, height: 45, alignment: .center)
+                    .padding(.bottom, 50)
+                    
+                    // MARK: - Google
+                    /*GoogleSignInButton {
+                     Task {
+                     await signInWithGoogle()
+                     }
+                     }*/
+                    //.frame(width: 280, height: 45, alignment: .center)
+                    
+                    // MARK: - Anonymous
+                    // Hide `Skip` button if user is anonymous.
+                    /*if authManager.authState == .signedOut {
+                     Button {
+                     signAnonymously()
+                     } label: {
+                     Text("Skip")
+                     .font(.body.bold())
+                     .frame(width: 280, height: 45, alignment: .center)
+                     }
+                     }*/
                 }
-              }
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
+                .onAppear{
+                    //MARK: Navigates to TripsView if logged in already ~ J.W.
+                    if Auth.auth().currentUser != nil {
+                        print ("🪵 Login successful!")
+                        showTripsView = true
+                    }
+                }
+            }
         }
         .fullScreenCover(isPresented: $showTripsView) {
             TripsView()

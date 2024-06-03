@@ -201,8 +201,44 @@ extension ProfileViewModel {
         }
     }
     
+    // New Code
+    func showCurrentTrips(userID: String) {
+        db.collection("users/\(userID)/myTrips").order(by: "startDate", descending: false).addSnapshotListener { snapshot, error in
+            if let error = error {
+                print("Error fetching documents: \(error.localizedDescription)")
+                return
+            }
+            guard let documents = snapshot?.documents else {
+                print("No documents found")
+                return
+            }
+            
+            self.myTrips = documents.compactMap { queryDocumentSnapshot -> TripModel? in
+                return try? queryDocumentSnapshot.data(as: TripModel.self)
+            }
+            .sorted(by: { $0.startDate < $1.startDate })
+        }
+    }
     
     
+    // new code
+    func showPastTrips(userID: String) {
+        db.collection("users/\(userID)/myTrips").order(by: "startDate", descending: false).addSnapshotListener { snapshot, error in
+            if let error = error {
+                print("Error fetching documents: \(error.localizedDescription)")
+                return
+            }
+            guard let documents = snapshot?.documents else {
+                print("No documents found")
+                return
+            }
+            
+            self.myTrips = documents.compactMap { queryDocumentSnapshot -> TripModel? in
+                return try? queryDocumentSnapshot.data(as: TripModel.self)
+            }.sorted(by: { $0.startDate < $1.startDate })
+        }
+    }
+
     
     // new code
     func imageReseter(){
