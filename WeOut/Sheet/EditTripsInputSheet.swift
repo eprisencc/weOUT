@@ -40,11 +40,6 @@ struct EditTripsInputSheet: View {
                 .padding()
             }
         }
-        
-        .sheet(isPresented: $showingImagePicker) {
-            ImagePicker(image: $inputImage)
-        }
-        
     }
     var tripheading: some View {
         HStack {
@@ -110,24 +105,6 @@ struct EditTripsInputSheet: View {
                     .padding(15)
                 photoPicker
                 
-                //
-                //                    Button(role: .cancel, action: {
-                //                        showingImagePicker = true
-                //                    }) {
-                //                        Image(systemName: "plus")
-                //                    }
-                //                    .foregroundColor(Color.white)
-                //                }
-                //                HStack(alignment: .center) {
-                //                     coverPhoto(link: trip.coverPhoto ?? "")
-                //
-                //
-                ////                      Image("Logo")
-                ////                        .resizable()
-                ////                        .scaledToFit()
-                ////                        .padding(25)
-                //
-                //                }
                 Divider()
                     .frame(height: 1)
                     .overlay(Color(hex: "F5DFA3"))
