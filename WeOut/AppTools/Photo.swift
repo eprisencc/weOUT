@@ -6,7 +6,7 @@
 //
 
 import Foundation
- import Firebase
+import Firebase
 import FirebaseFirestoreSwift
 
 // why dont you do the same thing with the DbUser struct ? u could easily give it a dictinary then create a func that going to add the username to the  file
