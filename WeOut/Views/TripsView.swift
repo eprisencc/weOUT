@@ -180,17 +180,14 @@ struct TripsView: View {
                                         
                                         VStack(alignment: .leading){
                                             HStack {
-                                                //Text("End date: \(trip.endDate) Current date > End Date \(Date.now > trip.endDate)")
                                                 Text(trip.destination)
                                                     .font(.title)
                                                     .foregroundStyle(Color.white)
                                                     .bold()
                                                 Spacer()
                                                 
-                                                
                                                 Button() {
                                                     profileVm.editTrip = trip
-                                                    
                                                 } label: {
                                                     Image(systemName: "ellipsis")
                                                 }
@@ -319,7 +316,8 @@ struct TripsView: View {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 400, height: 250)
+                    //.containerRelativeFrame(.horizontal, count: 1, spacing: 5)
+                    .frame(width: 325, height: 250)
                     .clipped()
                     .overlay(Rectangle().foregroundStyle(.black).background(.black).opacity(0.3))
                     .clipShape(RoundedRectangle(cornerRadius: 25))
