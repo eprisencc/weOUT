@@ -29,6 +29,8 @@
 		ED189C832B70232E0047CF89 /* TripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED189C822B70232E0047CF89 /* TripsInputSheet.swift */; };
 		ED59FF932B7A6E470094F35A /* EditTripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59FF922B7A6E470094F35A /* EditTripsInputSheet.swift */; };
 		ED6178A12B7298A1003D6C73 /* DatePickerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6178A02B7298A1003D6C73 /* DatePickerTool.swift */; };
+		ED81076D2C10A5E4002D09FB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ED81076C2C10A5E4002D09FB /* FirebaseAnalytics */; };
+		ED81076F2C10A5E4002D09FB /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ED81076E2C10A5E4002D09FB /* FirebaseAnalyticsSwift */; };
 		ED96F8DA2B62B57A0062245E /* WeOutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8D92B62B57A0062245E /* WeOutApp.swift */; };
 		ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96F8DB2B62B57A0062245E /* ContentView.swift */; };
 		ED96F8DE2B62B57C0062245E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED96F8DD2B62B57C0062245E /* Assets.xcassets */; };
@@ -86,8 +88,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED81076F2C10A5E4002D09FB /* FirebaseAnalyticsSwift in Frameworks */,
 				ED0E1E372BFE49D60022D6E7 /* FirebaseAppCheck in Frameworks */,
 				5E3ABB432C076E5D00229E64 /* FirebaseStorage in Frameworks */,
+				ED81076D2C10A5E4002D09FB /* FirebaseAnalytics in Frameworks */,
 				ED0E1E212BFCF6BC0022D6E7 /* GoogleSignInSwift in Frameworks */,
 				ED16C6E52BF3B79F008E3BEA /* FirebaseFirestoreSwift in Frameworks */,
 				ED16C6E32BF3B78E008E3BEA /* FirebaseFirestore in Frameworks */,
@@ -242,6 +246,8 @@
 				ED0E1E282BFD5D500022D6E7 /* FirebaseAuth */,
 				ED0E1E362BFE49D60022D6E7 /* FirebaseAppCheck */,
 				5E3ABB422C076E5D00229E64 /* FirebaseStorage */,
+				ED81076C2C10A5E4002D09FB /* FirebaseAnalytics */,
+				ED81076E2C10A5E4002D09FB /* FirebaseAnalyticsSwift */,
 			);
 			productName = WeOut;
 			productReference = ED96F8D62B62B57A0062245E /* WeOut.app */;
@@ -461,9 +467,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WeOut/WeOut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
-				DEVELOPMENT_TEAM = QAMWPY9AM8;
+				DEVELOPMENT_TEAM = HW7URT66C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = weOUT;
@@ -495,9 +501,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WeOut/WeOut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
-				DEVELOPMENT_TEAM = QAMWPY9AM8;
+				DEVELOPMENT_TEAM = HW7URT66C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = weOUT;
@@ -598,6 +604,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = ED1EDE992BF269BE00026C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		ED81076C2C10A5E4002D09FB /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED1EDE992BF269BE00026C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		ED81076E2C10A5E4002D09FB /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED1EDE992BF269BE00026C25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
