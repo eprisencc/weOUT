@@ -21,9 +21,6 @@ import _PhotosUI_SwiftUI
 //Sheet that displays the input for the itinerary
 struct EditItineraryInputSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var showingImagePicker = false
-    @State private var image: Image?
-    @State private var inputImage: UIImage?
     @State private var showingDeleteAlert = false
     @State var itineraryItem: ItineraryModel
     @State var trip: TripModel
@@ -42,10 +39,6 @@ struct EditItineraryInputSheet: View {
                 }
                 .padding()
             }
-        }
-        
-        .sheet(isPresented: $showingImagePicker) {
-            ImagePicker(image: $inputImage)
         }
     }
     

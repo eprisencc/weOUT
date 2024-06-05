@@ -16,21 +16,13 @@ import _PhotosUI_SwiftUI
 
 struct TripsInputSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var showingImagePicker = false
-    @State private var image: Image?
-    @State private var inputImage: UIImage?
-    
-    //@State private var startSelectedDate: Date = Date.now
-    //@State private var endSelectedDate: Date = Date.now
     @State private var isStartDatePickerVisible = true
     @State private var isEndDatePickerVisible = true
-    //@State private var destination: String = ""
     
     @State private var trip: TripModel = TripModel()
     
     @EnvironmentObject var profileVm: ProfileViewModel
     @State var pending = false
-    //@State var myTrips: Trips = Trips()
     
     @EnvironmentObject var myTrips: Trips
     //MARK: ~JW
@@ -90,9 +82,6 @@ struct TripsInputSheet: View {
             .task{
                 try? await  profileVm.loadCurrentUser()
             } //MARK: ~JW
-            .sheet(isPresented: $showingImagePicker) {
-                ImagePicker(image: $inputImage)
-            }
             
         }
         
@@ -193,13 +182,6 @@ private extension TripsInputSheet {
             .overlay(Color(hex: "F5DFA3"))
             .padding()
     }
-    
-    func loadImage() {
-        guard let inputImage = inputImage else { return }
-        myTrips.tripImage = Image(uiImage: inputImage)
-        
-    }
-    
     
     var photoPicker : some View {
         VStack {

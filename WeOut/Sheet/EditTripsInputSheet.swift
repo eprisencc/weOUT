@@ -19,9 +19,6 @@ import _PhotosUI_SwiftUI
 
 struct EditTripsInputSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var showingImagePicker = false
-    @State private var image: Image?
-    @State private var inputImage: UIImage?
     @State private var showingDeleteAlert = false
     @State var trip: TripModel
     @EnvironmentObject var profileVm: ProfileViewModel
@@ -47,7 +44,6 @@ struct EditTripsInputSheet: View {
                 .font(.title)
                 .foregroundStyle(.white)
                 .padding(15)
-            //.presentationDetents([.medium, .large])
             Spacer()
             Button {
                 dismiss()
@@ -249,10 +245,6 @@ struct EditTripsInputSheet: View {
     
 }
 
-//#Preview {
-//    EditTripsInputSheet(trip: .constant(TripModel(startDate: Date.now, endDate: Date.now, destination: "", coverPhoto: ""/*, tripImage: Image("blankImage")*/)))
-//        .environmentObject(Trips())
-//}
 #Preview {
     EditTripsInputSheet(trip: TripModel())
         .environmentObject(ProfileViewModel())

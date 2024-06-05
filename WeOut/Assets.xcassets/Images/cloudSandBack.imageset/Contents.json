@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "cloudBackSandLite.png",
+      "filename" : "cloudBackSandDark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -23,11 +23,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "cloudBackSandDark.png",
+      "filename" : "cloudBackSandLite.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "newCloudsBack 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -38,6 +39,7 @@
           "value" : "light"
         }
       ],
+      "filename" : "newCloudsBack.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -48,6 +50,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "newCloudsBack 2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
