@@ -23,6 +23,11 @@ struct ItineraryView: View {
     //@State var destination: String = "No where"
     @EnvironmentObject var profileVm: ProfileViewModel
     @FirestoreQuery(collectionPath: "users") var itineraryItems : [ItineraryModel]
+    var sortedItineraryItems: [ItineraryModel] {
+        itineraryItems.sorted { item1, item2 in
+               item1.dayOfTheTrip < item2.dayOfTheTrip
+           }
+    }
     var body: some View {
         ZStack{
             Image("newCloudsBack")
@@ -81,9 +86,9 @@ struct ItineraryView: View {
     var itineraryDetails: some View {
         ScrollView {
             VStack(spacing: 20) {
-                ForEach(itineraryItems) { itineraryItem in
+                ForEach(sortedItineraryItems) { itineraryItem in
                     ZStack(alignment: .topTrailing) {
-                        RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                        RoundedRectangle(cornerRadius: 25.0)
                             .foregroundStyle(Color(hex: "#007EA7") ?? Color.blue)
                             .padding(8)
                         VStack(alignment: .leading){
@@ -107,10 +112,7 @@ struct ItineraryView: View {
                             
                             profileVm.editItineraryItem = itineraryItem
                             print("Itinerary Data \(profileVm.editItineraryItem!)")
-//                                        showEditItinearyInputSheet.toggle()
-//                                        print(plan.dayOfTheTrip)
-//                                        //myIndex = index
-                            
+
                         } label: {
                             Image(systemName: "ellipsis")
                         }
@@ -118,9 +120,6 @@ struct ItineraryView: View {
                             EditItineraryInputSheet(itineraryItem: plan, trip: trip)
                         }
                         .font(.largeTitle)
-                        //                                                        .sheet(isPresented: $showEditItinearyInputSheet) {
-                        //                                                            EditItineraryInputSheet(itineraryItem: $trip.itineraryArr[myIndex], trip: $trip)
-                        //                                                        }
                         .foregroundColor(Color.white)
                         .padding(.trailing, 30)
                         .padding(.top, 20)
@@ -130,52 +129,7 @@ struct ItineraryView: View {
             }
         }
     }
-    //    var itineraryDetails: some View {
-    //        ScrollView {
-    //            VStack(spacing: 20) {
-    //                ForEach(Array($plans.itineraryArr.enumerated()), id: \.element.id) { index, itineraryItemBinding in
-    //
-    //                    let itineraryItem = itineraryItemBinding.wrappedValue
-    //
-    //                        ZStack {
-    //                            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-    //                                .foregroundColor(Color(hex: "#007EA7"))
-    //                                .padding(8)
-    //                            VStack(alignment: .leading){
-    //                                HStack {
-    //                                    Text(itineraryItem.dayOfTheTrip)
-    //                                        .font(.title)
-    //                                        .foregroundStyle(Color.white)
-    //                                        .bold()
-    //                                    Spacer()
-    //                                    Button() {
-    //                                        showEditItinearyInputSheet.toggle()
-    //                                        print(itineraryItem.dayOfTheTrip)
-    //                                        myIndex = index
-    //
-    //                                    } label: {
-    //                                        Image(systemName: "ellipsis")
-    //                                    }
-    //                                    .font(.largeTitle)
-    //                                    .sheet(isPresented: $showEditItinearyInputSheet) {
-    //                                        EditItineraryInputSheet(itineraryItem: $trip.itineraryArr[myIndex], trip: $trip)
-    //                                    }
-    //                                    .foregroundColor(Color.white)
-    //                                }
-    //                                itineraryItem.itineraryImage
-    //                                    .resizable()
-    //                                    .scaledToFit()
-    //
-    //                                Text(itineraryItem.agenda)
-    //                                    .foregroundStyle(Color.white)
-    //                                    .bold()
-    //                            }
-    //                            .padding(20)
-    //                        }
-    //                }
-    //            }
-    //        }
-    //    }
+    
 }
 
 
