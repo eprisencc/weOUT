@@ -114,13 +114,9 @@ struct TripsView: View {
             .task{
                 try? await profileVm.loadCurrentUser()
                 if let user = profileVm.currentUser{
-//                    $alltrips.path = "users/\(user.uid)/myTrips"
-//                    print("⚡️⚡️⚡️⚡️Path updated for trips: \($alltrips.path)")
-                    
+
                 profileVm.showCurrentTrips(userID: user.uid)
                 }
-                
-                //                  profileVm.getMyTrips()
             }//MARK: ~JW
             
             
@@ -208,17 +204,10 @@ struct TripsView: View {
                                         }
                                     }
                                 }
-                                
-                                
-                                //}
                                 .padding(.horizontal, 20)
-                                /*.fullScreenCover(isPresented: $showItineraryItems) {
-                                 ItineraryView(trip: trip)
-                                 }*/
                             }
                             
                         }//MARK: ~JW
-                        //
                     
                     }
                 }.task{
@@ -301,7 +290,6 @@ struct TripsView: View {
             }
         } 
         .onAppear() {
-            //            alltrips.sort(by: {$0.startDate < $1.startDate})
             profileVm.myTrips = alltrips
             
         }

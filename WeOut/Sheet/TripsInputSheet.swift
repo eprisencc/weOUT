@@ -49,6 +49,8 @@ struct TripsInputSheet: View {
                     }
                 } else {
                     ProgressView("Creating Your Trip...")
+                        .foregroundStyle(.white)
+                        .font(.title)
                 }
                 
             }
@@ -153,16 +155,19 @@ private extension TripsInputSheet {
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
-                    /*.onTapGesture {
-                     if myTrips.startDate <= Date.now {
-                     myTrips.startDate = Date.now
-                     }
-                     }*/
+                        .onChange(of: trip.startDate) {
+                            tripEndDateValidation()
+                            tripStartDateValidation()
+                        }
                     
                     CompactDatePickerView(selectedDate: $trip.endDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
+                        .onChange(of: trip.endDate) {
+                            tripEndDateValidation()
+                            tripStartDateValidation()
+                        }
                 }
                 divider
                 VStack{
@@ -194,10 +199,6 @@ private extension TripsInputSheet {
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 } else {// show logo instead
                     ZStack{
-                        
-                        //                                    RoundedRectangle(cornerRadius: 20)
-                        //                                        .foregroundColor(.black)
-                        //                                        .frame(width:350,height: 240)
                         Image("Logo")
                             .resizable()
                             .scaledToFill()
@@ -237,15 +238,12 @@ private extension TripsInputSheet {
     }
     
     var submitButton : some View {
-        VStack{
+        VStack {
             if let user = profileVm.currentUser{
                 Button("Create") {
                     pending = true
                     Task{
-                        let success =   await  profileVm.saveTrip(user: user,
-                                                                  trip: trip,
-                                                                  photo: profileVm.newPhoto,
-                                                                  image:profileVm.eventImage ?? UIImage())
+                        let success =   await  profileVm.saveTrip(user: user, trip: trip, photo: profileVm.newPhoto, image:profileVm.eventImage ?? UIImage())
                         if success{
                             pending = false
                             dismiss()
@@ -257,7 +255,20 @@ private extension TripsInputSheet {
                 
                 .padding(15)
                 .font(.title)
+                .foregroundStyle(.white)
             }
+        }
+    }
+    
+    private func tripEndDateValidation() {
+        if trip.endDate < trip.startDate {
+            trip.endDate = trip.startDate
+        }
+    }
+    
+    private func tripStartDateValidation() {
+        if trip.startDate < Date.now {
+            trip.startDate = Date.now
         }
     }
     

@@ -26,18 +26,25 @@ struct EditItineraryInputSheet: View {
     @State var trip: TripModel
     @EnvironmentObject var profileVm : ProfileViewModel
     @EnvironmentObject var planVm : PlansViewModel
+    @State var pending = false
     
     var body: some View {
         NavigationView {
             ZStack {
-                Color(hex: "1F1F1F")
-                    .ignoresSafeArea()
-                VStack {
-                    itineraryHeading
-                    itineraryDetails
-                    itinerarySaveDelete
+                if !pending {
+                    Color(hex: "1F1F1F")
+                        .ignoresSafeArea()
+                    VStack {
+                        EditItineraryInputHeading
+                        EditItineraryInputDetails
+                        EditItineraryInputSaveDelete
+                    }
+                    .padding()
+                } else {
+                    ProgressView("Editing Your Agenda...")
+                        .foregroundStyle(.white)
+                        .font(.title)
                 }
-                .padding()
             }
         }
     }
@@ -63,7 +70,7 @@ struct EditItineraryInputSheet: View {
 private extension EditItineraryInputSheet{
     
     
-    var itineraryHeading: some View {
+    var EditItineraryInputHeading: some View {
         HStack {
             Text("Edit")
                 .font(.title)
@@ -82,7 +89,7 @@ private extension EditItineraryInputSheet{
         }
         
     }
-    var itineraryDetails: some View {
+    var EditItineraryInputDetails: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 
@@ -141,14 +148,16 @@ private extension EditItineraryInputSheet{
     }
     
     // new code
-    var itinerarySaveDelete: some View {
+    var EditItineraryInputSaveDelete: some View {
         VStack(alignment: .center) {
             HStack {
                 Button("Save") {
+                    pending = true
                     Task{
                         if let user = profileVm.currentUser{
                             let success =  await planVm.updateItinerary(user: user, trip: trip, plan: itineraryItem,  image: profileVm.eventImage ?? UIImage())
                             if success{
+                                pending = false
                                 dismiss()
                             }
                         }
@@ -157,15 +166,16 @@ private extension EditItineraryInputSheet{
                 }
                 .padding(15)
                 Button("Delete") {
-                    //
                     showingDeleteAlert = true
                 }
                 .alert("Do you want to delete this card?", isPresented: $showingDeleteAlert) {
                     Button("Delete", role: .destructive) {
+                        pending = true
                         Task{
                             if let user = profileVm.currentUser{
                                 let success =  try await planVm.deletePlan(userId: user.uid, tripID: trip.id ?? "", plan: profileVm.editItineraryItem ?? ItineraryModel())
                                 if success{
+                                    pending = false
                                     dismiss()
                                     
                                 }

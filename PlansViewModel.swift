@@ -58,7 +58,7 @@ class PlansViewModel : ObservableObject {
 // Add && update plans
 extension PlansViewModel{
     // new code
-    func addItinerary(to trip: TripModel, with plan: ItineraryModel,image: UIImage) async -> Bool{
+    func addItinerary(to trip: TripModel, with plan: ItineraryModel,image: UIImage) async -> Bool {
         let db = Firestore.firestore()
         try? await ProfileViewModel.shared.loadCurrentUser()
         // get the user

@@ -23,18 +23,26 @@ struct EditTripsInputSheet: View {
     @State var trip: TripModel
     @EnvironmentObject var profileVm: ProfileViewModel
     @EnvironmentObject var myTrips: Trips
+    @State var pending = false
+    
     var body: some View {
         NavigationView {
             ZStack {
-                Color(hex: "1F1F1F")
-                    .ignoresSafeArea()
-                
-                VStack {
-                    tripheading
-                    tripDetails
-                    tripSaveDelete
+                if !pending {
+                    Color(hex: "1F1F1F")
+                        .ignoresSafeArea()
+                    
+                    VStack {
+                        tripheading
+                        tripDetails
+                        tripSaveDelete
+                    }
+                    .padding()
+                } else {
+                    ProgressView("Editing Your Trip...")
+                        .foregroundStyle(.white)
+                        .font(.title)
                 }
-                .padding()
             }
         }
     }
@@ -84,11 +92,19 @@ struct EditTripsInputSheet: View {
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
+                        .onChange(of: trip.startDate) {
+                            tripEndDateValidation()
+                            tripStartDateValidation()
+                        }
                     
                     CompactDatePickerView(selectedDate: $trip.endDate)
                         .background(Color.white)
                         .frame(width: 150, height: 50)
                         .padding()
+                        .onChange(of: trip.endDate) {
+                            tripEndDateValidation()
+                            tripStartDateValidation()
+                        }
                 }
                 Divider()
                     .frame(height: 1)
@@ -113,15 +129,13 @@ struct EditTripsInputSheet: View {
         VStack(alignment: .center) {
             HStack {
                 Button("Save") {
+                    pending = true
                     Task{
                         if let user = profileVm.currentUser {
-                            //                            let successs =  await  profileVm.saveTrip(user: user,
-                            //                                                                      trip: trip,
-                            //                                                                      photo: profileVm.newPhoto,    image: profileVm.avatarImage ?? UIImage())
-                            
                             let successs = await profileVm.updateTrip(user: user, trip: trip)
                             
                             if successs{
+                                pending = false
                                 dismiss()
                             }
                         }
@@ -129,12 +143,15 @@ struct EditTripsInputSheet: View {
                 }
                 .padding(15)
                 .font(.title)
+                .foregroundStyle(.white)
                 
                 Button("Delete") {
+                    pending = true
                     Task{
                         if let user = profileVm.currentUser {
                             let success = try await profileVm.deleteTrip(userId: user.uid, tripID: trip.id ?? "")
                             if success{
+                                pending = false
                                 dismiss()
                             }
                         }
@@ -150,6 +167,7 @@ struct EditTripsInputSheet: View {
                 }
                 .padding(15)
                 .font(.title)
+                .foregroundStyle(.white)
             }
         }
     }
@@ -212,15 +230,8 @@ struct EditTripsInputSheet: View {
                             profileVm.eventImage = image
                             print("📸Succcesffullly selected image")
                             
-                            
-                            
                             profileVm.newPhoto = Photo()
-                            //                              profileVm.imageURLString = ""
                             profileVm.photoPickerItem = nil
-                            //                              profileVm.avatarImage = UIImage()
-                            
-                            
-                            //                                showPhotoViewSheet.toggle()
                             
                         }
                         
@@ -230,18 +241,19 @@ struct EditTripsInputSheet: View {
                 }
                 profileVm.didSelectImage = true
             }
-        
-        
-        //
     }
     
+    private func tripEndDateValidation() {
+        if trip.endDate < trip.startDate {
+            trip.endDate = trip.startDate
+        }
+    }
     
-    
-    
-    
-    
-    
-    
+    private func tripStartDateValidation() {
+        if trip.startDate < Date.now {
+            trip.startDate = Date.now
+        }
+    }
     
 }
 
