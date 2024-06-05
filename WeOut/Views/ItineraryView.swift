@@ -25,7 +25,7 @@ struct ItineraryView: View {
     @FirestoreQuery(collectionPath: "users") var itineraryItems : [ItineraryModel]
     var body: some View {
         ZStack{
-            Image("cloudSandBack")
+            Image("newCloudsBack")
                 .resizable()
                 .ignoresSafeArea()
             
@@ -75,7 +75,7 @@ struct ItineraryView: View {
         .foregroundColor(.titleheadings)
         .font(.largeTitle)
         }
-        .padding(25)
+        .padding(.horizontal, 25)
     }
     
     var itineraryDetails: some View {

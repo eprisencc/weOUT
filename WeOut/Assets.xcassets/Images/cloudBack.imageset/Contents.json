@@ -1,6 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "cloudBack 1.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
       "filename" : "cloudBack.jpg",
       "idiom" : "universal",
       "scale" : "1x"
@@ -9,7 +20,7 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
-          "value" : "light"
+          "value" : "dark"
         }
       ],
       "filename" : "cloudBack_lite.jpg",
@@ -17,17 +28,7 @@
       "scale" : "1x"
     },
     {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "cloudBack 1.jpg",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
+      "filename" : "newCloudsBack.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -38,6 +39,7 @@
           "value" : "light"
         }
       ],
+      "filename" : "newCloudsBack 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -48,6 +50,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "newCloudsBack 2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

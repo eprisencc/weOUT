@@ -12,7 +12,7 @@ struct DashboardView: View {
         NavigationStack {
             ZStack{
                 //Color(hex: "#003459")
-                Image("cloudSandBack")
+                Image("newCloudsBack")
                     .resizable()
                     .ignoresSafeArea(/*edges: .top*/)
 //                Image("sandBottom")

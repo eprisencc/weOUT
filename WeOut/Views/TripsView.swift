@@ -27,12 +27,6 @@ struct TripsView: View {
     
     @FirestoreQuery(collectionPath: "users") var alltrips : [TripModel]
     
-    
-    @State var myIndex: Int = -1
-    @State var currentIndex: Int = 0
-    //@State var myTrips: Trips = Trips()
-    //var onTap: () -> Void
-    
     //Formate Dates for display in trips view
     var formatter1: DateFormatter {
         let df = DateFormatter()
@@ -49,29 +43,31 @@ struct TripsView: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                //Color(hex: "#003459")
-                Image("cloudSandBack")
+                Image("newCloudsBack")
                     .resizable()
-                    .ignoresSafeArea(/*edges: .top*/)
-                //                Image("sandBottom")
-                //                    .resizable()
-                //                    .scaledToFit()
+                    .ignoresSafeArea()
                 
                 VStack(alignment: .leading) {
                     HStack {
                         
                         //MARK: display info from FB instead to  ensure u always get a name ~JW
+                        Spacer()
                         if let user = profileVm.currentUser {
                             Text("Hi, " + "\(user.name)")
-                                .font(.headline)
+                                .font(.title3)
                                 .foregroundStyle(Color.titleheadings)
-                                .padding(.horizontal, 25)
+                                .padding(.top, 25)
+                                .bold()
                             
                         }
                         else {
                             Text("Sign-in to view data!")
-                                .font(.headline)
+                                .font(.title3)
+                                .foregroundStyle(Color.titleheadings)
+                                .padding(.top, 25)
+                                .bold()
                         }
+                        Spacer()
                         
                         
                         
@@ -97,9 +93,10 @@ struct TripsView: View {
                             Text(authManager.authState != .signedIn ? "Sign-in" :"Sign out")
                                 .font(.body.bold())
                                 .frame(width: 150, height: 45, alignment: .center)
-                                .foregroundStyle(Color(.white))
-                                .background(Color(.blue))
+                                .foregroundStyle(Color(.black))
+                                .background(.white)
                                 .cornerRadius(10)
+
                         }
                         Spacer()
                     }
@@ -163,8 +160,14 @@ struct TripsView: View {
     var tripDetails: some View {
         NavigationStack {
             VStack(alignment: .leading) {
+                
+                
                 Text("Active Trips")
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 35)
+                    .padding(.top, 50)
+                    .foregroundStyle(.black)
+                    .bold()
+              
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
                         ForEach(profileVm.myTrips,id: \.id) { trip in
@@ -194,7 +197,7 @@ struct TripsView: View {
                                                 .font(.largeTitle)
                                             }
                                             .foregroundStyle(.white)
-                                            .padding(10)
+                                            .padding(15)
                                             
                                             Text("\(formatter1.string(from: trip.startDate)) - \(formatter2.string(from: trip.endDate))")
                                                 .foregroundStyle(.white)
@@ -208,7 +211,7 @@ struct TripsView: View {
                                 
                                 
                                 //}
-                                .padding(20)
+                                .padding(.horizontal, 20)
                                 /*.fullScreenCover(isPresented: $showItineraryItems) {
                                  ItineraryView(trip: trip)
                                  }*/
@@ -216,6 +219,7 @@ struct TripsView: View {
                             
                         }//MARK: ~JW
                         //
+                    
                     }
                 }.task{
                     // fetching all the data from array
@@ -227,7 +231,11 @@ struct TripsView: View {
                 
                 //MARK: Past Trips
                 Text("Past Trips")
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 35)
+                    .padding(.top, 35)
+                    .foregroundStyle(.black)
+                    .bold()
+                    
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
                         ForEach(profileVm.myTrips,id: \.id) { trip in
@@ -274,7 +282,7 @@ struct TripsView: View {
                                 
                                 
                                 //}
-                                .padding(20)
+                                .padding(.horizontal, 20)
                                 /*.fullScreenCover(isPresented: $showItineraryItems) {
                                  ItineraryView(trip: trip)
                                  }*/

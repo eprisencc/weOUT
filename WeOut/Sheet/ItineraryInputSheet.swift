@@ -11,9 +11,6 @@ import PhotosUI
 //Sheet that displays the input for the itinerary
 struct ItineraryInputSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var showingImagePicker = false
-    @State private var image: Image?
-    @State private var inputImage: UIImage?
     var index: Int = -1
     var destination: String = ""
     @State var itinerary: ItineraryModel
@@ -146,14 +143,6 @@ profileVm.photoPickerItem = nil
           }
           profileVm.didSelectImage = true
       }
-
-        
-//         .sheet(isPresented: $showingImagePicker) {
-//            ImagePicker(image: $inputImage)
-//        }
-//        .onAppear() {
-//            itinerary.destination = destination
-//        }
         .task {
             try? await profileVm.loadCurrentUser()
         }
