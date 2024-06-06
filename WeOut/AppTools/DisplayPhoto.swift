@@ -12,7 +12,7 @@ struct DisplayPhoto: View {
     @State private var imageURL: URL? = nil
 
     var height: CGFloat = 200
-    var width: CGFloat = 400
+    var width: CGFloat = 315
 
     var body: some View {
         VStack(alignment: .leading) {
