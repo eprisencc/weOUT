@@ -100,7 +100,11 @@ struct ItineraryView: View {
                                 Spacer()
                             }
                             
-                            DisplayPhoto(link: .constant(itineraryItem.itineraryImage))
+                            HStack {
+                                Spacer()
+                                DisplayPhoto(link: .constant(itineraryItem.itineraryImage))
+                                Spacer()
+                            }
                             
                             Text(itineraryItem.agenda)
                                 .foregroundStyle(Color.white)
