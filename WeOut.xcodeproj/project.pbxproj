@@ -27,6 +27,7 @@
 		ED16C6E32BF3B78E008E3BEA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ED16C6E22BF3B78E008E3BEA /* FirebaseFirestore */; };
 		ED16C6E52BF3B79F008E3BEA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ED16C6E42BF3B79F008E3BEA /* FirebaseFirestoreSwift */; };
 		ED189C832B70232E0047CF89 /* TripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED189C822B70232E0047CF89 /* TripsInputSheet.swift */; };
+		ED32BC312C172AAB00CC3597 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED32BC302C172AAB00CC3597 /* SplashScreenView.swift */; };
 		ED59FF932B7A6E470094F35A /* EditTripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59FF922B7A6E470094F35A /* EditTripsInputSheet.swift */; };
 		ED6178A12B7298A1003D6C73 /* DatePickerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6178A02B7298A1003D6C73 /* DatePickerTool.swift */; };
 		ED81076D2C10A5E4002D09FB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ED81076C2C10A5E4002D09FB /* FirebaseAnalytics */; };
@@ -63,6 +64,7 @@
 		ED0E1E3A2C00ECBD0022D6E7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		ED0E1E3E2C0A0B9E0022D6E7 /* NewPrimaryweOUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrimaryweOUT.swift; sourceTree = "<group>"; };
 		ED189C822B70232E0047CF89 /* TripsInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsInputSheet.swift; sourceTree = "<group>"; };
+		ED32BC302C172AAB00CC3597 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		ED59FF922B7A6E470094F35A /* EditTripsInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripsInputSheet.swift; sourceTree = "<group>"; };
 		ED6178A02B7298A1003D6C73 /* DatePickerTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTool.swift; sourceTree = "<group>"; };
 		ED96F8D62B62B57A0062245E /* WeOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +170,7 @@
 		ED96F8F82B64A0E10062245E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ED32BC302C172AAB00CC3597 /* SplashScreenView.swift */,
 				ED0E1E262BFD5A450022D6E7 /* LoginView.swift */,
 				ED96F8F22B6488870062245E /* DashboardView.swift */,
 				ED96F8F42B6488D10062245E /* TripsView.swift */,
@@ -315,6 +318,7 @@
 				ED9F3A7B2BE3D24B00D6A7E8 /* NewItineraryView.swift in Sources */,
 				ED96F8F32B6488870062245E /* DashboardView.swift in Sources */,
 				ED0E1E3F2C0A0B9E0022D6E7 /* NewPrimaryweOUT.swift in Sources */,
+				ED32BC312C172AAB00CC3597 /* SplashScreenView.swift in Sources */,
 				ED96F8FC2B692A700062245E /* ItineraryInputSheet.swift in Sources */,
 				ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */,
 				5E3ABB452C08C26F00229E64 /* DisplayPhoto.swift in Sources */,

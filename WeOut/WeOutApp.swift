@@ -19,15 +19,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct WeOutApp: App {
-    @StateObject var myTrips = Trips()
+    //@StateObject var myTrips = Trips()
     
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     // 1. Add StateObject authManager.
-    @StateObject var authManager: AuthManager = AuthManager()
-    @StateObject var profileVm: ProfileViewModel = ProfileViewModel()
-    @StateObject private var planVm: PlansViewModel = PlansViewModel()
+    //@StateObject var authManager: AuthManager = AuthManager()
+    //@StateObject var profileVm: ProfileViewModel = ProfileViewModel()
+    //@StateObject private var planVm: PlansViewModel = PlansViewModel()
 
     init() {
         // Use Firebase library to configure APIs
@@ -40,12 +40,13 @@ struct WeOutApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreenView()
+            /*ContentView()
                 .environmentObject(myTrips)
                 // 3. Pass authManager to enviromentObject.
                 .environmentObject(authManager)
                 .environmentObject(profileVm)
-                .environmentObject(planVm)
+                .environmentObject(planVm)*/
 
 
             
