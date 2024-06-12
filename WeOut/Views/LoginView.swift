@@ -20,7 +20,8 @@ struct LoginView: View {
 
     @EnvironmentObject var authManager: AuthManager
     @EnvironmentObject var profileVm: ProfileViewModel
-@State private var showTripsView = false
+    @State private var showTripsView = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -57,25 +58,46 @@ struct LoginView: View {
                     
                     // MARK: - Anonymous
                     // Hide `Skip` button if user is anonymous.
-                    /*if authManager.authState == .signedOut {
-                     Button {
-                     signAnonymously()
-                     } label: {
-                     Text("Skip")
-                     .font(.body.bold())
-                     .frame(width: 280, height: 45, alignment: .center)
-                     }
-                     }*/
+                    if authManager.authState == .signedOut {
+                        Button {
+                            Task{
+                                await signAnonymously()
+                                print("after anonymous sign in \(authManager.authState)")
+                                if authManager.authState == .signedIn || authManager.authState == .authenticated {
+                                    showTripsView = true}
+                            }
+                            
+                           
+                            
+                        } label: {
+                            Text("Skip")
+                                .font(.body.bold())
+                                .frame(width: 280, height: 45, alignment: .center)
+                        }
+                        .padding(.bottom, 15)
+                    }
+                    else if (authManager.authState == .authenticated) || (authManager.authState == .signedIn) {
+                        
+                        Button("Go to trips") {
+                            showTripsView = true
+                            
+                        }
+                        .font(.body.bold())
+                        .frame(width: 280, height: 45, alignment: .center)
+                        .padding(.bottom, 15)
+                    }
                 }
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
                 .onAppear{
                     //MARK: Navigates to TripsView if logged in already ~ J.W.
-                    if Auth.auth().currentUser != nil {
-                        print ("🪵 Login successful!")
-                        showTripsView = true
-                    }
+//                    if Auth.auth().currentUser != nil {
+//                        print ("🪵 Login successful!")
+//                        showTripsView = true
+//                    }
+                    
+                    print(authManager.authState)
                 }
             }
         }
@@ -158,8 +180,8 @@ struct LoginView: View {
     }
 
     /// Sign-in anonymously
-    /*func signAnonymously() {
-        Task {
+    func signAnonymously() async {
+        
             do {
                 let result = try await authManager.signInAnonymously()
                 print("SignInAnonymouslySuccess: \(result?.user.uid ?? "N/A")")
@@ -167,8 +189,8 @@ struct LoginView: View {
             catch {
                 print("SignInAnonymouslyError: \(error)")
             }
-        }
-    }*/
+        
+    }
 }
 
 #Preview {

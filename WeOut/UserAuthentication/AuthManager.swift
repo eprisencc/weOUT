@@ -50,6 +50,10 @@ static let shared = AuthManager()
         Task {
             await verifySignInProvider()
         }
+        
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            self?.authState = user != nil ? .signedIn : .signedOut
+        }
     }
 
     // MARK: - Auth State

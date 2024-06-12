@@ -56,6 +56,7 @@ struct TripsInputSheet: View {
             }
             .onChange(of: trip.endDate) { oldValue, newValue in
                 allowImage = true
+                //print("Current User > \(profileVm.currentUser ?? nil)")
             }
             .onChange(of: profileVm.photoPickerItem){
                 _,_ in
@@ -239,7 +240,7 @@ private extension TripsInputSheet {
     
     var submitButton : some View {
         VStack {
-            if let user = profileVm.currentUser{
+            if let user = profileVm.currentUser {
                 Button("Create") {
                     pending = true
                     Task{
@@ -257,6 +258,25 @@ private extension TripsInputSheet {
                 .font(.title)
                 .foregroundStyle(.white)
             }
+            /*else {
+                let user = DBUser(email: "anonymous", name: "anonymous", uid: "anonymous")
+                Button("Create") {
+                    pending = true
+                    Task{
+                        let success =   await  profileVm.saveTrip(user: user, trip: trip, photo: profileVm.newPhoto, image:profileVm.eventImage ?? UIImage())
+                        if success{
+                            pending = false
+                            dismiss()
+                            
+                        }
+                    }
+                    
+                }
+                
+                .padding(15)
+                .font(.title)
+                .foregroundStyle(.white)
+            }*/
         }
     }
     

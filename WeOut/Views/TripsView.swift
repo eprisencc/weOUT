@@ -84,11 +84,13 @@ struct TripsView: View {
                     HStack {
                         Spacer()
                         Button {
-                            if authManager.authState != .signedIn {
+                            signOut()
+                            showLoginSheet = true
+                            /*if authManager.authState != .signedIn {
                                 showLoginSheet = true
                             } else {
                                 signOut()
-                            }
+                            }*/
                         } label: {
                             Text(authManager.authState != .signedIn ? "Sign-in" :"Sign out")
                                 .font(.body.bold())
@@ -103,6 +105,12 @@ struct TripsView: View {
                     
                 }
             }
+            .fullScreenCover(isPresented: $showLoginSheet) {
+                LoginView()
+            }
+            /*.sheet(isPresented: $showLoginSheet) {
+                LoginView()
+            }*/
             .sheet(item: $profileVm.selectedTrip) { trip in
                 ItineraryView(trip: trip)
             }
@@ -118,7 +126,16 @@ struct TripsView: View {
                 profileVm.showCurrentTrips(userID: user.uid)
                 }
             }//MARK: ~JW
-            
+            .onChange(of: authManager.authState) {
+                if authManager.authState == .signedIn {
+                    Task {
+                        try? await profileVm.loadCurrentUser()
+                        if let user = profileVm.currentUser {
+                            profileVm.showCurrentTrips(userID: user.uid)
+                        }
+                    }
+                }
+            }
             
         }
     }
