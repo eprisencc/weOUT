@@ -31,6 +31,7 @@ struct ContentView: View {
             TripsView()
         } else {
             LoginView()
+            
         }
         /*VStack {
             //LoginView()

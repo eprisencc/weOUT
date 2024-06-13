@@ -41,6 +41,7 @@ struct WeOutApp: App {
     var body: some Scene {
         WindowGroup {
             //LoginView()
+            //ActualOnboardingView()
             SplashScreenView()
             /*ContentView()
                 .environmentObject(myTrips)
