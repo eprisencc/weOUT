@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @State private var isActive = false
+    @AppStorage("showMainApp") private var showMainApp = false
     @State private var size = 0.2
     @State private var opacity = 0.5
     
@@ -20,12 +21,17 @@ struct SplashScreenView: View {
     
     var body: some View {
         if isActive {
-            ContentView()
-                .environmentObject(myTrips)
-                // 3. Pass authManager to enviromentObject.
-                .environmentObject(authManager)
-                .environmentObject(profileVm)
-                .environmentObject(planVm)
+            if showMainApp {
+                ContentView()
+                    .environmentObject(myTrips)
+                    // 3. Pass authManager to enviromentObject.
+                    .environmentObject(authManager)
+                    .environmentObject(profileVm)
+                    .environmentObject(planVm)
+            }
+            else {
+                ActualOnboardingView(showMainApp: $showMainApp)
+            }
         }
         else {
             ZStack {

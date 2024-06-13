@@ -127,7 +127,7 @@ struct TripsView: View {
                 }
             }//MARK: ~JW
             .onChange(of: authManager.authState) {
-                if authManager.authState == .signedIn {
+                if authManager.authState == .signedIn || authManager.authState == .authenticated {
                     Task {
                         try? await profileVm.loadCurrentUser()
                         if let user = profileVm.currentUser {
