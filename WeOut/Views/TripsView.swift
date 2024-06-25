@@ -191,6 +191,9 @@ struct TripsView: View {
                                 } label: {
                                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                                         
+                                        RoundedRectangle(cornerRadius: 25)
+                                            .fill(Color.black)           .frame(width: 325, height: 250) .shadow(radius: 5)
+                                        
                                         // use the link from fb to display an image ~JW
                                         coverPhoto(link: trip.coverPhoto ?? "")
                                         
@@ -251,6 +254,9 @@ struct TripsView: View {
                                     ItineraryView(trip: trip)
                                 } label: {
                                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                                        
+                                        RoundedRectangle(cornerRadius: 25)
+                                            .fill(Color.black)           .frame(width: 325, height: 250) .shadow(radius: 5)
                                         
                                         // use the link from fb to display an image ~JW
                                         coverPhoto(link: trip.coverPhoto ?? "")

@@ -23,7 +23,7 @@
 		ED0E1E372BFE49D60022D6E7 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = ED0E1E362BFE49D60022D6E7 /* FirebaseAppCheck */; };
 		ED0E1E392C00E6A70022D6E7 /* DBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E1E382C00E6A70022D6E7 /* DBUser.swift */; };
 		ED0E1E3B2C00ECBD0022D6E7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E1E3A2C00ECBD0022D6E7 /* ProfileViewModel.swift */; };
-		ED0E1E3F2C0A0B9E0022D6E7 /* NewPrimaryWithGitHubweOUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E1E3E2C0A0B9E0022D6E7 /* NewPrimaryWithGitHubweOUT.swift */; };
+		ED0E1E3F2C0A0B9E0022D6E7 /* weOUTGoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E1E3E2C0A0B9E0022D6E7 /* weOUTGoogleDrive.swift */; };
 		ED16C6E32BF3B78E008E3BEA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ED16C6E22BF3B78E008E3BEA /* FirebaseFirestore */; };
 		ED16C6E52BF3B79F008E3BEA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ED16C6E42BF3B79F008E3BEA /* FirebaseFirestoreSwift */; };
 		ED189C832B70232E0047CF89 /* TripsInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED189C822B70232E0047CF89 /* TripsInputSheet.swift */; };
@@ -64,7 +64,7 @@
 		ED0E1E322BFE277D0022D6E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED0E1E382C00E6A70022D6E7 /* DBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBUser.swift; sourceTree = "<group>"; };
 		ED0E1E3A2C00ECBD0022D6E7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		ED0E1E3E2C0A0B9E0022D6E7 /* NewPrimaryWithGitHubweOUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPrimaryWithGitHubweOUT.swift; sourceTree = "<group>"; };
+		ED0E1E3E2C0A0B9E0022D6E7 /* weOUTGoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weOUTGoogleDrive.swift; sourceTree = "<group>"; };
 		ED189C822B70232E0047CF89 /* TripsInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsInputSheet.swift; sourceTree = "<group>"; };
 		ED32BC302C172AAB00CC3597 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		ED32BC322C1B2E9600CC3597 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 		ED96F8CD2B62B57A0062245E = {
 			isa = PBXGroup;
 			children = (
-				ED0E1E3E2C0A0B9E0022D6E7 /* NewPrimaryWithGitHubweOUT.swift */,
+				ED0E1E3E2C0A0B9E0022D6E7 /* weOUTGoogleDrive.swift */,
 				ED96F8D82B62B57A0062245E /* WeOut */,
 				ED96F8D72B62B57A0062245E /* Products */,
 				ED16C6E12BF3B78E008E3BEA /* Frameworks */,
@@ -203,6 +203,7 @@
 				EDA19FD32B6D32A6002C84E5 /* EditItineraryInputSheet.swift */,
 				ED96F8FB2B692A700062245E /* ItineraryInputSheet.swift */,
 				ED189C822B70232E0047CF89 /* TripsInputSheet.swift */,
+				ED0E1E3A2C00ECBD0022D6E7 /* ProfileViewModel.swift */,
 				5E3ABB462C08F74E00229E64 /* CustomPhotoPicker.swift */,
 			);
 			path = Sheet;
@@ -224,7 +225,6 @@
 		EDFE51E42C0CB34F00F213CA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				ED0E1E3A2C00ECBD0022D6E7 /* ProfileViewModel.swift */,
 				5E3847ED2C0C2507007E5224 /* PlansViewModel.swift */,
 			);
 			name = ViewModel;
@@ -325,7 +325,7 @@
 				ED32BC352C1B32BD00CC3597 /* ActualOnboardingView.swift in Sources */,
 				ED9F3A7B2BE3D24B00D6A7E8 /* NewItineraryView.swift in Sources */,
 				ED96F8F32B6488870062245E /* DashboardView.swift in Sources */,
-				ED0E1E3F2C0A0B9E0022D6E7 /* NewPrimaryWithGitHubweOUT.swift in Sources */,
+				ED0E1E3F2C0A0B9E0022D6E7 /* weOUTGoogleDrive.swift in Sources */,
 				ED32BC312C172AAB00CC3597 /* SplashScreenView.swift in Sources */,
 				ED96F8FC2B692A700062245E /* ItineraryInputSheet.swift in Sources */,
 				ED96F8DC2B62B57A0062245E /* ContentView.swift in Sources */,
@@ -479,7 +479,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WeOut/WeOut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
 				DEVELOPMENT_TEAM = HW7URT66C4;
 				ENABLE_PREVIEWS = YES;
@@ -513,7 +513,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WeOut/WeOut.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_ASSET_PATHS = "\"WeOut/Preview Content\"";
 				DEVELOPMENT_TEAM = HW7URT66C4;
 				ENABLE_PREVIEWS = YES;
